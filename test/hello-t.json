@@ -1,0 +1,26 @@
+{
+  "map": [
+    {
+      "if": {
+        "p": {
+          "equals": [
+            {
+              "getmember": {
+                "name": "message"
+              }
+            },
+            {
+              "string": "hello"
+            }
+          ]
+        },
+        "then": {
+          "setmember": {
+            "name": "message",
+            "value": "world"
+          }
+        }
+      }
+    }
+  ]
+}
