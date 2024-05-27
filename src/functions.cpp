@@ -9,10 +9,16 @@
 
 #include "functions.hpp"
 
+#include "functions/null.hpp"
 #include "functions/map.hpp"
 
 Functions::Functions() {
 
+  _functions["null"] = bind(&Null::create);
   _functions["map"] = bind(&Map::create);
   
+}
+
+fPtr Functions::get(const string &name) {
+  return _functions[name]();
 }

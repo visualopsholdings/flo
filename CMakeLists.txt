@@ -23,7 +23,14 @@ set(BOOSTLIBS ${Boost_PROGRAM_OPTIONS_LIBRARY} ${Boost_LOG_SETUP_LIBRARY}
 
 include_directories(include)
 
-add_executable(SimpleTest test/simpletest.cpp src/processor.cpp src/functions.cpp src/functions/map.cpp)
+add_executable(SimpleTest test/simpletest.cpp 
+    src/processor.cpp 
+    src/functions.cpp
+    src/transform.cpp 
+    src/state.cpp
+    src/method.cpp
+    src/functions/map.cpp
+    src/functions/null.cpp)
   target_link_libraries(SimpleTest ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_test(SimpleTest SimpleTest)

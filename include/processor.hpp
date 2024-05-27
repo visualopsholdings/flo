@@ -16,17 +16,19 @@
 using namespace std;
 using json = boost::json::value;
 
+class Functions;
+
 class Processor
 {
 public:
-  Processor(istream &infile);
+  Processor(istream &infile, Functions &functions);
   
   json transform(istream &transform);
  
   static void pretty_print( ostream& os, json const& jv, string* indent = 0 );
  
 private:
-  
+  Functions &_functions;
   json _json;
   
 };

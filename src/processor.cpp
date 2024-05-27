@@ -9,9 +9,15 @@
 
 #include "processor.hpp"
 
-#include <boost/log/trivial.hpp>
+#include "functions.hpp"
+#include "state.hpp"
+#include "transform.hpp"
 
-Processor::Processor(istream &infile) {
+#include <boost/log/trivial.hpp>
+#include <iostream>
+
+Processor::Processor(istream &infile, Functions &functions):
+  _functions(functions) {
   
   _json = boost::json::parse(infile);
   
@@ -19,10 +25,18 @@ Processor::Processor(istream &infile) {
 
 json Processor::transform(istream &transform) {
 
-  json t = boost::json::parse(transform);
-	BOOST_LOG_TRIVIAL(trace) << "transforming with " << t;
+  json tj = boost::json::parse(transform);
+	BOOST_LOG_TRIVIAL(trace) << "transforming with " << tj;
   
-  return _json;
+  Transform t(tj);
+  json j = _json;
+  for (auto i: tj.as_object()) {
+    State s;
+    s.setColl(&i.value());
+    auto f = _functions.get(i.key());
+    j = f->exec(t, &s, j);
+  }
+  return j;
 }
 
 void Processor::pretty_print( ostream& os, json const& jv, string* indent ) {

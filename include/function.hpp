@@ -18,11 +18,15 @@ using json = boost::json::value;
 class Transform;
 class State;
 
+class Function;
+
+typedef shared_ptr<Function> fPtr;
+
 class Function
 {
 public:
 
-    virtual json exec(Transform &transform, State &state) = 0;
+    virtual json exec(const Transform &transform, State *state, const json &closure) = 0;
 
 };
 

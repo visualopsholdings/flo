@@ -23,6 +23,8 @@ class Functions
 public:
     Functions();
     
+    fPtr get(const string &name);
+    
 private:
   map<string, fnHandler> _functions;
   

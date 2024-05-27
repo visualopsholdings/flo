@@ -1,6 +1,6 @@
 # flo
 
-f(lo)
+Welcome to f(lo). A functional language expressed in JSON.
 
 ## Building and testing
 
@@ -15,3 +15,12 @@ cmake ..
 make
 make test
 ```
+
+## Change Log
+
+### 27-May-2024
+
+It starts.
+
+
+
