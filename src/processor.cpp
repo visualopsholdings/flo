@@ -23,11 +23,13 @@ Processor::Processor(istream &infile, Functions &functions):
   
 }
 
-json Processor::transform(istream &transform) {
-
-  json tj = boost::json::parse(transform);
-	BOOST_LOG_TRIVIAL(trace) << "transforming with " << tj;
+Processor::Processor(json &json, Functions &functions):
+  _json(json), _functions(functions) {
   
+}
+
+json Processor::transform(json &tj) {
+
   Transform t(tj);
   json j = _json;
   for (auto i: tj.as_object()) {
@@ -37,6 +39,15 @@ json Processor::transform(istream &transform) {
     j = f->exec(t, &s, j);
   }
   return j;
+
+}
+
+json Processor::transform(istream &s) {
+
+  json tj = boost::json::parse(s);
+	BOOST_LOG_TRIVIAL(trace) << "transforming with " << tj;
+  return transform(tj);
+
 }
 
 void Processor::pretty_print( ostream& os, json const& jv, string* indent ) {

@@ -30,7 +30,11 @@ add_executable(SimpleTest test/simpletest.cpp
     src/state.cpp
     src/method.cpp
     src/functions/map.cpp
-    src/functions/null.cpp)
+    src/functions/null.cpp
+    src/functions/if.cpp
+    src/functions/true.cpp
+    src/functions/dict.cpp
+    )
   target_link_libraries(SimpleTest ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_test(SimpleTest SimpleTest)

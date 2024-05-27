@@ -11,11 +11,17 @@
 
 #include "functions/null.hpp"
 #include "functions/map.hpp"
+#include "functions/if.hpp"
+#include "functions/true.hpp"
+#include "functions/dict.hpp"
 
 Functions::Functions() {
 
   _functions["null"] = bind(&Null::create);
   _functions["map"] = bind(&Map::create);
+  _functions["if"] = bind(&If::create);
+  _functions["true"] = bind(&True::create);
+  _functions["dict"] = bind(&Dict::create);
   
 }
 

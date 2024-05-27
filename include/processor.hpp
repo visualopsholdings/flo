@@ -22,8 +22,10 @@ class Processor
 {
 public:
   Processor(istream &infile, Functions &functions);
+  Processor(json &json, Functions &functions);
   
   json transform(istream &transform);
+  json transform(json &jt);
  
   static void pretty_print( ostream& os, json const& jv, string* indent = 0 );
  
