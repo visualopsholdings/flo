@@ -41,11 +41,11 @@
 				EsAAAPgAAAAAAAAAENAAAAQAAAAAAAAA
 				</data>
 				<key>FileURL</key>
-				<string>file:///Users/paul/Dev/include/</string>
+				<string>file:///Users/paul/Dev/flo/include/</string>
 				<key>HasSecurityScope</key>
 				<true/>
 				<key>RelativePath</key>
-				<string>../include</string>
+				<string>./include</string>
 				<key>TypeID</key>
 				<string>_CFileLocator</string>
 				<key>Version</key>

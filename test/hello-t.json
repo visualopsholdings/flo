@@ -17,7 +17,9 @@
         "then": {
           "setmember": {
             "name": "message",
-            "value": "world"
+            "value": { 
+              "string": "world"
+            }
           }
         }
       }
