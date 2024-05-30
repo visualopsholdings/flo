@@ -15,10 +15,9 @@
 class Dict: public Function
 {
 public:
-  Dict();
   
   // Function
-  virtual json exec(const Transform &transform, State *state, const json &closure);
+  virtual optional<json> exec(const Transform &transform, State *state, json &closure);
 
   static fPtr create();
   

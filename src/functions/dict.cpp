@@ -9,14 +9,10 @@
 
 #include "functions/dict.hpp"
 
-Dict::Dict() {
-
-}
-
-json Dict::exec(const Transform &transform, State *state, const json &closure) {
+optional<json> Dict::exec(const Transform &transform, State *state, json &closure) {
   
-  return { { "message", "dict not implemented" } };
-  
+  // the closure is a dictionary.
+  return closure;
   
 }
 

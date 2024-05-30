@@ -9,13 +9,13 @@
 
 #include "functions/true.hpp"
 
-True::True() {
+#include <boost/log/trivial.hpp>
 
-}
-
-json True::exec(const Transform &transform, State *state, const json &closure) {
+optional<json> True::exec(const Transform &transform, State *state, json &closure) {
   
-  return { { "message", "true not implemented" } };
+  BOOST_LOG_TRIVIAL(trace) << "true " << closure;
+
+  return true;
   
 }
 

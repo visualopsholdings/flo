@@ -28,21 +28,26 @@ Processor::Processor(json &json, Functions &functions):
   
 }
 
-json Processor::transform(json &tj) {
+optional<json> Processor::transform(json &transform) {
 
-  Transform t(tj);
-  json j = _json;
-  for (auto i: tj.as_object()) {
-    State s;
-    s.setColl(&i.value());
-    auto f = _functions.get(i.key());
-    j = f->exec(t, &s, j);
+  if (!transform.is_object()) {
+	  BOOST_LOG_TRIVIAL(error) << "transform not object";
+	  return nullopt;
   }
-  return j;
+  if (transform.as_object().size() == 0) {
+	  BOOST_LOG_TRIVIAL(error) << "object is empty";
+	  return nullopt;
+  }
+
+  Transform t(_json, _functions);
+  auto i = *transform.as_object().begin();
+  auto f = _functions.get(i.key());
+  State s;
+  return f->exec(t, &s, i.value());
 
 }
 
-json Processor::transform(istream &s) {
+optional<json> Processor::transform(istream &s) {
 
   json tj = boost::json::parse(s);
 	BOOST_LOG_TRIVIAL(trace) << "transforming with " << tj;

@@ -9,14 +9,12 @@
 
 #include "functions/null.hpp"
 
-Null::Null() {
+#include "transform.hpp"
 
-}
-
-json Null::exec(const Transform &transform, State *state, const json &closure) {
+optional<json> Null::exec(const Transform &transform, State *state, json &closure) {
   
   // just pass it through.
-  return closure;
+  return transform.getJson();
   
 }
 

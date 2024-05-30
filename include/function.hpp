@@ -26,7 +26,7 @@ class Function
 {
 public:
 
-    virtual json exec(const Transform &transform, State *state, const json &closure) = 0;
+    virtual optional<json> exec(const Transform &transform, State *state, json &closure) = 0;
 
 };
 

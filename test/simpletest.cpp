@@ -32,9 +32,11 @@ BOOST_AUTO_TEST_CASE( nullTest )
   json transform = {
     { "null", {} }
   };
-  json result = p.transform(transform);
-  BOOST_CHECK(result.as_object().if_contains("message"));
-  BOOST_CHECK_EQUAL(boost::json::value_to<string>(result.at_pointer("/message")), "hello");
+  auto result = p.transform(transform);
+  BOOST_CHECK(result);
+  BOOST_CHECK(result->is_object());
+  BOOST_CHECK(result->as_object().if_contains("message"));
+  BOOST_CHECK_EQUAL(boost::json::value_to<string>(result->at_pointer("/message")), "hello");
   
 }
 
@@ -46,7 +48,7 @@ BOOST_AUTO_TEST_CASE( ifTrueTest )
     { "message", "hello ignored" }
   };
   Functions f;
-  Processor p(hello,f);
+  Processor p(hello, f);
 
   json transform = {
     { "if", {
@@ -64,11 +66,12 @@ BOOST_AUTO_TEST_CASE( ifTrueTest )
       } 
     }
   };
-  cout << transform << endl;
   
-  json result = p.transform(transform);
-  BOOST_CHECK(result.as_object().if_contains("message"));
-  BOOST_CHECK_EQUAL(boost::json::value_to<string>(result.at_pointer("/message")), "if not implemented");
+  auto result = p.transform(transform);
+  BOOST_CHECK(result);
+  BOOST_CHECK(result->is_object());
+  BOOST_CHECK(result->as_object().if_contains("message"));
+  BOOST_CHECK_EQUAL(boost::json::value_to<string>(result->at_pointer("/message")), "world");
   
 }
 

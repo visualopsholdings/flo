@@ -9,13 +9,34 @@
 
 #include "functions/if.hpp"
 
-If::If() {
+#include "transform.hpp"
 
-}
+#include <boost/log/trivial.hpp>
 
-json If::exec(const Transform &transform, State *state, const json &closure) {
+optional<json> If::exec(const Transform &transform, State *state, json &closure) {
   
-  return { { "message", "if not implemented" } };
+  BOOST_LOG_TRIVIAL(trace) << "if " << closure;
+
+  if (!closure.as_object().if_contains("p")) {
+    BOOST_LOG_TRIVIAL(error) << "no p";
+    return nullopt;
+  }
+  auto p = closure.as_object()["p"];
+  if (!p.is_object()) {
+    BOOST_LOG_TRIVIAL(error) << "p not object";
+    return nullopt;
+  }
+  auto result = transform.exec(p, state);
+  if (result && result->is_bool() && result->as_bool()) {
+    auto then = closure.as_object()["then"];
+    if (!then.is_object()) {
+      BOOST_LOG_TRIVIAL(error) << "then not object";
+      return nullopt;
+    }
+    return transform.exec(then, state);
+  }
+  
+  return nullopt;
   
 }
 

@@ -15,11 +15,7 @@
 #include <iostream>
 #include <algorithm>
 
-Map::Map() {
-
-}
-
-json Map::exec(const Transform &transform, State *state, const json &closure) {
+optional<json> Map::exec(const Transform &transform, State *state, json &closure) {
 
 //   if (state->hasColl()) {
 //     boost::json::array a = state->coll().as_array();
@@ -37,7 +33,7 @@ json Map::exec(const Transform &transform, State *state, const json &closure) {
 // //    return newo;
 //   }
   
-  return { { "message", "map not implemented" } };
+  return boost::json::object{ { "message", "map not implemented" } };
     
 }
 

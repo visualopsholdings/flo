@@ -9,33 +9,32 @@
 
 #include "transform.hpp"
 
-Transform::Transform(json &json) : _json(json) {
+#include "functions.hpp"
+
+#include <boost/log/trivial.hpp>
+
+Transform::Transform(json &json, Functions &functions) : _json(json), _functions(functions) {
 }
 
-optional<json> Transform::get_value(State *state, json closure) const {
-
-  if (closure.is_object()) {
-    return exec(closure, state);
-  }
-  
-  return closure;
+json &Transform::getJson() const {
+  return _json;
 }
 
-optional<json> Transform::exec(json closure, State *state) const {
+optional<json> Transform::exec(json &closure, State *state) const {
+
+  BOOST_LOG_TRIVIAL(trace) << "exec " << closure;
 
   if (closure.is_object()) {
     if (closure.as_object().size() == 0) {
+      BOOST_LOG_TRIVIAL(trace) << "empty closure is terminal";
       return nullopt; // treat like a terminal.
     }
-    auto method = get_method(closure, state);
+    auto first = closure.as_object().begin();
+    BOOST_LOG_TRIVIAL(trace) << "first " << (*first).key();
+    auto f = _functions.get((*first).key());
+    return f->exec(*this, state, (*first).value());
+    
   }
   return nullopt;
-  
-}
-
-Method Transform::get_method(json closure, State *state) const {
-  
-  return Method(0, closure);
-  
   
 }

@@ -28,7 +28,6 @@ add_executable(SimpleTest test/simpletest.cpp
     src/functions.cpp
     src/transform.cpp 
     src/state.cpp
-    src/method.cpp
     src/functions/map.cpp
     src/functions/null.cpp
     src/functions/if.cpp
