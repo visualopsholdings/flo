@@ -21,19 +21,28 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(BOOSTLIBS ${Boost_PROGRAM_OPTIONS_LIBRARY} ${Boost_LOG_SETUP_LIBRARY} 
   ${Boost_LOG_LIBRARY} ${Boost_JSON_LIBRARY} ${Boost_URL_LIBRARY})
 
-include_directories(include)
-
-add_executable(SimpleTest test/simpletest.cpp 
+set(SRC
     src/processor.cpp 
     src/functions.cpp
     src/transform.cpp 
     src/state.cpp
-    src/functions/map.cpp
     src/functions/null.cpp
     src/functions/if.cpp
     src/functions/true.cpp
     src/functions/dict.cpp
-    )
+    src/functions/equal.cpp
+    src/functions/getmember.cpp
+    src/functions/setmember.cpp
+    src/functions/string.cpp
+)
+include_directories(include)
+
+add_executable(SimpleTest test/simpletest.cpp ${SRC})
   target_link_libraries(SimpleTest ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_test(SimpleTest SimpleTest)
+
+add_executable(HelloWorldTest test/helloworldtest.cpp ${SRC})
+  target_link_libraries(HelloWorldTest ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+
+add_test(HelloWorldTest HelloWorldTest)

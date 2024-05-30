@@ -10,18 +10,24 @@
 #include "functions.hpp"
 
 #include "functions/null.hpp"
-#include "functions/map.hpp"
 #include "functions/if.hpp"
 #include "functions/true.hpp"
 #include "functions/dict.hpp"
+#include "functions/equal.hpp"
+#include "functions/getmember.hpp"
+#include "functions/setmember.hpp"
+#include "functions/string.hpp"
 
 Functions::Functions() {
 
   _functions["null"] = bind(&Null::create);
-  _functions["map"] = bind(&Map::create);
   _functions["if"] = bind(&If::create);
   _functions["true"] = bind(&True::create);
   _functions["dict"] = bind(&Dict::create);
+  _functions["equal"] = bind(&Equal::create);
+  _functions["getmember"] = bind(&GetMember::create);
+  _functions["setmember"] = bind(&SetMember::create);
+  _functions["string"] = bind(&String::create);
   
 }
 

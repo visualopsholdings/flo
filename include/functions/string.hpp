@@ -1,18 +1,18 @@
 /*
-  map.hpp
+  string.hpp
   
   Author: Paul Hamilton (paul@visualops.com)
-  Date: 27-May-2024
+  Date: 30-May-2024
   
   https://github.com/visualopsholdings/flo
 */
 
-#ifndef H_map
-#define H_map
+#ifndef H_string
+#define H_string
 
 #include "../function.hpp"
 
-class Map: public Function
+class String: public Function
 {
 public:
   
@@ -21,10 +21,6 @@ public:
 
   static fPtr create();
   
-private:
-
-//  optional<json> apply(const Transform &transform, State *state, const json &closure);
-  
 };
 
-#endif // H_map
+#endif // H_string

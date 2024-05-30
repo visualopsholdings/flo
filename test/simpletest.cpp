@@ -94,21 +94,3 @@ BOOST_AUTO_TEST_CASE( ifTrueTest )
   BOOST_CHECK_EQUAL(boost::json::value_to<string>(result->at_pointer("/message")), "world");
   
 }
-
-// BOOST_AUTO_TEST_CASE( helloWorld )
-// {
-//   cout << "=== helloWorld ===" << endl;
-//   
-//   ifstream file("../test/hello.json");
-//   BOOST_CHECK(file);
-//   
-//   ifstream transform("../test/hello-t.json");
-//   BOOST_CHECK(transform);
-//   
-//   Functions f;
-//   Processor p(file, f);
-//   json result = p.transform(transform);
-//   BOOST_CHECK(result.as_object().if_contains("message"));
-//   BOOST_CHECK_EQUAL(boost::json::value_to<string>(result.at_pointer("/message")), "world");
-// 
-// }

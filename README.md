@@ -22,5 +22,11 @@ make test
 
 It starts.
 
+### 30-May-2024
+
+null, if, true and dict.
+
+
+
 
 
