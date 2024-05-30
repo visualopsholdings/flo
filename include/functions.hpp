@@ -23,6 +23,7 @@ class Functions
 public:
     Functions();
     
+    bool has(const string &name);
     fPtr get(const string &name);
     
 private:

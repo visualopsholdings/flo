@@ -40,10 +40,8 @@ optional<json> Processor::transform(json &transform) {
   }
 
   Transform t(_json, _functions);
-  auto i = *transform.as_object().begin();
-  auto f = _functions.get(i.key());
   State s;
-  return f->exec(t, &s, i.value());
+  return t.exec(transform, &s);
 
 }
 

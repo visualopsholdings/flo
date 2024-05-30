@@ -25,6 +25,10 @@ Functions::Functions() {
   
 }
 
+bool Functions::has(const string &name) {
+  return _functions.count(name) == 1;
+}
+
 fPtr Functions::get(const string &name) {
   return _functions[name]();
 }

@@ -29,12 +29,31 @@ optional<json> Transform::exec(json &closure, State *state) const {
       BOOST_LOG_TRIVIAL(trace) << "empty closure is terminal";
       return nullopt; // treat like a terminal.
     }
+    
+    // get first nvp in closure
     auto first = closure.as_object().begin();
-    BOOST_LOG_TRIVIAL(trace) << "first " << (*first).key();
-    auto f = _functions.get((*first).key());
+//    BOOST_LOG_TRIVIAL(trace) << "first " << (*first).key();
+    
+    string name = (*first).key();
+    
+    if (!_functions.has(name)) {
+      return error("function " + name + " not found");
+    }
+    
+    // get function representing name.
+    auto f = _functions.get(name);
+    
+    // call down with the closure.
     return f->exec(*this, state, (*first).value());
     
   }
   return nullopt;
+  
+}
+
+json Transform::error(const string &msg) const {
+
+  BOOST_LOG_TRIVIAL(error) << msg;
+  return boost::json::object{ { "error", msg } };
   
 }

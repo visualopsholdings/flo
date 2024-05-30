@@ -27,6 +27,8 @@ public:
 
   json &getJson() const;
   
+  json error(const string &msg) const;
+
 private:
   Functions &_functions;
   json &_json; // the JSON we are transforming.
