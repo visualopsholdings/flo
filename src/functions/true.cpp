@@ -15,8 +15,7 @@ True::True() {
 
 json True::exec(const Transform &transform, State *state, const json &closure) {
   
-  // just pass it through.
-  return closure;
+  return { { "message", "true not implemented" } };
   
 }
 

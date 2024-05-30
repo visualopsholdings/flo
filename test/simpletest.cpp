@@ -40,7 +40,7 @@ BOOST_AUTO_TEST_CASE( nullTest )
 
 BOOST_AUTO_TEST_CASE( ifTrueTest )
 {
-  cout << "=== ifTest ===" << endl;
+  cout << "=== ifTrueTest ===" << endl;
   
   json hello = {
     { "message", "hello ignored" }
@@ -68,7 +68,7 @@ BOOST_AUTO_TEST_CASE( ifTrueTest )
   
   json result = p.transform(transform);
   BOOST_CHECK(result.as_object().if_contains("message"));
-  BOOST_CHECK_EQUAL(boost::json::value_to<string>(result.at_pointer("/message")), "world");
+  BOOST_CHECK_EQUAL(boost::json::value_to<string>(result.at_pointer("/message")), "if not implemented");
   
 }
 

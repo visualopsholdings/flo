@@ -24,7 +24,7 @@ public:
   
 private:
 
-  optional<json> apply(const Transform &transform, State *state, const json &closure);
+//  optional<json> apply(const Transform &transform, State *state, const json &closure);
   
 };
 
