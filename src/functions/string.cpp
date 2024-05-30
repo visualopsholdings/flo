@@ -11,10 +11,13 @@
 
 #include "transform.hpp"
 
-optional<json> String::exec(const Transform &transform, State *state, json &closure) {
+#include <boost/log/trivial.hpp>
 
+optional<json> String::exec(Transform &transform, State *state, json &closure) {
 
-  return transform.error("string not implemented");
+  BOOST_LOG_TRIVIAL(trace) << "string " << closure;
+
+  return closure;
     
 }
 

@@ -11,7 +11,7 @@
 
 #include <boost/log/trivial.hpp>
 
-optional<json> True::exec(const Transform &transform, State *state, json &closure) {
+optional<json> True::exec(Transform &transform, State *state, json &closure) {
   
   BOOST_LOG_TRIVIAL(trace) << "true " << closure;
 

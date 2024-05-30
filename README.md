@@ -24,7 +24,7 @@ It starts.
 
 ### 30-May-2024
 
-null, if, true and dict.
+null, if, true, dict, string, getmember and equal.
 
 
 

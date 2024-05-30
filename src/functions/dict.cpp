@@ -9,7 +9,7 @@
 
 #include "functions/dict.hpp"
 
-optional<json> Dict::exec(const Transform &transform, State *state, json &closure) {
+optional<json> Dict::exec(Transform &transform, State *state, json &closure) {
   
   // the closure is a dictionary.
   return closure;

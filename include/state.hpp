@@ -22,20 +22,20 @@ public:
   State();
   State(const State &state);
   
-  int arity() const;
-  
-  void setColl(json *coll);
-  bool hasColl() const;
-  const json &coll() const;
-
-  void setElem(json *elem);
-  bool hasElem() const;
-  const json &elem() const;
+//   int arity() const;
+//   
+//   void setColl(json *coll);
+//   bool hasColl() const;
+//   const json &coll() const;
+// 
+//   void setElem(json *elem);
+//   bool hasElem() const;
+//   const json &elem() const;
   
 private:
   
-  json *_coll;
-  json *_elem;
+//   json *_coll;
+//   json *_elem;
   
 };
 

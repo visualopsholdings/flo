@@ -11,7 +11,7 @@
 
 #include "transform.hpp"
 
-optional<json> Null::exec(const Transform &transform, State *state, json &closure) {
+optional<json> Null::exec(Transform &transform, State *state, json &closure) {
   
   // just pass it through.
   return transform.getJson();

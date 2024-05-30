@@ -13,10 +13,14 @@
 
 #include <boost/log/trivial.hpp>
 
-optional<json> If::exec(const Transform &transform, State *state, json &closure) {
+optional<json> If::exec(Transform &transform, State *state, json &closure) {
   
   BOOST_LOG_TRIVIAL(trace) << "if " << closure;
 
+  if (!closure.is_object()) {
+    BOOST_LOG_TRIVIAL(trace) << "closure not object";
+    return nullopt;
+  }
   if (!closure.as_object().if_contains("p")) {
     BOOST_LOG_TRIVIAL(error) << "no p";
     return nullopt;

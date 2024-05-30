@@ -17,7 +17,7 @@ class Dict: public Function
 public:
   
   // Function
-  virtual optional<json> exec(const Transform &transform, State *state, json &closure);
+  virtual optional<json> exec(Transform &transform, State *state, json &closure);
 
   static fPtr create();
   

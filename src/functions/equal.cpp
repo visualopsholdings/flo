@@ -11,9 +11,29 @@
 
 #include "transform.hpp"
 
-optional<json> Equal::exec(const Transform &transform, State *state, json &closure) {
+#include <boost/log/trivial.hpp>
 
-  return transform.error("equal not implemented");
+optional<json> Equal::exec(Transform &transform, State *state, json &closure) {
+
+  BOOST_LOG_TRIVIAL(trace) << "exec " << closure;
+
+  if (!closure.is_array()) {
+    BOOST_LOG_TRIVIAL(error) << "closure not array";
+    return nullopt;
+  }
+	auto a = closure.as_array();
+	auto i = a.begin();
+	auto head = *i;
+	auto lvalue = transform.exec(head, state);
+	i++;
+	while (i != a.end()) {
+		auto rvalue = transform.exec(*i, state);
+		if (lvalue != rvalue) {
+			return false;
+		}
+		i++;
+	}
+  return true;
     
 }
 

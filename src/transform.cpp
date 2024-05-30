@@ -16,11 +16,11 @@
 Transform::Transform(json &json, Functions &functions) : _json(json), _functions(functions) {
 }
 
-json &Transform::getJson() const {
+json &Transform::getJson() {
   return _json;
 }
 
-optional<json> Transform::exec(json &closure, State *state) const {
+optional<json> Transform::exec(json &closure, State *state) {
 
   BOOST_LOG_TRIVIAL(trace) << "exec " << closure;
 

@@ -32,8 +32,8 @@ BOOST_AUTO_TEST_CASE( helloWorld )
   Functions f;
   Processor p(file, f);
   auto result = p.transform(transform);
-  BOOST_CHECK(!result);
-//  BOOST_CHECK(result->as_object().if_contains("error"));
-//  BOOST_CHECK_EQUAL(boost::json::value_to<string>(result->at_pointer("/error")), "equal not implemented");
+  BOOST_CHECK(result);
+  BOOST_CHECK(result->as_object().if_contains("error"));
+	BOOST_CHECK_EQUAL(boost::json::value_to<string>(result->at_pointer("/error")), "setmember not implemented");
 
 }

@@ -23,9 +23,9 @@ class Transform
 public:
   Transform(json &json, Functions &functions);
   
-  optional<json> exec(json &closure, State *state) const;
+  optional<json> exec(json &closure, State *state);
 
-  json &getJson() const;
+  json &getJson();
   
   json error(const string &msg) const;
 
