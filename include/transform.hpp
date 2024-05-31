@@ -21,17 +21,14 @@ class Functions;
 class Transform
 {
 public:
-  Transform(json &json, Functions &functions);
+  Transform(Functions &functions);
   
   optional<json> exec(json &closure, State *state);
 
-  json &getJson();
-  
   json error(const string &msg) const;
 
 private:
   Functions &_functions;
-  json &_json; // the JSON we are transforming.
   
 };
 

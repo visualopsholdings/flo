@@ -10,11 +10,19 @@
 #include "functions/null.hpp"
 
 #include "transform.hpp"
+#include "state.hpp"
+
+#include <boost/log/trivial.hpp>
 
 optional<json> Null::exec(Transform &transform, State *state, json &closure) {
   
+	if (!state->hasElem()) {
+    BOOST_LOG_TRIVIAL(error) << "state has no elem";
+    return nullopt;
+	}
+
   // just pass it through.
-  return transform.getJson();
+  return state->getElem();
   
 }
 

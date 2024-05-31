@@ -44,7 +44,7 @@ BOOST_AUTO_TEST_CASE( noFuncTest )
 {
   cout << "=== noFuncTest ===" << endl;
   
-  json none;
+  json none = {{}};
   Functions f;
   Processor p(none, f);
 

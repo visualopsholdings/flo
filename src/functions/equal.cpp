@@ -21,6 +21,7 @@ optional<json> Equal::exec(Transform &transform, State *state, json &closure) {
     BOOST_LOG_TRIVIAL(error) << "closure not array";
     return nullopt;
   }
+  
 	auto a = closure.as_array();
 	auto i = a.begin();
 	auto head = *i;

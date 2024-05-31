@@ -17,6 +17,7 @@
 #include "functions/getmember.hpp"
 #include "functions/setmember.hpp"
 #include "functions/string.hpp"
+#include "functions/select.hpp"
 
 Functions::Functions() {
 
@@ -28,6 +29,7 @@ Functions::Functions() {
   _functions["getmember"] = bind(&GetMember::create);
   _functions["setmember"] = bind(&SetMember::create);
   _functions["string"] = bind(&String::create);
+  _functions["select"] = bind(&Select::create);
   
 }
 

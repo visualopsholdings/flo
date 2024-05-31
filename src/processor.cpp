@@ -38,9 +38,14 @@ optional<json> Processor::transform(json &transform) {
 	  BOOST_LOG_TRIVIAL(error) << "object is empty";
 	  return nullopt;
   }
-
-  Transform t(_json, _functions);
+  if (!_json.is_object()) {
+	  BOOST_LOG_TRIVIAL(error) << "json is not object";
+	  return nullopt;
+  }
+  
+  Transform t(_functions);
   State s;
+  s.setElem(_json.as_object());
   return t.exec(transform, &s);
 
 }
@@ -70,7 +75,7 @@ void Processor::pretty_print( ostream& os, json const& jv, string* indent ) {
             auto it = obj.begin();
             for(;;)
             {
-                os << *indent << boost::json::serialize(it->key()) << " : ";
+                os << *indent << boost::json::serialize(it->key()) << ": ";
                 pretty_print(os, it->value(), indent);
                 if(++it == obj.end())
                     break;

@@ -27,7 +27,7 @@ public:
   optional<json> transform(istream &transform);
   optional<json> transform(json &jt);
  
-  static void pretty_print( ostream& os, json const& jv, string* indent = 0 );
+  static void pretty_print(ostream& os, json const& jv, string* indent = 0 );
  
 private:
   Functions &_functions;

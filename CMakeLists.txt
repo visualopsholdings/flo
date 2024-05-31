@@ -21,7 +21,9 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(BOOSTLIBS ${Boost_PROGRAM_OPTIONS_LIBRARY} ${Boost_LOG_SETUP_LIBRARY} 
   ${Boost_LOG_LIBRARY} ${Boost_JSON_LIBRARY} ${Boost_URL_LIBRARY})
 
-set(SRC
+include_directories(include)
+
+add_library(FloLib SHARED     
     src/processor.cpp 
     src/functions.cpp
     src/transform.cpp 
@@ -34,15 +36,19 @@ set(SRC
     src/functions/getmember.cpp
     src/functions/setmember.cpp
     src/functions/string.cpp
-)
-include_directories(include)
+    src/functions/select.cpp
+  )
+  target_link_libraries(FloLib ${BOOSTLIBS})
 
-add_executable(SimpleTest test/simpletest.cpp ${SRC})
-  target_link_libraries(SimpleTest ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+add_executable(Flo src/flo.cpp)
+  target_link_libraries(Flo FloLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+
+add_executable(SimpleTest test/simpletest.cpp)
+  target_link_libraries(SimpleTest FloLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_test(SimpleTest SimpleTest)
 
-add_executable(HelloWorldTest test/helloworldtest.cpp ${SRC})
-  target_link_libraries(HelloWorldTest ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+add_executable(HelloWorldTest test/helloworldtest.cpp)
+  target_link_libraries(HelloWorldTest FloLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_test(HelloWorldTest HelloWorldTest)

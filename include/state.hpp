@@ -11,10 +11,8 @@
 #define H_state
 
 #include <boost/json.hpp>
-#include <optional>
 
 using namespace std;
-using json = boost::json::value;
 
 class State
 {
@@ -22,20 +20,13 @@ public:
   State();
   State(const State &state);
   
-//   int arity() const;
-//   
-//   void setColl(json *coll);
-//   bool hasColl() const;
-//   const json &coll() const;
-// 
-//   void setElem(json *elem);
-//   bool hasElem() const;
-//   const json &elem() const;
+  void setElem(boost::json::object &elem);
+  bool hasElem() const;
+  const boost::json::object getElem() const;
   
 private:
   
-//   json *_coll;
-//   json *_elem;
+  optional<boost::json::object> _elem;
   
 };
 

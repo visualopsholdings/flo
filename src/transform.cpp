@@ -13,11 +13,7 @@
 
 #include <boost/log/trivial.hpp>
 
-Transform::Transform(json &json, Functions &functions) : _json(json), _functions(functions) {
-}
-
-json &Transform::getJson() {
-  return _json;
+Transform::Transform(Functions &functions) : _functions(functions) {
 }
 
 optional<json> Transform::exec(json &closure, State *state) {

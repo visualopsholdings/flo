@@ -19,11 +19,9 @@
 
 using namespace std;
 
-BOOST_AUTO_TEST_CASE( helloWorld )
-{
-  cout << "=== helloWorld ===" << endl;
-  
-  ifstream file("../test/hello.json");
+void runTransform(const string &input, const string &message) {
+
+  ifstream file(input);
   BOOST_CHECK(file);
   
   ifstream transform("../test/hello-t.json");
@@ -33,7 +31,23 @@ BOOST_AUTO_TEST_CASE( helloWorld )
   Processor p(file, f);
   auto result = p.transform(transform);
   BOOST_CHECK(result);
-  BOOST_CHECK(result->as_object().if_contains("error"));
-	BOOST_CHECK_EQUAL(boost::json::value_to<string>(result->at_pointer("/error")), "setmember not implemented");
+  BOOST_CHECK(result->as_object().if_contains("message"));
+	BOOST_CHECK_EQUAL(boost::json::value_to<string>(result->at_pointer("/message")), message);
+
+}
+
+BOOST_AUTO_TEST_CASE( helloWorld )
+{
+  cout << "=== helloWorld ===" << endl;
+  
+  runTransform("../test/hello.json", "world");
+
+}
+
+BOOST_AUTO_TEST_CASE( otherMsg )
+{
+  cout << "=== otherMsg ===" << endl;
+  
+  runTransform("../test/message.json", "a message");
 
 }

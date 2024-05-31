@@ -10,6 +10,7 @@
 #include "functions/setmember.hpp"
 
 #include "transform.hpp"
+#include "state.hpp"
 
 #include <boost/log/trivial.hpp>
 
@@ -21,10 +22,11 @@ optional<json> SetMember::exec(Transform &transform, State *state, json &closure
     BOOST_LOG_TRIVIAL(error) << "closure not object";
     return nullopt;
   }
-	if (!transform.getJson().is_object()) {
-    BOOST_LOG_TRIVIAL(error) << "json not object";
+	if (!state->hasElem()) {
+    BOOST_LOG_TRIVIAL(error) << "state has no elem";
     return nullopt;
 	}
+
   auto obj = closure.as_object();
   if (!obj.if_contains("name")) {
     BOOST_LOG_TRIVIAL(error) << "missing name";
@@ -35,9 +37,16 @@ optional<json> SetMember::exec(Transform &transform, State *state, json &closure
     BOOST_LOG_TRIVIAL(error) << "missing value";
     return nullopt;
   }
-	auto value = obj["value"];
+	auto elem = state->getElem();
+  auto value = transform.exec(obj["value"], state);
+  if (value) {
+    elem[name] = *value;
+  }
+  else {
+    elem.erase(name);
+  }
 	
-  return transform.error("setmember not implemented");
+  return elem;
     
 }
 
