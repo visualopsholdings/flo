@@ -25,5 +25,5 @@ bool State::hasElem() const {
 }
 
 const boost::json::object State::getElem() const {
-  return *_elem;
+  return _elem.value();
 }

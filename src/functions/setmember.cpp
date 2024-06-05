@@ -40,7 +40,7 @@ optional<json> SetMember::exec(Transform &transform, State *state, json &closure
 	auto elem = state->getElem();
   auto value = transform.exec(obj["value"], state);
   if (value) {
-    elem[name] = *value;
+    elem[name] = value.value();
   }
   else {
     elem.erase(name);

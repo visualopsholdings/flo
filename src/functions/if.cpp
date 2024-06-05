@@ -31,7 +31,7 @@ optional<json> If::exec(Transform &transform, State *state, json &closure) {
     return nullopt;
   }
   auto result = transform.exec(p, state);
-  if (result && result->is_bool() && result->as_bool()) {
+  if (result && result.value().is_bool() && result->as_bool()) {
     auto then = closure.as_object()["then"];
     if (!then.is_object()) {
       BOOST_LOG_TRIVIAL(error) << "then not object";
