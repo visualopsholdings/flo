@@ -17,7 +17,7 @@ class True: public Function
 public:
   
   // Function
-  virtual optional<json> exec(Transform &transform, State *state, json &closure);
+  virtual optional<rfl::Generic> exec(Transform &transform, State *state, rfl::Generic &closure);
 
   static fPtr create();
   

@@ -135,4 +135,9 @@ Implement null, if, true, dict, string, getmember and equal.
 
 ### 31-May-2024
 
-Implement setmember and select.
+- Implement setmember and select.
+
+### 12-Oct-2025
+
+- Switch to using cppreflect.
+

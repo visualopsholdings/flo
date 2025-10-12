@@ -11,32 +11,47 @@
 
 #include "processor.hpp"
 #include "functions.hpp"
+#include "reflect.hpp"
 
 #include <fstream>
+#include <rfl/json.hpp>
+#include <filesystem>
 
 #define BOOST_AUTO_TEST_MAIN
 #include <boost/test/unit_test.hpp>
 
 using namespace std;
+namespace fs = std::filesystem;
+
+rfl::Generic loadJSON(const string &fn) {
+
+  auto g = rfl::json::load<rfl::Generic>(fn);
+  if (!g) {
+    cout << g.error().what() << endl;
+    return 0;
+  }
+  return *g;
+
+}
 
 BOOST_AUTO_TEST_CASE( nullTest )
 {
   cout << "=== nullTest ===" << endl;
   
-  json hello = {
-    { "message", "hello" }
-  };
+  auto hello = loadJSON("../test/hello.json");
+//  cout << rfl::json::write<rfl::Generic>(hello) << endl;
+  
   Functions f;
-  Processor p(hello,f);
+  Processor p(hello, f);
 
-  json transform = {
-    { "null", {} }
-  };
+  auto transform = loadJSON("../test/null-t.json");
   auto result = p.transform(transform);
   BOOST_CHECK(result);
-  BOOST_CHECK(result->is_object());
-  BOOST_CHECK(result->as_object().if_contains("message"));
-  BOOST_CHECK_EQUAL(boost::json::value_to<string>(result->at_pointer("/message")), "hello");
+  auto obj = Reflect::getObject(*result);
+  BOOST_CHECK(obj);
+  auto m = Reflect::getString(obj, "message");
+  BOOST_CHECK(m);
+  BOOST_CHECK_EQUAL(*m, "hello");
   
 }
 
@@ -44,19 +59,19 @@ BOOST_AUTO_TEST_CASE( noFuncTest )
 {
   cout << "=== noFuncTest ===" << endl;
   
-  json none = {{}};
+  auto none = loadJSON("../test/null.json");
   Functions f;
   Processor p(none, f);
 
-  json transform = {
-    { "xxxx", {} }
-  };
+  auto transform = loadJSON("../test/bad-t.json");
   
   auto result = p.transform(transform);
   BOOST_CHECK(result);
-  BOOST_CHECK(result->is_object());
-  BOOST_CHECK(result->as_object().if_contains("error"));
-  BOOST_CHECK_EQUAL(boost::json::value_to<string>(result->at_pointer("/error")), "function xxxx not found");
+  auto obj = Reflect::getObject(*result);
+  BOOST_CHECK(obj);
+  auto m = Reflect::getString(obj, "error");
+  BOOST_CHECK(m);
+  BOOST_CHECK_EQUAL(*m, "function xxxx not found");
   
 }
 
@@ -64,33 +79,19 @@ BOOST_AUTO_TEST_CASE( ifTrueTest )
 {
   cout << "=== ifTrueTest ===" << endl;
   
-  json hello = {
-    { "message", "hello ignored" }
-  };
+  auto hello = loadJSON("../test/message.json");
+  
   Functions f;
   Processor p(hello, f);
 
-  json transform = {
-    { "if", {
-        { "p", {
-            { "true", {} }
-          }
-        },
-        { "then", {
-            { "dict", {
-              { "message", "world" }
-              } 
-            }
-          }
-        }
-      } 
-    }
-  };
+  auto transform = loadJSON("../test/true-t.json");
   
   auto result = p.transform(transform);
   BOOST_CHECK(result);
-  BOOST_CHECK(result->is_object());
-  BOOST_CHECK(result->as_object().if_contains("message"));
-  BOOST_CHECK_EQUAL(boost::json::value_to<string>(result->at_pointer("/message")), "world");
+  auto obj = Reflect::getObject(*result);
+  BOOST_CHECK(obj);
+  auto m = Reflect::getString(obj, "message");
+  BOOST_CHECK(m);
+  BOOST_CHECK_EQUAL(*m, "world");
   
 }

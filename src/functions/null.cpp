@@ -14,7 +14,7 @@
 
 #include <boost/log/trivial.hpp>
 
-optional<json> Null::exec(Transform &transform, State *state, json &closure) {
+optional<rfl::Generic> Null::exec(Transform &transform, State *state, rfl::Generic &closure) {
   
 	if (!state->hasElem()) {
     BOOST_LOG_TRIVIAL(error) << "state has no elem";

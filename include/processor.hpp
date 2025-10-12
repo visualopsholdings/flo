@@ -11,10 +11,9 @@
 #define H_processor
 
 #include <istream>
-#include <boost/json.hpp>
+#include <rfl.hpp>
 
 using namespace std;
-using json = boost::json::value;
 
 class Functions;
 
@@ -22,16 +21,16 @@ class Processor
 {
 public:
   Processor(istream &infile, Functions &functions);
-  Processor(json &json, Functions &functions);
+  Processor(rfl::Generic &json, Functions &functions);
   
-  optional<json> transform(istream &transform);
-  optional<json> transform(json &jt);
+  optional<rfl::Generic> transform(istream &transform);
+  optional<rfl::Generic> transform(rfl::Generic &jt);
  
-  static void pretty_print(ostream& os, json const& jv, string* indent = 0 );
+  static void pretty_print( ostream& os, rfl::Generic const& jv);
  
 private:
   Functions &_functions;
-  json _json;
+  rfl::Generic _json;
   
 };
 

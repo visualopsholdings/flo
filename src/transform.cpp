@@ -10,27 +10,30 @@
 #include "transform.hpp"
 
 #include "functions.hpp"
+#include "reflect.hpp"
 
 #include <boost/log/trivial.hpp>
+#include <rfl/json.hpp>
 
 Transform::Transform(Functions &functions) : _functions(functions) {
 }
 
-optional<json> Transform::exec(json &closure, State *state) {
+optional<rfl::Generic> Transform::exec(rfl::Generic &closure, State *state) {
 
-  BOOST_LOG_TRIVIAL(trace) << "exec " << closure;
+  BOOST_LOG_TRIVIAL(trace) << "exec " << *Reflect::getString(closure);
 
-  if (closure.is_object()) {
-    if (closure.as_object().size() == 0) {
+  auto obj = Reflect::getObject(closure);
+  if (obj) {
+    if (obj->size() == 0) {
       BOOST_LOG_TRIVIAL(trace) << "empty closure is terminal";
       return nullopt; // treat like a terminal.
     }
     
     // get first nvp in closure
-    auto first = closure.as_object().begin();
-//    BOOST_LOG_TRIVIAL(trace) << "first " << (*first).key();
+    auto first = obj->begin();
     
-    string name = (*first).key();
+    string name = get<0>(*first);
+    BOOST_LOG_TRIVIAL(trace) << "first " << name;
     
     if (!_functions.has(name)) {
       return error("function " + name + " not found");
@@ -40,16 +43,16 @@ optional<json> Transform::exec(json &closure, State *state) {
     auto f = _functions.get(name);
     
     // call down with the closure.
-    return f->exec(*this, state, (*first).value());
+    return f->exec(*this, state, get<1>(*first));
     
   }
   return nullopt;
   
 }
 
-json Transform::error(const string &msg) const {
+rfl::Generic Transform::error(const string &msg) const {
 
   BOOST_LOG_TRIVIAL(error) << msg;
-  return boost::json::object{ { "error", msg } };
+  return *rfl::json::read<rfl::Generic>("{\"error\":\"" + msg + "\"}");
   
 }

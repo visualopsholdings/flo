@@ -100,7 +100,7 @@ int main(int argc, char *argv[]) {
   Processor process(input, f);
   auto result = process.transform(transformer);
   if (result) {
-    process.pretty_print(cout, result.value());
+    process.pretty_print(cout, *result);
   }
   
   return 0;

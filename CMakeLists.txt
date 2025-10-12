@@ -8,18 +8,18 @@
 #   https://github.com/visualopsholdings/flo
 
 cmake_minimum_required(VERSION 3.5)
+cmake_policy(SET CMP0167 NEW) # Boost
 
 project (flo)
-  find_package(Boost 1.85.0 COMPONENTS program_options unit_test_framework log_setup log json url REQUIRED)
+  find_package(Boost 1.85.0 COMPONENTS program_options unit_test_framework log_setup log url REQUIRED)
   add_definitions(-DBOOST_ALL_DYN_LINK) 
   enable_testing()
 
 set(CMAKE_BUILD_TYPE Debug)
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_CXX_STANDARD 20)
 
 set(BOOSTLIBS ${Boost_PROGRAM_OPTIONS_LIBRARY} ${Boost_LOG_SETUP_LIBRARY} 
-  ${Boost_LOG_LIBRARY} ${Boost_JSON_LIBRARY} ${Boost_URL_LIBRARY})
+  ${Boost_LOG_LIBRARY} ${Boost_URL_LIBRARY})
 
 include_directories(include)
 
@@ -28,6 +28,7 @@ add_library(FloLib SHARED
     src/functions.cpp
     src/transform.cpp 
     src/state.cpp
+    src/reflect.cpp
     src/functions/null.cpp
     src/functions/if.cpp
     src/functions/true.cpp
@@ -38,7 +39,7 @@ add_library(FloLib SHARED
     src/functions/string.cpp
     src/functions/select.cpp
   )
-  target_link_libraries(FloLib ${BOOSTLIBS})
+  target_link_libraries(FloLib reflectcpp ${BOOSTLIBS})
 
 add_executable(Flo src/flo.cpp)
   target_link_libraries(Flo FloLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})

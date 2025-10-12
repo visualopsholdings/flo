@@ -10,12 +10,13 @@
 #include "functions/string.hpp"
 
 #include "transform.hpp"
+#include "reflect.hpp"
 
 #include <boost/log/trivial.hpp>
 
-optional<json> String::exec(Transform &transform, State *state, json &closure) {
+optional<rfl::Generic> String::exec(Transform &transform, State *state, rfl::Generic &closure) {
 
-  BOOST_LOG_TRIVIAL(trace) << "string " << closure;
+  BOOST_LOG_TRIVIAL(trace) << "string " << *Reflect::getString(closure);
 
   return closure;
     

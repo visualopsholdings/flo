@@ -11,14 +11,16 @@
 
 #include "transform.hpp"
 #include "state.hpp"
+#include "reflect.hpp"
 
 #include <boost/log/trivial.hpp>
 
-optional<json> SetMember::exec(Transform &transform, State *state, json &closure) {
+optional<rfl::Generic> SetMember::exec(Transform &transform, State *state, rfl::Generic &closure) {
 
-  BOOST_LOG_TRIVIAL(trace) << "setmember " << closure;
+  BOOST_LOG_TRIVIAL(trace) << "setmember " << *Reflect::getString(closure);
 
-  if (!closure.is_object()) {
+  auto obj = Reflect::getObject(closure);
+  if (!obj) {
     BOOST_LOG_TRIVIAL(error) << "closure not object";
     return nullopt;
   }
@@ -27,23 +29,23 @@ optional<json> SetMember::exec(Transform &transform, State *state, json &closure
     return nullopt;
 	}
 
-  auto obj = closure.as_object();
-  if (!obj.if_contains("name")) {
+  auto name = Reflect::getString(obj, "name");
+  if (!name) {
     BOOST_LOG_TRIVIAL(error) << "missing name";
     return nullopt;
   }
-	string name = boost::json::value_to<string>(obj["name"]);
-  if (!obj.if_contains("value")) {
+  auto v = Reflect::getGeneric(obj, "value");
+  if (!v) {
     BOOST_LOG_TRIVIAL(error) << "missing value";
     return nullopt;
   }
 	auto elem = state->getElem();
-  auto value = transform.exec(obj["value"], state);
+  auto value = transform.exec(*v, state);
   if (value) {
-    elem[name] = value.value();
+    elem[*name] = *value;
   }
   else {
-    elem.erase(name);
+    cerr << "not sure how to erase an element in Object" << endl;
   }
 	
   return elem;

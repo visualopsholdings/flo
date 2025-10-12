@@ -10,34 +10,36 @@
 #include "functions/if.hpp"
 
 #include "transform.hpp"
+#include "reflect.hpp"
 
 #include <boost/log/trivial.hpp>
 
-optional<json> If::exec(Transform &transform, State *state, json &closure) {
+optional<rfl::Generic> If::exec(Transform &transform, State *state, rfl::Generic &closure) {
   
-  BOOST_LOG_TRIVIAL(trace) << "if " << closure;
+  BOOST_LOG_TRIVIAL(trace) << "if " << *Reflect::getString(closure);
 
-  if (!closure.is_object()) {
+  auto obj = Reflect::getObject(closure);
+  if (!obj) {
     BOOST_LOG_TRIVIAL(trace) << "closure not object";
     return nullopt;
   }
-  if (!closure.as_object().if_contains("p")) {
+  auto p = Reflect::getGeneric(obj, "p");
+  if (!p) {
     BOOST_LOG_TRIVIAL(error) << "no p";
     return nullopt;
   }
-  auto p = closure.as_object()["p"];
-  if (!p.is_object()) {
-    BOOST_LOG_TRIVIAL(error) << "p not object";
+  auto result = transform.exec(*p, state);
+  if (!result) {
     return nullopt;
   }
-  auto result = transform.exec(p, state);
-  if (result && result.value().is_bool() && result->as_bool()) {
-    auto then = closure.as_object()["then"];
-    if (!then.is_object()) {
+  auto b = Reflect::getBool(*result);
+  if (b && *b) {
+    auto then = Reflect::getGeneric(obj, "then");
+    if (!then) {
       BOOST_LOG_TRIVIAL(error) << "then not object";
       return nullopt;
     }
-    return transform.exec(then, state);
+    return transform.exec(*then, state);
   }
   
   return nullopt;

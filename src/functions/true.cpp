@@ -9,11 +9,13 @@
 
 #include "functions/true.hpp"
 
+#include "reflect.hpp"
+
 #include <boost/log/trivial.hpp>
 
-optional<json> True::exec(Transform &transform, State *state, json &closure) {
+optional<rfl::Generic> True::exec(Transform &transform, State *state, rfl::Generic &closure) {
   
-  BOOST_LOG_TRIVIAL(trace) << "true " << closure;
+  BOOST_LOG_TRIVIAL(trace) << "true " << *Reflect::getString(closure);
 
   return true;
   

@@ -11,20 +11,22 @@
 
 #include "transform.hpp"
 #include "state.hpp"
+#include "reflect.hpp"
 
 #include <boost/log/trivial.hpp>
 
-optional<json> Select::exec(Transform &transform, State *state, json &closure) {
+optional<rfl::Generic> Select::exec(Transform &transform, State *state, rfl::Generic &closure) {
   
-  BOOST_LOG_TRIVIAL(trace) << "select " << closure;
+  BOOST_LOG_TRIVIAL(trace) << "select " << *Reflect::getString(closure);
 
-  if (!closure.is_array()) {
+  auto a = Reflect::getVector(closure);
+  if (!a) {
     BOOST_LOG_TRIVIAL(error) << "closure not array";
     return nullopt;
   }
   
   // select the first function that returns something.
-	for (auto i: closure.as_array()) {
+	for (auto i: *a) {
 	  auto val = transform.exec(i, state);
 	  if (val) {
 	    return *val;

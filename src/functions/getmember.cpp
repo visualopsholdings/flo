@@ -11,14 +11,16 @@
 
 #include "transform.hpp"
 #include "state.hpp"
+#include "reflect.hpp"
 
 #include <boost/log/trivial.hpp>
 
-optional<json> GetMember::exec(Transform &transform, State *state, json &closure) {
+optional<rfl::Generic> GetMember::exec(Transform &transform, State *state, rfl::Generic &closure) {
 
-  BOOST_LOG_TRIVIAL(trace) << "getmember " << closure;
+  BOOST_LOG_TRIVIAL(trace) << "getmember " << *Reflect::getString(closure);
 
-  if (!closure.is_object()) {
+  auto obj = Reflect::getObject(closure);
+  if (!obj) {
     BOOST_LOG_TRIVIAL(error) << "closure not object";
     return nullopt;
   }
@@ -27,14 +29,13 @@ optional<json> GetMember::exec(Transform &transform, State *state, json &closure
     return nullopt;
 	}
 	
-  auto obj = closure.as_object();
-  if (!obj.if_contains("name")) {
+  auto name = Reflect::getString(*obj, "name");
+  if (!name) {
     BOOST_LOG_TRIVIAL(error) << "missing name";
     return nullopt;
   }
 	auto elem = state->getElem();
-	string name = boost::json::value_to<string>(obj["name"]);
-	return elem[name];
+	return elem[*name];
     
 }
 

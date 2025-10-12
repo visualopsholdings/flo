@@ -10,10 +10,9 @@
 #ifndef H_function
 #define H_function
 
-#include <boost/json.hpp>
+#include <rfl.hpp>
 
 using namespace std;
-using json = boost::json::value;
 
 class Transform;
 class State;
@@ -26,7 +25,7 @@ class Function
 {
 public:
 
-    virtual optional<json> exec(Transform &transform, State *state, json &closure) = 0;
+    virtual optional<rfl::Generic> exec(Transform &transform, State *state, rfl::Generic &closure) = 0;
 
 };
 

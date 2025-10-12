@@ -10,7 +10,7 @@
 #ifndef H_state
 #define H_state
 
-#include <boost/json.hpp>
+#include <rfl.hpp>
 
 using namespace std;
 
@@ -20,13 +20,13 @@ public:
   State();
   State(const State &state);
   
-  void setElem(boost::json::object &elem);
+  void setElem(rfl::Object<rfl::Generic> &elem);
   bool hasElem() const;
-  const boost::json::object getElem() const;
+  const rfl::Object<rfl::Generic> getElem() const;
   
 private:
   
-  optional<boost::json::object> _elem;
+  optional<rfl::Object<rfl::Generic>> _elem;
   
 };
 

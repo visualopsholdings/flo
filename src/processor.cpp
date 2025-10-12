@@ -12,129 +12,67 @@
 #include "functions.hpp"
 #include "state.hpp"
 #include "transform.hpp"
+#include "reflect.hpp"
 
 #include <boost/log/trivial.hpp>
 #include <iostream>
+#include <rfl/json.hpp>
 
 Processor::Processor(istream &infile, Functions &functions):
   _functions(functions) {
   
-  _json = boost::json::parse(infile);
+  auto g = rfl::json::read<rfl::Generic>(infile);
+  if (!g) {
+	  BOOST_LOG_TRIVIAL(error) << g.error().what();
+  }
+  _json = *g;
   
 }
 
-Processor::Processor(json &json, Functions &functions):
+Processor::Processor(rfl::Generic &json, Functions &functions):
   _json(json), _functions(functions) {
   
 }
 
-optional<json> Processor::transform(json &transform) {
+optional<rfl::Generic> Processor::transform(rfl::Generic &transform) {
 
-  if (!transform.is_object()) {
+  auto tr = Reflect::getObject(transform);
+  if (!tr) {
 	  BOOST_LOG_TRIVIAL(error) << "transform not object";
 	  return nullopt;
   }
-  if (transform.as_object().size() == 0) {
+  if (tr->size() == 0) {
 	  BOOST_LOG_TRIVIAL(error) << "object is empty";
 	  return nullopt;
   }
-  if (!_json.is_object()) {
+  auto obj = Reflect::getObject(_json);
+  if (!obj) {
 	  BOOST_LOG_TRIVIAL(error) << "json is not object";
 	  return nullopt;
   }
   
   Transform t(_functions);
   State s;
-  s.setElem(_json.as_object());
+  s.setElem(*obj);
   return t.exec(transform, &s);
 
 }
 
-optional<json> Processor::transform(istream &s) {
+optional<rfl::Generic> Processor::transform(istream &s) {
 
-  json tj = boost::json::parse(s);
-	BOOST_LOG_TRIVIAL(trace) << "transforming with " << tj;
-  return transform(tj);
+  auto g = rfl::json::read<rfl::Generic>(s);
+  if (!g) {
+	  BOOST_LOG_TRIVIAL(error) << g.error().what();
+  }
+
+//	BOOST_LOG_TRIVIAL(trace) << "transforming with " << tj;
+  return transform(*g);
 
 }
 
-void Processor::pretty_print( ostream& os, json const& jv, string* indent ) {
+void Processor::pretty_print( ostream& os, rfl::Generic const& jv) {
 
-    string indent_;
-    if(! indent)
-        indent = &indent_;
-    switch(jv.kind())
-    {
-    case boost::json::kind::object:
-    {
-        os << "{\n";
-        indent->append(4, ' ');
-        auto const& obj = jv.get_object();
-        if(! obj.empty())
-        {
-            auto it = obj.begin();
-            for(;;)
-            {
-                os << *indent << boost::json::serialize(it->key()) << ": ";
-                pretty_print(os, it->value(), indent);
-                if(++it == obj.end())
-                    break;
-                os << ",\n";
-            }
-        }
-        os << "\n";
-        indent->resize(indent->size() - 4);
-        os << *indent << "}";
-        break;
-    }
+  auto s = rfl::json::write(jv, rfl::json::pretty);
+  os << s;
 
-    case boost::json::kind::array:
-    {
-        os << "[\n";
-        indent->append(4, ' ');
-        auto const& arr = jv.get_array();
-        if(! arr.empty())
-        {
-            auto it = arr.begin();
-            for(;;)
-            {
-                os << *indent;
-                pretty_print( os, *it, indent);
-                if(++it == arr.end())
-                    break;
-                os << ",\n";
-            }
-        }
-        os << "\n";
-        indent->resize(indent->size() - 4);
-        os << *indent << "]";
-        break;
-    }
-
-    case boost::json::kind::string:
-    {
-        os << boost::json::serialize(jv.get_string());
-        break;
-    }
-
-    case boost::json::kind::uint64:
-    case boost::json::kind::int64:
-    case boost::json::kind::double_:
-        os << jv;
-        break;
-
-    case boost::json::kind::bool_:
-        if(jv.get_bool())
-            os << "true";
-        else
-            os << "false";
-        break;
-
-    case boost::json::kind::null:
-        os << "null";
-        break;
-    }
-
-    if(indent->empty())
-        os << "\n";
 }
