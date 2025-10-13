@@ -1,20 +1,22 @@
 /*
-  reflect.cpp
+  generic.cpp
   
-  Author: Paul Hamilton (paul@visualops.com)
+  Author: Paul Hamilton (phamtec@mac.com)
   Date: 12-Oct-2025
     
-  https://github.com/visualopsholdings/flo
+  Licensed under [version 3 of the GNU General Public License] contained in LICENSE.
+ 
+  https://github.com/phamtec/dsurf
 */
 
-#include "reflect.hpp"
+#include "generic.hpp"
 
 #include <rfl.hpp>
 #include <rfl/json.hpp>
 
 using namespace std;
 
-std::optional<std::string> Reflect::getString(std::optional<rfl::Object<rfl::Generic> > obj, const std::string &name) {
+std::optional<std::string> Generic::getString(std::optional<rfl::Object<rfl::Generic> > obj, const std::string &name) {
 
   if (!obj) {
     return nullopt;
@@ -29,18 +31,13 @@ std::optional<std::string> Reflect::getString(std::optional<rfl::Object<rfl::Gen
   
 }
 
-std::optional<rfl::Object<rfl::Generic> > Reflect::getObject(std::optional<rfl::Object<rfl::Generic> > obj, const std::string &name) {
+std::optional<rfl::Object<rfl::Generic> > Generic::getObject(std::optional<rfl::Object<rfl::Generic> > obj, const std::string &name) {
 
   if (!obj) {
     return nullopt;
   }
   
-  auto d = getObject(*obj);
-  if (!d) {
-    return nullopt;
-  }
-  
-  auto prop = d->get(name);
+  auto prop = obj->get(name);
   if (!prop) {
     return nullopt;
   }
@@ -49,18 +46,13 @@ std::optional<rfl::Object<rfl::Generic> > Reflect::getObject(std::optional<rfl::
   
 }
 
-std::optional<rfl::Generic> Reflect::getGeneric(std::optional<rfl::Object<rfl::Generic> > obj, const std::string &name) {
+std::optional<rfl::Generic> Generic::getGeneric(std::optional<rfl::Object<rfl::Generic> > obj, const std::string &name) {
 
   if (!obj) {
     return nullopt;
   }
   
-  auto d = getObject(*obj);
-  if (!d) {
-    return nullopt;
-  }
-  
-  auto prop = d->get(name);
+  auto prop = obj->get(name);
   if (!prop) {
     return nullopt;
   }
@@ -69,7 +61,22 @@ std::optional<rfl::Generic> Reflect::getGeneric(std::optional<rfl::Object<rfl::G
   
 }
 
-optional<rfl::Object<rfl::Generic> > Reflect::getObject(const rfl::Generic &obj) {
+std::optional<vector<rfl::Generic> > Generic::getVector(std::optional<rfl::Object<rfl::Generic> > obj, const std::string &name) {
+
+  if (!obj) {
+    return nullopt;
+  }
+  
+  auto prop = obj->get(name);
+  if (!prop) {
+    return nullopt;
+  }
+  
+  return getVector(*prop);
+  
+}
+
+optional<rfl::Object<rfl::Generic> > Generic::getObject(const rfl::Generic &obj) {
 
   optional<rfl::Object<rfl::Generic> > dict;
   std::visit([&obj, &dict](const auto &field) {
@@ -84,7 +91,7 @@ optional<rfl::Object<rfl::Generic> > Reflect::getObject(const rfl::Generic &obj)
   
 }
 
-optional<vector<rfl::Generic> > Reflect::getVector(const rfl::Generic &obj) {
+optional<vector<rfl::Generic> > Generic::getVector(const rfl::Generic &obj) {
 
   optional<vector<rfl::Generic> > v;
   std::visit([&obj, &v](const auto &field) {
@@ -99,7 +106,7 @@ optional<vector<rfl::Generic> > Reflect::getVector(const rfl::Generic &obj) {
   
 }
 
-optional<string> Reflect::getString(const rfl::Generic &obj) {
+optional<string> Generic::getString(const rfl::Generic &obj) {
 
   optional<string> str;
   std::visit([&obj, &str](const auto &field) {
@@ -114,7 +121,7 @@ optional<string> Reflect::getString(const rfl::Generic &obj) {
   
 }
 
-optional<long> Reflect::getNum(const rfl::Generic &obj) {
+optional<long> Generic::getNum(const rfl::Generic &obj) {
 
   optional<long> i;
   std::visit([&obj, &i](const auto &field) {
@@ -128,7 +135,7 @@ optional<long> Reflect::getNum(const rfl::Generic &obj) {
   
 }
 
-optional<bool> Reflect::getBool(const rfl::Generic &obj) {
+optional<bool> Generic::getBool(const rfl::Generic &obj) {
 
   optional<bool> b;
   std::visit([&obj, &b](const auto &field) {
@@ -139,5 +146,11 @@ optional<bool> Reflect::getBool(const rfl::Generic &obj) {
   }, obj.variant());
 
   return b;
+  
+}
+
+string Generic::toString(const rfl::Generic &g) {
+
+  return rfl::json::write(g, rfl::json::pretty);
   
 }

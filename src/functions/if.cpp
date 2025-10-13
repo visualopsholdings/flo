@@ -10,20 +10,22 @@
 #include "functions/if.hpp"
 
 #include "transform.hpp"
-#include "reflect.hpp"
+#include "generic.hpp"
 
 #include <boost/log/trivial.hpp>
 
+using namespace flo;
+
 optional<rfl::Generic> If::exec(Transform &transform, State *state, rfl::Generic &closure) {
   
-  BOOST_LOG_TRIVIAL(trace) << "if " << *Reflect::getString(closure);
+  BOOST_LOG_TRIVIAL(trace) << "if " << *Generic::getString(closure);
 
-  auto obj = Reflect::getObject(closure);
+  auto obj = Generic::getObject(closure);
   if (!obj) {
     BOOST_LOG_TRIVIAL(trace) << "closure not object";
     return nullopt;
   }
-  auto p = Reflect::getGeneric(obj, "p");
+  auto p = Generic::getGeneric(obj, "p");
   if (!p) {
     BOOST_LOG_TRIVIAL(error) << "no p";
     return nullopt;
@@ -32,9 +34,9 @@ optional<rfl::Generic> If::exec(Transform &transform, State *state, rfl::Generic
   if (!result) {
     return nullopt;
   }
-  auto b = Reflect::getBool(*result);
+  auto b = Generic::getBool(*result);
   if (b && *b) {
-    auto then = Reflect::getGeneric(obj, "then");
+    auto then = Generic::getGeneric(obj, "then");
     if (!then) {
       BOOST_LOG_TRIVIAL(error) << "then not object";
       return nullopt;

@@ -10,15 +10,17 @@
 #include "functions/equal.hpp"
 
 #include "transform.hpp"
-#include "reflect.hpp"
+#include "generic.hpp"
 
 #include <boost/log/trivial.hpp>
 
+using namespace flo;
+
 optional<rfl::Generic> Equal::exec(Transform &transform, State *state, rfl::Generic &closure) {
 
-  BOOST_LOG_TRIVIAL(trace) << "exec " << *Reflect::getString(closure);
+  BOOST_LOG_TRIVIAL(trace) << "exec " << *Generic::getString(closure);
 
-  auto a = Reflect::getVector(closure);
+  auto a = Generic::getVector(closure);
   if (!a) {
     BOOST_LOG_TRIVIAL(error) << "closure not array";
     return nullopt;
@@ -30,7 +32,7 @@ optional<rfl::Generic> Equal::exec(Transform &transform, State *state, rfl::Gene
 	i++;
 	while (i != a->end()) {
 		auto rvalue = transform.exec(*i, state);
-		if (!lvalue || !rvalue || (Reflect::getString(*lvalue) != Reflect::getString(*rvalue))) {
+		if (!lvalue || !rvalue || (Generic::getString(*lvalue) != Generic::getString(*rvalue))) {
 			return false;
 		}
 		i++;

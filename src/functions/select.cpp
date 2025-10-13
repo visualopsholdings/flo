@@ -11,15 +11,17 @@
 
 #include "transform.hpp"
 #include "state.hpp"
-#include "reflect.hpp"
+#include "generic.hpp"
 
 #include <boost/log/trivial.hpp>
 
+using namespace flo;
+
 optional<rfl::Generic> Select::exec(Transform &transform, State *state, rfl::Generic &closure) {
   
-  BOOST_LOG_TRIVIAL(trace) << "select " << *Reflect::getString(closure);
+  BOOST_LOG_TRIVIAL(trace) << "select " << *Generic::getString(closure);
 
-  auto a = Reflect::getVector(closure);
+  auto a = Generic::getVector(closure);
   if (!a) {
     BOOST_LOG_TRIVIAL(error) << "closure not array";
     return nullopt;

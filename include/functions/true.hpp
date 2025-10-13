@@ -12,6 +12,8 @@
 
 #include "../function.hpp"
 
+namespace flo {
+
 class True: public Function
 {
 public:
@@ -22,5 +24,7 @@ public:
   static fPtr create();
   
 };
+
+} // flo
 
 #endif // H_true

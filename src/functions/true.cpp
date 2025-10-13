@@ -9,13 +9,15 @@
 
 #include "functions/true.hpp"
 
-#include "reflect.hpp"
+#include "generic.hpp"
 
 #include <boost/log/trivial.hpp>
 
+using namespace flo;
+
 optional<rfl::Generic> True::exec(Transform &transform, State *state, rfl::Generic &closure) {
   
-  BOOST_LOG_TRIVIAL(trace) << "true " << *Reflect::getString(closure);
+  BOOST_LOG_TRIVIAL(trace) << "true " << *Generic::getString(closure);
 
   return true;
   

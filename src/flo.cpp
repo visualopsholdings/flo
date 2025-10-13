@@ -27,6 +27,7 @@
 namespace po = boost::program_options;
 
 using namespace std;
+using namespace flo;
 
 int main(int argc, char *argv[]) {
 

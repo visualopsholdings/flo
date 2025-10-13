@@ -11,7 +11,7 @@
 
 #include "processor.hpp"
 #include "functions.hpp"
-#include "reflect.hpp"
+#include "generic.hpp"
 
 #include <fstream>
 
@@ -19,6 +19,7 @@
 #include <boost/test/unit_test.hpp>
 
 using namespace std;
+using namespace flo;
 
 void runTransform(const string &input, const string &message) {
 
@@ -32,9 +33,9 @@ void runTransform(const string &input, const string &message) {
   Processor p(file, f);
   auto result = p.transform(transform);
   BOOST_CHECK(result);
-  auto obj = Reflect::getObject(*result);
+  auto obj = Generic::getObject(*result);
   BOOST_CHECK(obj);
-  auto m = Reflect::getString(obj, "message");
+  auto m = Generic::getString(obj, "message");
   BOOST_CHECK(m);
 	BOOST_CHECK_EQUAL(*m, message);
 

@@ -16,6 +16,8 @@
 
 using namespace std;
 
+namespace flo {
+
 typedef function<shared_ptr<Function> ()> fnHandler;
 
 class Functions
@@ -30,5 +32,7 @@ private:
   map<string, fnHandler> _functions;
   
 };
+
+} // flo
 
 #endif // H_functions

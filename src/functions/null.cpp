@@ -14,6 +14,8 @@
 
 #include <boost/log/trivial.hpp>
 
+using namespace flo;
+
 optional<rfl::Generic> Null::exec(Transform &transform, State *state, rfl::Generic &closure) {
   
 	if (!state->hasElem()) {

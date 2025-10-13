@@ -12,6 +12,8 @@
 
 #include "../function.hpp"
 
+namespace flo {
+
 class Select: public Function
 {
 public:
@@ -22,5 +24,7 @@ public:
   static fPtr create();
   
 };
+
+} // flo
 
 #endif // H_select

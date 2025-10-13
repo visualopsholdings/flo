@@ -11,15 +11,17 @@
 
 #include "transform.hpp"
 #include "state.hpp"
-#include "reflect.hpp"
+#include "generic.hpp"
 
 #include <boost/log/trivial.hpp>
 
+using namespace flo;
+
 optional<rfl::Generic> SetMember::exec(Transform &transform, State *state, rfl::Generic &closure) {
 
-  BOOST_LOG_TRIVIAL(trace) << "setmember " << *Reflect::getString(closure);
+  BOOST_LOG_TRIVIAL(trace) << "setmember " << *Generic::getString(closure);
 
-  auto obj = Reflect::getObject(closure);
+  auto obj = Generic::getObject(closure);
   if (!obj) {
     BOOST_LOG_TRIVIAL(error) << "closure not object";
     return nullopt;
@@ -29,12 +31,12 @@ optional<rfl::Generic> SetMember::exec(Transform &transform, State *state, rfl::
     return nullopt;
 	}
 
-  auto name = Reflect::getString(obj, "name");
+  auto name = Generic::getString(obj, "name");
   if (!name) {
     BOOST_LOG_TRIVIAL(error) << "missing name";
     return nullopt;
   }
-  auto v = Reflect::getGeneric(obj, "value");
+  auto v = Generic::getGeneric(obj, "value");
   if (!v) {
     BOOST_LOG_TRIVIAL(error) << "missing value";
     return nullopt;

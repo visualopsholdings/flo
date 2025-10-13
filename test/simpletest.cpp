@@ -11,7 +11,7 @@
 
 #include "processor.hpp"
 #include "functions.hpp"
-#include "reflect.hpp"
+#include "generic.hpp"
 
 #include <fstream>
 #include <rfl/json.hpp>
@@ -22,6 +22,7 @@
 
 using namespace std;
 namespace fs = std::filesystem;
+using namespace flo;
 
 rfl::Generic loadJSON(const string &fn) {
 
@@ -47,9 +48,9 @@ BOOST_AUTO_TEST_CASE( nullTest )
   auto transform = loadJSON("../test/null-t.json");
   auto result = p.transform(transform);
   BOOST_CHECK(result);
-  auto obj = Reflect::getObject(*result);
+  auto obj = Generic::getObject(*result);
   BOOST_CHECK(obj);
-  auto m = Reflect::getString(obj, "message");
+  auto m = Generic::getString(obj, "message");
   BOOST_CHECK(m);
   BOOST_CHECK_EQUAL(*m, "hello");
   
@@ -59,17 +60,16 @@ BOOST_AUTO_TEST_CASE( noFuncTest )
 {
   cout << "=== noFuncTest ===" << endl;
   
-  auto none = loadJSON("../test/null.json");
   Functions f;
-  Processor p(none, f);
+  Processor p(f);
 
   auto transform = loadJSON("../test/bad-t.json");
   
   auto result = p.transform(transform);
   BOOST_CHECK(result);
-  auto obj = Reflect::getObject(*result);
+  auto obj = Generic::getObject(*result);
   BOOST_CHECK(obj);
-  auto m = Reflect::getString(obj, "error");
+  auto m = Generic::getString(obj, "error");
   BOOST_CHECK(m);
   BOOST_CHECK_EQUAL(*m, "function xxxx not found");
   
@@ -88,9 +88,9 @@ BOOST_AUTO_TEST_CASE( ifTrueTest )
   
   auto result = p.transform(transform);
   BOOST_CHECK(result);
-  auto obj = Reflect::getObject(*result);
+  auto obj = Generic::getObject(*result);
   BOOST_CHECK(obj);
-  auto m = Reflect::getString(obj, "message");
+  auto m = Generic::getString(obj, "message");
   BOOST_CHECK(m);
   BOOST_CHECK_EQUAL(*m, "world");
   

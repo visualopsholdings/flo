@@ -14,6 +14,8 @@
 
 using namespace std;
 
+namespace flo {
+
 class Transform;
 class State;
 
@@ -28,5 +30,7 @@ public:
     virtual optional<rfl::Generic> exec(Transform &transform, State *state, rfl::Generic &closure) = 0;
 
 };
+
+} // flo
 
 #endif // H_function

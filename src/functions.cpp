@@ -19,6 +19,8 @@
 #include "functions/string.hpp"
 #include "functions/select.hpp"
 
+using namespace flo;
+
 Functions::Functions() {
 
   _functions["null"] = bind(&Null::create);

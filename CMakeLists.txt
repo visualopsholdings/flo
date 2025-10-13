@@ -28,7 +28,7 @@ add_library(FloLib SHARED
     src/functions.cpp
     src/transform.cpp 
     src/state.cpp
-    src/reflect.cpp
+    src/generic.cpp
     src/functions/null.cpp
     src/functions/if.cpp
     src/functions/true.cpp

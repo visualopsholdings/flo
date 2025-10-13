@@ -141,3 +141,7 @@ Implement null, if, true, dict, string, getmember and equal.
 
 - Switch to using cppreflect.
 
+### 13-Oct-2025
+
+- Add in namespaces.
+

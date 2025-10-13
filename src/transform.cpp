@@ -10,19 +10,21 @@
 #include "transform.hpp"
 
 #include "functions.hpp"
-#include "reflect.hpp"
+#include "generic.hpp"
 
 #include <boost/log/trivial.hpp>
 #include <rfl/json.hpp>
 
+using namespace flo;
+
 Transform::Transform(Functions &functions) : _functions(functions) {
 }
 
-optional<rfl::Generic> Transform::exec(rfl::Generic &closure, State *state) {
+optional<rfl::Generic> Transform::exec(const rfl::Generic &closure, State *state) {
 
-  BOOST_LOG_TRIVIAL(trace) << "exec " << *Reflect::getString(closure);
+  BOOST_LOG_TRIVIAL(trace) << "exec " << *Generic::getString(closure);
 
-  auto obj = Reflect::getObject(closure);
+  auto obj = Generic::getObject(closure);
   if (obj) {
     if (obj->size() == 0) {
       BOOST_LOG_TRIVIAL(trace) << "empty closure is terminal";

@@ -14,6 +14,8 @@
 
 using namespace std;
 
+namespace flo {
+
 class State;
 class Functions;
 
@@ -22,7 +24,7 @@ class Transform
 public:
   Transform(Functions &functions);
   
-  optional<rfl::Generic> exec(rfl::Generic &closure, State *state);
+  optional<rfl::Generic> exec(const rfl::Generic &closure, State *state);
 
   rfl::Generic error(const string &msg) const;
 
@@ -30,5 +32,7 @@ private:
   Functions &_functions;
   
 };
+
+} // flo
 
 #endif // H_transform
