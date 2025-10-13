@@ -53,3 +53,8 @@ add_executable(HelloWorldTest test/helloworldtest.cpp)
   target_link_libraries(HelloWorldTest FloLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_test(HelloWorldTest HelloWorldTest)
+
+add_executable(LibTest test/libtest.cpp)
+  target_link_libraries(LibTest FloLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+
+add_test(LibTest LibTest)
