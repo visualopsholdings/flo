@@ -38,6 +38,7 @@ add_library(FloLib SHARED
     src/functions/setmember.cpp
     src/functions/string.cpp
     src/functions/select.cpp
+    src/functions/apply.cpp
   )
   target_link_libraries(FloLib reflectcpp ${BOOSTLIBS})
 
@@ -58,3 +59,8 @@ add_executable(LibTest test/libtest.cpp)
   target_link_libraries(LibTest FloLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_test(LibTest LibTest)
+
+add_executable(ApplyTest test/applytest.cpp)
+  target_link_libraries(ApplyTest FloLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+
+add_test(ApplyTest ApplyTest)
