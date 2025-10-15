@@ -149,3 +149,7 @@ Implement null, if, true, dict, string, getmember and equal.
 
 - Add in apply and make dict able to be a monad.
 
+### 15-Oct-2025
+
+- Add in cur and pass.
+

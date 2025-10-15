@@ -39,6 +39,8 @@ add_library(FloLib SHARED
     src/functions/string.cpp
     src/functions/select.cpp
     src/functions/apply.cpp
+    src/functions/cur.cpp
+    src/functions/pass.cpp
   )
   target_link_libraries(FloLib reflectcpp ${BOOSTLIBS})
 

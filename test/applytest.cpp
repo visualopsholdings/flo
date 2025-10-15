@@ -64,3 +64,24 @@ BOOST_AUTO_TEST_CASE( simple )
   BOOST_CHECK_EQUAL(*pubKey, "a key");
 
 }
+
+BOOST_AUTO_TEST_CASE( cur )
+{
+  cout << "=== cur ===" << endl;
+  
+  auto transform = loadJSON("../test/cur-t.json");
+  BOOST_CHECK(transform);
+  
+  auto obj = loadJSON("../test/hello.json");
+  BOOST_CHECK(obj);
+
+  Functions f;
+  Processor p(*obj, f);
+
+  auto result = p.transform(*transform);
+  BOOST_CHECK(result);
+  auto s = Generic::getString(*result);
+  BOOST_CHECK(s);
+  BOOST_CHECK_EQUAL(*s, "hello");
+  
+}

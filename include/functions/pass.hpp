@@ -1,20 +1,20 @@
 /*
-  apply.hpp
+  pass.hpp
   
   Author: Paul Hamilton (paul@visualops.com)
-  Date: 14-Oct-2024
+  Date: 15-Oct-2025
   
   https://github.com/visualopsholdings/flo
 */
 
-#ifndef H_apply
-#define H_apply
+#ifndef H_pass
+#define H_pass
 
 #include "../function.hpp"
 
 namespace flo {
 
-class Apply: public Function
+class Pass: public Function
 {
 public:
   
@@ -23,12 +23,8 @@ public:
 
   static fPtr create();
   
-private:
-
-  optional<rfl::Generic> apply(Transform &transform, State *state, rfl::Generic &closure);
-
 };
 
 } // flo
 
-#endif // H_apply
+#endif // H_pass

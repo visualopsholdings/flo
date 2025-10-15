@@ -38,7 +38,7 @@ optional<rfl::Generic> Transform::exec(const rfl::Generic &closure, State *state
     auto first = obj->begin();
     
     string name = get<0>(*first);
-    BOOST_LOG_TRIVIAL(trace) << "first " << name;
+    BOOST_LOG_TRIVIAL(trace) << name;
     
     if (_functions.hasNative(name)) {
     
