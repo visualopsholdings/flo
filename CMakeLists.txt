@@ -46,8 +46,8 @@ add_library(FloLib SHARED
   )
   target_link_libraries(FloLib reflectcpp ${BOOSTLIBS})
 
-add_executable(Flo src/flo.cpp)
-  target_link_libraries(Flo FloLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+add_executable(flo src/flo.cpp)
+  target_link_libraries(flo FloLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_executable(SimpleTest test/simpletest.cpp)
   target_link_libraries(SimpleTest FloLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})

@@ -43,7 +43,7 @@ And hello-t.json was:
 
 And you ran:
 ```
-./Flo hello-t.json hello.json 
+./flo hello-t.json hello.json 
 ```
 
 It would output:
