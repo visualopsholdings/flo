@@ -144,6 +144,10 @@ make
 make test
 ```
 
+## License
+
+Flo is licensed under [version 3 of the GNU General Public License] contained in LICENSE.
+
 ## Change Log
 
 ### 27-May-2024
