@@ -80,6 +80,10 @@ So it would leave the contents alone. That's what the "null": {} at the bottom o
 
 This will loop through the block, and return the first one which returns a value.
 
+### pass
+
+Loop through the block, ignore all returns and return the last ones value.
+
 ### if
 
 This function takes the "p" (predicate), determines if it is true, and if so it returns the "then".
@@ -108,6 +112,23 @@ Set the member of a dictionary with the "name" to a value.
 ### null
 
 Just pass the content through.
+
+### apply
+
+This will loop through the blocks, applying each transform in sequence.
+
+### cur
+
+When applying, this returns the current element.
+
+### dict
+
+Takes the contents of the function and return a dictionary. You can also use apply to
+convert a list of string pair lists into a dictionary for dynamic code.
+
+### true
+
+A value representing true.
 
 ## Building and testing
 
