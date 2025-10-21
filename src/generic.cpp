@@ -1,12 +1,12 @@
 /*
   generic.cpp
   
-  Author: Paul Hamilton (phamtec@mac.com)
+  Author: Paul Hamilton (paul@visualops.com)
   Date: 12-Oct-2025
     
   Licensed under [version 3 of the GNU General Public License] contained in LICENSE.
  
-  https://github.com/phamtec/dsurf
+  https://github.com/visualopsholdings/flo
 */
 
 #include "generic.hpp"

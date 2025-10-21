@@ -3,8 +3,10 @@
 #   Author: Paul Hamilton (paul@visualops.com)
 #   Date: 27-May-2024
 #
-#   Input file flo.
+#   Input file for building flo.
 #
+#   Licensed under [version 3 of the GNU General Public License] contained in LICENSE.
+#   
 #   https://github.com/visualopsholdings/flo
 
 cmake_minimum_required(VERSION 3.5)

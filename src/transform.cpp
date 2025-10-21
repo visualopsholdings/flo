@@ -4,6 +4,8 @@
   Author: Paul Hamilton (paul@visualops.com)
   Date: 28-May-2024
   
+  Licensed under [version 3 of the GNU General Public License] contained in LICENSE.
+ 
   https://github.com/visualopsholdings/flo
 */
 
@@ -88,6 +90,8 @@ optional<rfl::Generic> Transform::exec(const rfl::Generic &closure, State *state
 rfl::Generic Transform::error(const string &msg) const {
 
   BOOST_LOG_TRIVIAL(error) << msg;
-  return *rfl::json::read<rfl::Generic>("{\"error\":\"" + msg + "\"}");
+  rfl::Object<rfl::Generic> e;
+  e["error"] = msg;
+  return e;
   
 }
