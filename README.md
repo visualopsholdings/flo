@@ -178,3 +178,7 @@ Implement null, if, true, dict, string, getmember and equal.
 
 - Add in cur and pass.
 
+### 21-Oct-2025
+
+- Add license and make public.
+
