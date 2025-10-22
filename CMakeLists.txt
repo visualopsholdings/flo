@@ -24,6 +24,8 @@ set(BOOSTLIBS ${Boost_PROGRAM_OPTIONS_LIBRARY} ${Boost_LOG_SETUP_LIBRARY}
   ${Boost_LOG_LIBRARY} ${Boost_URL_LIBRARY})
 
 include_directories(include)
+include_directories(/usr/local/include)
+link_directories(/usr/local/lib)
 
 add_library(FloLib SHARED     
     src/processor.cpp 
