@@ -12,10 +12,6 @@
 cmake_minimum_required(VERSION 3.5)
 cmake_policy(SET CMP0167 NEW) # Boost
 
-if (APPLE)
-  set(CMAKE_MODULE_PATH "/opt/homebrew/Cellar/boost@1.85/1.85.0_3/lib/cmake" ${CMAKE_MODULE_PATH})
-endif ()
-
 project (flo)
   find_package(Boost 1.85.0 COMPONENTS program_options unit_test_framework log_setup log url REQUIRED)
   add_definitions(-DBOOST_ALL_DYN_LINK) 
