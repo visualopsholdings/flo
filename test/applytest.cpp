@@ -28,10 +28,11 @@ using namespace flo;
 
 optional<rfl::Object<rfl::Generic> > loadJSON(const string &fn) {
 
-  std::filesystem::path path = "../test";
+  std::filesystem::path path = "../flo-src/test";
   if (!std::filesystem::exists(path)) {
-    path = "../flo-src/test";
+    path = "../test";
   }
+
   auto g = rfl::json::load<rfl::Generic>(path.string() + "/" + fn);
   if (!g) {
     cout << g.error().what() << endl;

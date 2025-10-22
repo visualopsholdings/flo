@@ -25,9 +25,9 @@ using namespace flo;
 
 void runTransform(const string &input, const string &message) {
 
-  std::filesystem::path path = "../test";
+  std::filesystem::path path = "../flo-src/test";
   if (!std::filesystem::exists(path)) {
-    path = "../flo-src/test";
+    path = "../test";
   }
 
   ifstream file(path.string() + "/" + input);
