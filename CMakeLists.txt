@@ -13,7 +13,7 @@ cmake_minimum_required(VERSION 3.5)
 cmake_policy(SET CMP0167 NEW) # Boost
 
 project (flo)
-  find_package(Boost 1.85 COMPONENTS program_options unit_test_framework log_setup log url REQUIRED)
+  find_package(Boost 1.85.0 COMPONENTS program_options unit_test_framework log_setup log url REQUIRED)
   add_definitions(-DBOOST_ALL_DYN_LINK) 
   enable_testing()
 
