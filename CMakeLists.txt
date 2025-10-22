@@ -28,7 +28,7 @@ include_directories(include)
 include_directories(/usr/local/include)
 link_directories(/usr/local/lib)
 
-add_library(FloLib SHARED     
+add_library(FloLib STATIC     
     src/processor.cpp 
     src/functions.cpp
     src/transform.cpp 
