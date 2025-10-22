@@ -1,11 +1,13 @@
 {
-  "if": {
-    "p": {
-      "true": {}
-    },
-    "then": {
-      "dict": {
-        "message": "world"
+  "transform": {
+    "if": {
+      "p": {
+        "true": {}
+      },
+      "then": {
+        "dict": {
+          "message": "world"
+        }
       }
     }
   }

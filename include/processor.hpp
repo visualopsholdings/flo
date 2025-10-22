@@ -28,8 +28,8 @@ public:
   Processor(const rfl::Generic &json, Functions &functions);
   Processor(Functions &functions);
   
-  optional<rfl::Generic> transform(istream &transform);
-  optional<rfl::Generic> transform(const rfl::Generic &jt);
+  optional<rfl::Generic> transform(istream &input);
+  optional<rfl::Generic> transform(const rfl::Generic &input);
  
   static void pretty_print( ostream& os, rfl::Generic const& jv);
  

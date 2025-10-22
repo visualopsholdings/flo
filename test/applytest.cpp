@@ -52,13 +52,11 @@ BOOST_AUTO_TEST_CASE( simple )
   
   auto library = Generic::getVector(file, "library");
   BOOST_CHECK(library);
-  auto transform = Generic::getObject(file, "dictionary");
-  BOOST_CHECK(transform);
   
   Functions f(*library);
   Processor p(f);
 
-  auto result = p.transform(*transform);
+  auto result = p.transform(*file);
   BOOST_CHECK(result);
 //  cout << Generic::toString(*result);
   auto obj = Generic::getObject(*result);

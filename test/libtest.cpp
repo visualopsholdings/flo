@@ -52,13 +52,11 @@ BOOST_AUTO_TEST_CASE( simple )
   
   auto library = Generic::getVector(file, "library");
   BOOST_CHECK(library);
-  auto transform = Generic::getObject(file, "public");
-  BOOST_CHECK(transform);
   
   Functions f(*library);
   Processor p(f);
 
-  auto result = p.transform(*transform);
+  auto result = p.transform(*file);
   BOOST_CHECK(result);
   auto s = Generic::getString(*result);
   BOOST_CHECK(s);

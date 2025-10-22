@@ -41,26 +41,32 @@ Processor::Processor(const rfl::Generic &json, Functions &functions):
 Processor::Processor(Functions &functions): _functions(functions) {
 }
 
-optional<rfl::Generic> Processor::transform(const rfl::Generic &transform) {
+optional<rfl::Generic> Processor::transform(const rfl::Generic &input) {
 
-  auto tr = Generic::getObject(transform);
+  auto transform = Generic::getObject(Generic::getObject(input), "transform");
+  if (!transform) {
+	  BOOST_LOG_TRIVIAL(error) << "no transform input" << Generic::toString(input);
+	  return nullopt;
+  }
+    
+  auto tr = Generic::getObject(*transform);
   if (!tr) {
     // if a number, just return that.
-    auto num = Generic::getNum(transform);
+    auto num = Generic::getNum(*transform);
     if (num) {
       return *num;
     }
     // if a string, just return that.
-    auto s = Generic::getString(transform);
+    auto s = Generic::getString(*transform);
     if (s) {
       return *s;
     }
     // if a bool, just return that.
-    auto b = Generic::getBool(transform);
+    auto b = Generic::getBool(*transform);
     if (b) {
       return *b;
     }
-	  BOOST_LOG_TRIVIAL(error) << "transform not object, string, bool or num: " << Generic::toString(transform);
+	  BOOST_LOG_TRIVIAL(error) << "transform not object, string, bool or num: " << Generic::toString(*transform);
 	  return nullopt;
   }
   if (tr->size() == 0) {
@@ -74,7 +80,7 @@ optional<rfl::Generic> Processor::transform(const rfl::Generic &transform) {
   if (obj) {
     s.setElem(*obj);
   }
-  return t.exec(transform, &s);
+  return t.exec(*tr, &s);
 
 }
 

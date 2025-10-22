@@ -7,7 +7,7 @@
       }
     }
   ],
-  "public": {
+  "transform": {
     "pubKey": {}
   }
 }

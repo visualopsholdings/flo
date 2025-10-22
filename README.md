@@ -17,27 +17,29 @@ If hello.json was:
 And hello-t.json was:
 ```
 {
-  "select": [
-    {
-      "if": {
-        "p": {
-          "equal": [
-            { "getmember": { "name": "message" } },
-            { "string": "hello" }
-          ]
-        },
-        "then": {
-          "setmember": {
-            "name": "message",
-            "value": { "string": "world" }
+  "transform": {
+    "select": [
+      {
+        "if": {
+          "p": {
+            "equal": [
+              { "getmember": { "name": "message" } },
+              { "string": "hello" }
+            ]
+          },
+          "then": {
+            "setmember": {
+              "name": "message",
+              "value": { "string": "world" }
+            }
           }
         }
+      },
+      {
+        "null": {}
       }
-    },
-    {
-      "null": {}
-    }
-  ]
+    ]
+  }
 }
 ```
 
