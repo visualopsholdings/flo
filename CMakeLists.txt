@@ -13,7 +13,7 @@ cmake_minimum_required(VERSION 3.5)
 cmake_policy(SET CMP0167 NEW) # Boost
 
 if (APPLE)
-  set(CMAKE_PREFIX_PATH "/opt/homebrew/Cellar/boost@1.85/1.85.0_2" ${CMAKE_PREFIX_PATH})
+  set(CMAKE_MODULE_PATH "/opt/homebrew/Cellar/boost@1.85/1.85.0_2/lib/cmake" ${CMAKE_MODULE_PATH})
 endif ()
 
 project (flo)
