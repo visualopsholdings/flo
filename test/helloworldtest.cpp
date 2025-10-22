@@ -25,10 +25,15 @@ using namespace flo;
 
 void runTransform(const string &input, const string &message) {
 
-  ifstream file(input);
+  std::filesystem::path path = "../test";
+  if (!std::filesystem::exists(path)) {
+    path = "../flo-src/test";
+  }
+
+  ifstream file(path.string() + "/" + input);
   BOOST_CHECK(file);
   
-  ifstream transform("../test/hello-t.json");
+  ifstream transform(path.string() + "/hello-t.json");
   BOOST_CHECK(transform);
   
   Functions f;
@@ -47,7 +52,7 @@ BOOST_AUTO_TEST_CASE( helloWorld )
 {
   cout << "=== helloWorld ===" << endl;
   
-  runTransform("../test/hello.json", "world");
+  runTransform("hello.json", "world");
 
 }
 
@@ -55,6 +60,6 @@ BOOST_AUTO_TEST_CASE( otherMsg )
 {
   cout << "=== otherMsg ===" << endl;
   
-  runTransform("../test/message.json", "a message");
+  runTransform("message.json", "a message");
 
 }

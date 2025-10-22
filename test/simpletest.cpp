@@ -28,7 +28,12 @@ using namespace flo;
 
 rfl::Generic loadJSON(const string &fn) {
 
-  auto g = rfl::json::load<rfl::Generic>(fn);
+  std::filesystem::path path = "../test";
+  if (!std::filesystem::exists(path)) {
+    path = "../flo-src/test";
+  }
+
+  auto g = rfl::json::load<rfl::Generic>(path.string() + "/" + fn);
   if (!g) {
     cout << g.error().what() << endl;
     return 0;
@@ -41,13 +46,13 @@ BOOST_AUTO_TEST_CASE( nullTest )
 {
   cout << "=== nullTest ===" << endl;
   
-  auto hello = loadJSON("../test/hello.json");
+  auto hello = loadJSON("hello.json");
 //  cout << rfl::json::write<rfl::Generic>(hello) << endl;
   
   Functions f;
   Processor p(hello, f);
 
-  auto transform = loadJSON("../test/null-t.json");
+  auto transform = loadJSON("null-t.json");
   auto result = p.transform(transform);
   BOOST_CHECK(result);
   auto obj = Generic::getObject(*result);
@@ -65,7 +70,7 @@ BOOST_AUTO_TEST_CASE( noFuncTest )
   Functions f;
   Processor p(f);
 
-  auto transform = loadJSON("../test/bad-t.json");
+  auto transform = loadJSON("bad-t.json");
   
   auto result = p.transform(transform);
   BOOST_CHECK(result);
@@ -81,12 +86,12 @@ BOOST_AUTO_TEST_CASE( ifTrueTest )
 {
   cout << "=== ifTrueTest ===" << endl;
   
-  auto hello = loadJSON("../test/message.json");
+  auto hello = loadJSON("message.json");
   
   Functions f;
   Processor p(hello, f);
 
-  auto transform = loadJSON("../test/true-t.json");
+  auto transform = loadJSON("true-t.json");
   
   auto result = p.transform(transform);
   BOOST_CHECK(result);

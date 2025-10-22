@@ -28,7 +28,12 @@ using namespace flo;
 
 optional<rfl::Object<rfl::Generic> > loadJSON(const string &fn) {
 
-  auto g = rfl::json::load<rfl::Generic>(fn);
+  std::filesystem::path path = "../test";
+  if (!std::filesystem::exists(path)) {
+    path = "../flo-src/test";
+  }
+
+  auto g = rfl::json::load<rfl::Generic>(path.string() + "/" + fn);
   if (!g) {
     cout << g.error().what() << endl;
     return nullopt;
@@ -42,7 +47,7 @@ BOOST_AUTO_TEST_CASE( simple )
 {
   cout << "=== simple ===" << endl;
   
-  auto file = loadJSON("../test/library-t.json");
+  auto file = loadJSON("library-t.json");
   BOOST_CHECK(file);
   
   auto library = Generic::getVector(file, "library");
