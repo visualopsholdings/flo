@@ -30,15 +30,19 @@ void runTransform(const string &input, const string &message) {
     path = "../test";
   }
 
-  ifstream file(path.string() + "/" + input);
+  ifstream fs(path.string() + "/" + input);
+  BOOST_CHECK(fs);
+  auto file = Generic::parseStream(fs, ".json");
   BOOST_CHECK(file);
   
-  ifstream transform(path.string() + "/hello-t.json");
+  ifstream t(path.string() + "/hello-t.json");
+  BOOST_CHECK(t);
+  auto transform = Generic::parseStream(t, ".json");
   BOOST_CHECK(transform);
   
-  Functions f;
-  Processor p(file, f);
-  auto result = p.transform(transform);
+  Functions f(*transform);
+  Processor p(f);
+  auto result = p.transform(*transform, *file);
   BOOST_CHECK(result);
   auto obj = Generic::getObject(*result);
   BOOST_CHECK(obj);

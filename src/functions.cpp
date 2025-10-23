@@ -25,19 +25,23 @@
 #include "functions/pass.hpp"
 #include "generic.hpp"
 
+#include <boost/log/trivial.hpp>
+
+using namespace std;
 using namespace flo;
 
-Functions::Functions() {
+Functions::Functions(const rfl::Generic &transform) {
 
   loadFunctions();
+
+  // if there is a library in the transform, then use that.
+  auto library = Generic::getVector(Generic::getObject(transform), "library");
+  if (!library) {
+	  BOOST_LOG_TRIVIAL(trace) << "library not found in transform" << endl;
+	  return;
+  }
   
-}
-
-Functions::Functions(const std::vector<rfl::Generic> &library) {
-
-  loadFunctions();
-
-  for (auto i: library) {
+  for (auto i: *library) {
     auto obj = Generic::getObject(i);
     auto name = Generic::getString(obj, "name");
     auto transform = Generic::getObject(obj, "result");

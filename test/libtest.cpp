@@ -50,10 +50,7 @@ BOOST_AUTO_TEST_CASE( simple )
   auto file = loadJSON("library-t.json");
   BOOST_CHECK(file);
   
-  auto library = Generic::getVector(file, "library");
-  BOOST_CHECK(library);
-  
-  Functions f(*library);
+  Functions f(*file);
   Processor p(f);
 
   auto result = p.transform(*file);

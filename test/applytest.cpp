@@ -16,7 +16,7 @@
 #include "generic.hpp"
 
 #include <fstream>
-#include <rfl/json.hpp>
+#include <rfl/yaml.hpp>
 #include <filesystem>
 
 #define BOOST_AUTO_TEST_MAIN
@@ -26,14 +26,14 @@ using namespace std;
 namespace fs = std::filesystem;
 using namespace flo;
 
-optional<rfl::Object<rfl::Generic> > loadJSON(const string &fn) {
+optional<rfl::Object<rfl::Generic> > loadYML(const string &fn) {
 
   std::filesystem::path path = "../flo-src/test";
   if (!std::filesystem::exists(path)) {
     path = "../test";
   }
 
-  auto g = rfl::json::load<rfl::Generic>(path.string() + "/" + fn);
+  auto g = rfl::yaml::load<rfl::Generic>(path.string() + "/" + fn);
   if (!g) {
     cout << g.error().what() << endl;
     return nullopt;
@@ -47,16 +47,13 @@ BOOST_AUTO_TEST_CASE( simple )
 {
   cout << "=== simple ===" << endl;
   
-  auto file = loadJSON("apply-t.json");
-  BOOST_CHECK(file);
+  auto transform = loadYML("apply-t.yml");
+  BOOST_CHECK(transform);
   
-  auto library = Generic::getVector(file, "library");
-  BOOST_CHECK(library);
-  
-  Functions f(*library);
+  Functions f(*transform);
   Processor p(f);
 
-  auto result = p.transform(*file);
+  auto result = p.transform(*transform);
   BOOST_CHECK(result);
 //  cout << Generic::toString(*result);
   auto obj = Generic::getObject(*result);
@@ -74,16 +71,17 @@ BOOST_AUTO_TEST_CASE( cur )
 {
   cout << "=== cur ===" << endl;
   
-  auto transform = loadJSON("cur-t.json");
+  auto transform = loadYML("cur-t.yml");
   BOOST_CHECK(transform);
   
-  auto obj = loadJSON("hello.json");
+  auto obj = loadYML("hello.yml");
   BOOST_CHECK(obj);
 
-  Functions f;
-  Processor p(*obj, f);
+  rfl::Generic empty;
+  Functions f(empty);
+  Processor p(f);
 
-  auto result = p.transform(*transform);
+  auto result = p.transform(*transform, *obj);
   BOOST_CHECK(result);
   auto s = Generic::getString(*result);
   BOOST_CHECK(s);

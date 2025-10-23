@@ -49,12 +49,13 @@ BOOST_AUTO_TEST_CASE( nullTest )
   auto hello = loadJSON("hello.json");
 //  cout << rfl::json::write<rfl::Generic>(hello) << endl;
   
-  Functions f;
-  Processor p(hello, f);
-
   auto transform = loadJSON("null-t.json");
-  auto result = p.transform(transform);
+
+  Functions f(transform);
+  Processor p(f);
+  auto result = p.transform(transform, hello);
   BOOST_CHECK(result);
+  
   auto obj = Generic::getObject(*result);
   BOOST_CHECK(obj);
   auto m = Generic::getString(obj, "message");
@@ -67,13 +68,13 @@ BOOST_AUTO_TEST_CASE( noFuncTest )
 {
   cout << "=== noFuncTest ===" << endl;
   
-  Functions f;
-  Processor p(f);
-
   auto transform = loadJSON("bad-t.json");
   
+  Functions f(transform);
+  Processor p(f);
   auto result = p.transform(transform);
   BOOST_CHECK(result);
+  
   auto obj = Generic::getObject(*result);
   BOOST_CHECK(obj);
   auto m = Generic::getString(obj, "error");
@@ -88,13 +89,13 @@ BOOST_AUTO_TEST_CASE( ifTrueTest )
   
   auto hello = loadJSON("message.json");
   
-  Functions f;
-  Processor p(hello, f);
-
   auto transform = loadJSON("true-t.json");
   
-  auto result = p.transform(transform);
+  Functions f(transform);
+  Processor p(f);
+  auto result = p.transform(transform, hello);
   BOOST_CHECK(result);
+  
   auto obj = Generic::getObject(*result);
   BOOST_CHECK(obj);
   auto m = Generic::getString(obj, "message");

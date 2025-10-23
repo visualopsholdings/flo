@@ -4,7 +4,7 @@ Welcome to f(lo). A functional language expressed in JSON.
 
 ## Usage
 
-Flo is a simple tool that will take a JSON file and transform it using another JSON file which
+Flo is a simple tool that will take a JSON (or YAML) file and transform it using another JSON (or YAML) file which
 contains the "program" for the JSON.
 
 If hello.json was:
@@ -17,15 +17,23 @@ If hello.json was:
 And hello-t.json was:
 ```
 {
+  "library": [
+    {
+      "name": "messageIsHello",
+      "result": {
+        "equal": [
+          { "getmember": { "name": "message" } },
+          { "string": "hello" }
+        ]
+      }
+    }
+  ],
   "transform": {
     "select": [
       {
         "if": {
           "p": {
-            "equal": [
-              { "getmember": { "name": "message" } },
-              { "string": "hello" }
-            ]
+            "messageIsHello": {}
           },
           "then": {
             "setmember": {
@@ -45,7 +53,7 @@ And hello-t.json was:
 
 And you ran:
 ```
-./flo hello-t.json hello.json 
+cat hello.json | ./flo hello-t.json
 ```
 
 It would output:
@@ -64,7 +72,7 @@ If you had another file called message.json like this:
 
 Then when you ran:
 ```
-./Flo hello-t.json message.json 
+cat message.json | ./flo hello-t.json
 ```
 
 It would output:
@@ -132,6 +140,76 @@ convert a list of string pair lists into a dictionary for dynamic code.
 
 A value representing true.
 
+## Scenarios
+
+You can run a transform on it's own without any imput file by specifying a scenario in the file
+that you want to run. This is how you do testing.
+
+So the our original file could have something like this at the bottom of it.
+
+```
+{
+  "library": [
+    ...
+  ],
+  "transform": {
+    ...
+  },
+  "scenarios": [
+    {
+      "name": "Simple",
+      "input": {
+        "message": "hello"
+      }
+    }
+  ]  
+}
+```
+
+Now if we run that with this:
+
+```
+./flo hello-t.json --transform=Simple
+```
+
+Then it would run standalone :-) This is how you do TDD on flo.
+
+## YAML
+
+Your inputs can also be yaml, not JSON.
+
+```
+cat hello.yml | ./flo apply-t.yml
+```
+
+hello.yml:
+```
+---
+message: hello
+```
+
+apply-t.yml
+```
+library:
+- name: pubKey
+  result:
+    string: a key
+- name: x
+  result:
+    string: x
+transform:
+  apply:
+  - - - type
+      - online
+    - - build
+      - '32999'
+    - - headerTitle
+      - DSurfer
+    - - pubKey
+      - pubKey: {}
+  - dict: {}
+```
+
 ## Building and testing
 
 Build this project:
@@ -184,3 +262,8 @@ Implement null, if, true, dict, string, getmember and equal.
 
 - Add license and make public.
 
+### 23-Oct-2025
+
+- Formalise support for scenarios and cleanup.
+- Add in YAML support.
+- flo processes std in.

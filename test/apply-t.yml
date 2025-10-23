@@ -1,0 +1,18 @@
+library:
+- name: pubKey
+  result:
+    string: a key
+- name: x
+  result:
+    string: x
+transform:
+  apply:
+  - - - type
+      - online
+    - - build
+      - '32999'
+    - - headerTitle
+      - DSurfer
+    - - pubKey
+      - pubKey: {}
+  - dict: {}

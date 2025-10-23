@@ -1,13 +1,21 @@
 {
+  "library": [
+    {
+      "name": "messageIsHello",
+      "result": {
+        "equal": [
+          { "getmember": { "name": "message" } },
+          { "string": "hello" }
+        ]
+      }
+    }
+  ],
   "transform": {
     "select": [
       {
         "if": {
           "p": {
-            "equal": [
-              { "getmember": { "name": "message" } },
-              { "string": "hello" }
-            ]
+            "messageIsHello": {}
           },
           "then": {
             "setmember": {
@@ -21,5 +29,13 @@
         "null": {}
       }
     ]
-  }
+  },
+  "scenarios": [
+    {
+      "name": "Simple",
+      "input": {
+        "message": "hello"
+      }
+    }
+  ]
 }

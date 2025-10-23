@@ -18,34 +18,14 @@
 
 #include <boost/log/trivial.hpp>
 #include <iostream>
-#include <rfl/json.hpp>
 
 using namespace flo;
 
-Processor::Processor(istream &infile, Functions &functions):
-  _functions(functions) {
-  
-  auto g = rfl::json::read<rfl::Generic>(infile);
-  if (!g) {
-	  BOOST_LOG_TRIVIAL(error) << g.error().what();
-  }
-  _json = *g;
-  
-}
+optional<rfl::Generic> Processor::transform(const rfl::Generic &code, std::optional<rfl::Generic> input) {
 
-Processor::Processor(const rfl::Generic &json, Functions &functions):
-  _json(json), _functions(functions) {
-  
-}
-
-Processor::Processor(Functions &functions): _functions(functions) {
-}
-
-optional<rfl::Generic> Processor::transform(const rfl::Generic &input) {
-
-  auto transform = Generic::getObject(Generic::getObject(input), "transform");
+  auto transform = Generic::getObject(Generic::getObject(code), "transform");
   if (!transform) {
-	  BOOST_LOG_TRIVIAL(error) << "no transform input" << Generic::toString(input);
+	  BOOST_LOG_TRIVIAL(error) << "no transform input " << Generic::toString(code);
 	  return nullopt;
   }
     
@@ -76,29 +56,53 @@ optional<rfl::Generic> Processor::transform(const rfl::Generic &input) {
   
   Transform t(_functions);
   State s;
-  auto obj = Generic::getObject(_json);
-  if (obj) {
-    s.setElem(*obj);
+  if (input) {
+    auto obj = Generic::getObject(*input);
+    if (obj) {
+      s.setElem(*obj);
+    }
   }
   return t.exec(*tr, &s);
 
 }
 
-optional<rfl::Generic> Processor::transform(istream &s) {
+optional<rfl::Generic> Processor::transform(const rfl::Generic &code, const std::string &scenario) {
 
-  auto g = rfl::json::read<rfl::Generic>(s);
-  if (!g) {
-	  BOOST_LOG_TRIVIAL(error) << g.error().what();
+  auto tr = Generic::getObject(code);
+  if (!tr) {
+    BOOST_LOG_TRIVIAL(error) << "transform is not an object";
+    return 1;
   }
 
-//	BOOST_LOG_TRIVIAL(trace) << "transforming with " << tj;
-  return transform(*g);
-
+  auto scenarios = Generic::getVector(*tr, "scenarios");
+  if (!scenarios) {
+    BOOST_LOG_TRIVIAL(error) << "no scenarios";
+    return nullopt;
+  }
+  auto sc = find_if(scenarios->begin(), scenarios->end(), [scenario](auto e) {
+    auto obj = Generic::getObject(e);
+    auto name = Generic::getString(obj, "name");
+    if (name) {
+      return *name == scenario;
+    }
+    return false;
+  });
+  if (sc == scenarios->end()) {
+    BOOST_LOG_TRIVIAL(error) << "scenario " << scenario << "not found";
+    return nullopt;
+  }
+  auto obj = Generic::getObject(*sc);
+  if (!obj) {
+    BOOST_LOG_TRIVIAL(error) << "scenario is not object";
+    return nullopt;
+  }
+  auto input = Generic::getObject(*obj, "input");
+  if (!input) {
+    BOOST_LOG_TRIVIAL(error) << "scenario has no input";
+    return nullopt;
+  }
+  
+  return transform(code, *input);
+  
 }
 
-void Processor::pretty_print( ostream& os, rfl::Generic const& jv) {
-
-  auto s = rfl::json::write(jv, rfl::json::pretty);
-  os << s;
-
-}

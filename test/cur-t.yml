@@ -1,0 +1,6 @@
+---
+transform:
+  apply:
+  - cur: {}
+  - getmember:
+      name: message

@@ -14,6 +14,7 @@ cmake_policy(SET CMP0167 NEW) # Boost
 
 project (flo)
   find_package(Boost 1.85.0 COMPONENTS program_options unit_test_framework log_setup log url REQUIRED)
+  find_package(yaml-cpp REQUIRED)
   add_definitions(-DBOOST_ALL_DYN_LINK) 
   enable_testing()
 
@@ -50,24 +51,24 @@ add_library(FloLib STATIC
   target_link_libraries(FloLib reflectcpp ${BOOSTLIBS})
 
 add_executable(flo src/flo.cpp)
-  target_link_libraries(flo FloLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+  target_link_libraries(flo FloLib yaml-cpp::yaml-cpp ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_executable(SimpleTest test/simpletest.cpp)
-  target_link_libraries(SimpleTest FloLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+  target_link_libraries(SimpleTest FloLib yaml-cpp::yaml-cpp ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_test(SimpleTest SimpleTest)
 
 add_executable(HelloWorldTest test/helloworldtest.cpp)
-  target_link_libraries(HelloWorldTest FloLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+  target_link_libraries(HelloWorldTest FloLib yaml-cpp::yaml-cpp ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_test(HelloWorldTest HelloWorldTest)
 
 add_executable(LibTest test/libtest.cpp)
-  target_link_libraries(LibTest FloLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+  target_link_libraries(LibTest FloLib yaml-cpp::yaml-cpp ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_test(LibTest LibTest)
 
 add_executable(ApplyTest test/applytest.cpp)
-  target_link_libraries(ApplyTest FloLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+  target_link_libraries(ApplyTest FloLib yaml-cpp::yaml-cpp ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_test(ApplyTest ApplyTest)

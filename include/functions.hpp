@@ -25,8 +25,7 @@ typedef function<shared_ptr<Function> ()> fnHandler;
 class Functions
 {
 public:
-    Functions();
-    Functions(const std::vector<rfl::Generic> &library);
+    Functions(const rfl::Generic &transform);
     
     bool hasNative(const string &name);
     bool hasLibrary(const string &name);
