@@ -11,6 +11,12 @@ sudo apt-get install -y git g++ gcc build-essential git make \
   pkg-config cmake  libssl-dev ruby-bundler xclip xsel libyaml-cpp-dev
 ```
 
+#### Mac
+
+```
+brew install bison yaml-cpp pkg-config
+```
+
 ### CMake
 
 We need CMake 3.30.
@@ -46,14 +52,6 @@ sudo ./b2 install boost.stacktrace.from_exception=off
 ### cpp-reflect
 
 #### from source
-
-##### On the Mac
-
-```
-brew install bison yaml-cpp pkg-config
-```
-
-##### on any platform
 
 ```
 git clone https://github.com/getml/reflect-cpp.git
