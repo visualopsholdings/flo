@@ -95,8 +95,7 @@ BOOST_AUTO_TEST_CASE( cur )
   auto obj = loadYML("hello.yml");
   BOOST_CHECK(obj);
 
-  rfl::Generic empty;
-  Functions f(empty);
+  Functions f(*transform);
   Processor p(f);
 
   auto result = p.transform(*transform, *obj);
@@ -114,14 +113,10 @@ BOOST_AUTO_TEST_CASE( emptyApply )
   auto transform = loadJSON("empty-apply-t.json");
   BOOST_CHECK(transform);
   
-  auto obj = loadJSON("hello.json");
-  BOOST_CHECK(obj);
-
-  rfl::Generic empty;
-  Functions f(empty);
+  Functions f(*transform);
   Processor p(f);
 
-  auto result = p.transform(*transform, *obj);
+  auto result = p.transform(*transform);
   BOOST_CHECK(!result);
   
 }
