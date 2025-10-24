@@ -17,6 +17,7 @@
 
 #include <fstream>
 #include <rfl/yaml.hpp>
+#include <rfl/json.hpp>
 #include <filesystem>
 
 #define BOOST_AUTO_TEST_MAIN
@@ -34,6 +35,23 @@ optional<rfl::Object<rfl::Generic> > loadYML(const string &fn) {
   }
 
   auto g = rfl::yaml::load<rfl::Generic>(path.string() + "/" + fn);
+  if (!g) {
+    cout << g.error().what() << endl;
+    return nullopt;
+  }
+  
+  return Generic::getObject(*g);
+
+}
+
+optional<rfl::Object<rfl::Generic> > loadJSON(const string &fn) {
+
+  std::filesystem::path path = "../flo-src/test";
+  if (!std::filesystem::exists(path)) {
+    path = "../test";
+  }
+
+  auto g = rfl::json::load<rfl::Generic>(path.string() + "/" + fn);
   if (!g) {
     cout << g.error().what() << endl;
     return nullopt;
@@ -86,5 +104,24 @@ BOOST_AUTO_TEST_CASE( cur )
   auto s = Generic::getString(*result);
   BOOST_CHECK(s);
   BOOST_CHECK_EQUAL(*s, "hello");
+  
+}
+
+BOOST_AUTO_TEST_CASE( emptyApply )
+{
+  cout << "=== emptyApply ===" << endl;
+  
+  auto transform = loadJSON("empty-apply-t.json");
+  BOOST_CHECK(transform);
+  
+  auto obj = loadJSON("hello.json");
+  BOOST_CHECK(obj);
+
+  rfl::Generic empty;
+  Functions f(empty);
+  Processor p(f);
+
+  auto result = p.transform(*transform, *obj);
+  BOOST_CHECK(!result);
   
 }

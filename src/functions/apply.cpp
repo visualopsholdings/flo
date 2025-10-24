@@ -60,9 +60,15 @@ optional<rfl::Generic> Apply::apply(Transform &transform, State *state, rfl::Gen
   
   switch (arity) {
     case 2:
-      return state->getColl();
+      if (state->hasColl()) {
+        return state->getColl();
+      }
+      break;
     case 1:
-      return state->getElem();
+      if (state->hasElem()) {
+        return state->getElem();
+      }
+      break;
   }
   
   return nullopt;
