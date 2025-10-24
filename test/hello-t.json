@@ -36,6 +36,12 @@
       "input": {
         "message": "hello"
       }
+    },
+    {
+      "name": "Null",
+      "input": {
+        "message": "a message"
+      }
     }
   ]
 }

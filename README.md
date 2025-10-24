@@ -2,6 +2,92 @@
 
 Welcome to f(lo). A functional language expressed in JSON.
 
+## Prerequsists
+
+#### Linux
+
+```
+sudo apt-get install -y git g++ gcc build-essential git make \
+  pkg-config cmake ninja-build gnome-desktop-testing libasound2-dev libpulse-dev \
+  libaudio-dev libjack-dev libsndio-dev libx11-dev libxext-dev \
+  libxrandr-dev libxcursor-dev libxfixes-dev libxi-dev libxss-dev libxtst-dev \
+  libxkbcommon-dev libdrm-dev libgbm-dev libgl1-mesa-dev libgles2-mesa-dev \
+  libegl1-mesa-dev libdbus-1-dev libibus-1.0-dev libudev-dev libpipewire-0.3-dev \
+  libwayland-dev libdecor-0-dev liburing-dev libfreetype-dev \
+  libssl-dev ruby-bundler xclip xsel libyaml-cpp-dev
+```
+
+### CMake
+
+We need CMake 3.30.
+
+#### Linux
+
+```
+sudo apt remove -y --purge --auto-remove cmake
+```
+
+#### From source
+```
+wget https://cmake.org/files/v3.30/cmake-3.30.5.tar.gz
+tar -xzvf cmake-3.30.5.tar.gz
+cd cmake-3.30.5
+./bootstrap
+make -j$(nproc)
+sudo make install
+```
+
+### Boost
+
+#### from source
+
+```
+wget https://github.com/boostorg/boost/releases/download/boost-1.85.0/boost-1.85.0-b2-nodocs.tar.gz
+tar xzf boost-1.85.0-b2-nodocs.tar.gz 
+cd boost-1.85.0
+./bootstrap.sh --prefix=/usr/local
+sudo ./b2 install boost.stacktrace.from_exception=off
+```
+
+### cpp-reflect
+
+#### from source
+
+##### On the Mac
+
+```
+brew install bison yaml-cpp pkg-config
+```
+
+##### on any platform
+
+```
+git clone https://github.com/getml/reflect-cpp.git
+cd reflect-cpp
+git submodule update --init
+./vcpkg/bootstrap-vcpkg.sh # Linux, macOS
+./vcpkg/bootstrap-vcpkg.bat # Windows
+cmake -S . -B build -DCMAKE_CXX_STANDARD=20 -DCMAKE_BUILD_TYPE=Release -DREFLECTCPP_YAML=ON
+cmake --build build -j 4 # gcc, clang
+cmake --build build --config Release -j 4 # MSVC
+cd build
+sudo make install
+```
+
+## Building and testing
+
+Build this project:
+
+```
+git clone https://github.com/visualops/flo.git
+cd flo
+mkdir build
+cd build
+cmake ..
+make
+make test
+```
+
 ## Usage
 
 Flo is a simple tool that will take a JSON (or YAML) file and transform it using another JSON (or YAML) file which
@@ -208,20 +294,6 @@ transform:
     - - pubKey
       - pubKey: {}
   - dict: {}
-```
-
-## Building and testing
-
-Build this project:
-
-```
-git clone https://github.com/visualops/flo.git
-cd flo
-mkdir build
-cd build
-cmake ..
-make
-make test
 ```
 
 ## License
