@@ -23,6 +23,7 @@
 #include "functions/apply.hpp"
 #include "functions/cur.hpp"
 #include "functions/pass.hpp"
+#include "functions/quote.hpp"
 #include "generic.hpp"
 
 #include <boost/log/trivial.hpp>
@@ -65,6 +66,7 @@ void Functions::loadFunctions() {
   _functions["apply"] = bind(&Apply::create);
   _functions["cur"] = bind(&Cur::create);
   _functions["pass"] = bind(&Pass::create);
+  _functions["quote"] = bind(&Quote::create);
 
 }
 

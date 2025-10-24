@@ -218,6 +218,10 @@ convert a list of string pair lists into a dictionary for dynamic code.
 
 A value representing true.
 
+### quote
+
+Return the code as is without evaluation.
+
 ## Scenarios
 
 You can run a transform on it's own without any imput file by specifying a scenario in the file

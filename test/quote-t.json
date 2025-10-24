@@ -1,0 +1,18 @@
+{
+  "library": [],
+  "transform": {
+    "quote": {
+      "apply": [
+        [
+          [ 
+            "type", 
+            "online" 
+          ]
+        ],
+        {
+          "dict": {}
+        }
+      ]
+    }
+  }
+}

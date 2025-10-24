@@ -47,6 +47,7 @@ add_library(FloLib STATIC
     src/functions/apply.cpp
     src/functions/cur.cpp
     src/functions/pass.cpp
+    src/functions/quote.cpp
   )
   target_link_libraries(FloLib reflectcpp ${BOOSTLIBS})
 

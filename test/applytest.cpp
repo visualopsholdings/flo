@@ -120,3 +120,22 @@ BOOST_AUTO_TEST_CASE( emptyApply )
   BOOST_CHECK(!result);
   
 }
+
+BOOST_AUTO_TEST_CASE( quote )
+{
+  cout << "=== quote ===" << endl;
+  
+  auto transform = loadJSON("quote-t.json");
+  BOOST_CHECK(transform);
+  
+  Functions f(*transform);
+  Processor p(f);
+
+  auto result = p.transform(*transform);
+  BOOST_CHECK(result);
+  auto obj = Generic::getObject(*result);
+  BOOST_CHECK(obj);
+  auto apply = Generic::getVector(obj, "apply");
+  BOOST_CHECK(apply);
+  
+}
