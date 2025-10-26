@@ -17,6 +17,7 @@
 
 using namespace std;
 using namespace flo;
+namespace fs = std::filesystem;
 
 std::optional<std::string> Generic::getString(std::optional<rfl::Object<rfl::Generic> > obj, const std::string &name) {
 
@@ -231,6 +232,32 @@ optional<rfl::Generic> Generic::parseStream(istream &s, const string &format) {
   }
   
   cerr << "could not parse stream to " << format << endl;
+  return nullopt;
+  
+}
+
+optional<rfl::Generic> Generic::parseFile(const string &fn) {
+
+  fs::path p = fn;
+
+  if (p.extension() == ".json") {
+    auto g = rfl::json::load<rfl::Generic>(fn);
+    if (g) {
+      return *g;
+    }
+  }
+  else if (p.extension() == ".yml") {
+    auto g = rfl::yaml::load<rfl::Generic>(fn);
+    if (g) {
+      return *g;
+    }
+  }
+  else {
+    cerr << "invalid format " << p.extension() << endl;
+    return nullopt;
+  }
+  
+  cerr << "could not parse stream to " << p.extension() << endl;
   return nullopt;
   
 }
