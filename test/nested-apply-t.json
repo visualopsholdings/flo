@@ -1,0 +1,43 @@
+{
+  "transform": {
+    "apply": [
+      [
+        [
+          "send",
+          {
+            "apply": [
+              [
+                [
+                 "type",
+                  "xxxx"
+                ]
+              ],
+              {
+                "dict": {}
+              }
+            ]
+          }
+        ],
+        [
+          "next",
+          {
+            "apply": [
+              [
+                [
+                 "type",
+                  "yyyy"
+                ]
+              ],
+              {
+                "dict": {}
+              }
+            ]
+          }
+        ]              
+      ],
+      {
+        "dict": {}
+      }
+    ]
+  }
+}

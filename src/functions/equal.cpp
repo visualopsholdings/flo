@@ -18,7 +18,7 @@
 
 using namespace flo;
 
-optional<rfl::Generic> Equal::exec(Transform &transform, State *state, rfl::Generic &closure) {
+optional<rfl::Generic> Equal::exec(Transform &transform, State *state, const rfl::Generic &closure) {
 
 //  BOOST_LOG_TRIVIAL(trace) << "exec " << Generic::toString(closure);
 

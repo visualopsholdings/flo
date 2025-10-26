@@ -17,7 +17,7 @@
 
 using namespace flo;
 
-optional<rfl::Generic> Dict::exec(Transform &transform, State *state, rfl::Generic &closure) {
+optional<rfl::Generic> Dict::exec(Transform &transform, State *state, const rfl::Generic &closure) {
   
 //  BOOST_LOG_TRIVIAL(trace) << "Dict exec " << Generic::toString(closure);
   
@@ -29,20 +29,19 @@ optional<rfl::Generic> Dict::exec(Transform &transform, State *state, rfl::Gener
         BOOST_LOG_TRIVIAL(trace) << "state is a vector";
         // we convert name value pairs in the vector to dictionary entries.
         auto v = state->getColl();
+//        BOOST_LOG_TRIVIAL(trace) << "turning to dict " << Generic::toString(v);
         rfl::Object<rfl::Generic> obj;
         for (auto i: v) {
           auto v2 = Generic::getVector(i);
-          if (!v2 || v2->size() != 2) {
-            BOOST_LOG_TRIVIAL(error) << "need vector of vectors (pairs)";
-            return nullopt;
+          if (v2 && v2->size() == 2) {
+            auto name = Generic::getString(*v2->begin());
+            if (!name) {
+              BOOST_LOG_TRIVIAL(error) << "first in pair must be name";
+              return nullopt;
+            }
+            BOOST_LOG_TRIVIAL(trace) << *name << "=";
+            obj[*name] = *(v2->begin() + 1);
           }
-          auto name = Generic::getString(*v2->begin());
-          if (!name) {
-            BOOST_LOG_TRIVIAL(error) << "first in pair must be name";
-            return nullopt;
-          }
-          BOOST_LOG_TRIVIAL(trace) << *name << "=";
-          obj[*name] = *(v2->begin() + 1);
         }
         return obj;
       }

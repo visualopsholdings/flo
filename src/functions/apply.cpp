@@ -19,15 +19,21 @@
 using namespace std;
 using namespace flo;
 
-optional<rfl::Generic> Apply::exec(Transform &transform, State *state, rfl::Generic &closure) {
+optional<rfl::Generic> Apply::exec(Transform &transform, State *state, const rfl::Generic &closure) {
+  
+//  BOOST_LOG_TRIVIAL(trace) << "Apply exec " << Generic::toString(closure);
   
   State localState(*state);
   
-  return apply(transform, &localState, closure);
-   
+  auto res = apply(transform, &localState, closure);
+  
+//  BOOST_LOG_TRIVIAL(trace) << "Apply return " << Generic::toString(*res);
+
+  return res;
+  
 }
 
-optional<rfl::Generic> Apply::apply(Transform &transform, State *state, rfl::Generic &closure) {
+optional<rfl::Generic> Apply::apply(Transform &transform, State *state, const rfl::Generic &closure) {
 
   auto v = Generic::getVector(closure);
   if (!v) {
@@ -35,42 +41,47 @@ optional<rfl::Generic> Apply::apply(Transform &transform, State *state, rfl::Gen
     return nullopt;
   }
   
-  int arity = state->hasColl() ? (!state->hasElem() ? 0 : 1) : 2;
+  int arity = !state->hasColl() ? (!state->hasElem() ? 0 : 1) : 2;
+  BOOST_LOG_TRIVIAL(trace) << "apply arity in " << arity;
 
   for (auto b: *v) {
+//    BOOST_LOG_TRIVIAL(trace) << "apply transforming " << Generic::toString(b);
     auto val = transform.exec(b, state);
     if (val) {
-//      BOOST_LOG_TRIVIAL(trace) << Generic::toString(*val);
+//      BOOST_LOG_TRIVIAL(trace) << "apply test val " << Generic::toString(*val);
       auto v2 = Generic::getVector(*val);
       if (v2) {
-        BOOST_LOG_TRIVIAL(trace) << "found vector (2)";
+        BOOST_LOG_TRIVIAL(trace) << "apply found vector (2)";
         state->setColl(*v2);
         state->clearElem();
         arity = 2;
       }
       else {
-        BOOST_LOG_TRIVIAL(trace) << "found elem (1)";
+        BOOST_LOG_TRIVIAL(trace) << "apply found elem (1)";
         state->setElem(*val);
         state->clearColl();
         arity = 1;
       }
     }
+    else {
+      BOOST_LOG_TRIVIAL(trace) << "apply found empty (1)";
+      rfl::Generic empty;
+      state->setElem(empty);
+      state->clearColl();
+      arity = 1;
+    }
   }
-  BOOST_LOG_TRIVIAL(trace) << "arity " << arity;
+  BOOST_LOG_TRIVIAL(trace) << "apply arity out " << arity;
   
   switch (arity) {
     case 2:
-      if (state->hasColl()) {
-        return state->getColl();
-      }
-      break;
+      return state->getColl();
     case 1:
-      if (state->hasElem()) {
-        return state->getElem();
-      }
-      break;
+      return state->getElem();
   }
   
+  BOOST_LOG_TRIVIAL(trace) << "returning null?";
+
   return nullopt;
 
 }

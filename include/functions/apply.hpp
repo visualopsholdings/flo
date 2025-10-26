@@ -21,13 +21,13 @@ class Apply: public Function
 public:
   
   // Function
-  virtual optional<rfl::Generic> exec(Transform &transform, State *state, rfl::Generic &closure);
+  virtual optional<rfl::Generic> exec(Transform &transform, State *state, const rfl::Generic &closure);
 
   static fPtr create();
   
 private:
 
-  optional<rfl::Generic> apply(Transform &transform, State *state, rfl::Generic &closure);
+  optional<rfl::Generic> apply(Transform &transform, State *state, const rfl::Generic &closure);
 
 };
 

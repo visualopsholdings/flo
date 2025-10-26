@@ -50,7 +50,7 @@ optional<rfl::Generic> Processor::transform(const rfl::Generic &code, std::optio
 	  return nullopt;
   }
   if (tr->size() == 0) {
-	  BOOST_LOG_TRIVIAL(error) << "object is empty";
+	  BOOST_LOG_TRIVIAL(trace) << "object is empty";
 	  return nullopt;
   }
   

@@ -18,7 +18,7 @@
 
 using namespace flo;
 
-optional<rfl::Generic> Null::exec(Transform &transform, State *state, rfl::Generic &closure) {
+optional<rfl::Generic> Null::exec(Transform &transform, State *state, const rfl::Generic &closure) {
   
 	if (!state->hasElem()) {
     BOOST_LOG_TRIVIAL(error) << "state has no elem";

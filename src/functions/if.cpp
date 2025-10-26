@@ -18,7 +18,7 @@
 
 using namespace flo;
 
-optional<rfl::Generic> If::exec(Transform &transform, State *state, rfl::Generic &closure) {
+optional<rfl::Generic> If::exec(Transform &transform, State *state, const rfl::Generic &closure) {
   
 //  BOOST_LOG_TRIVIAL(trace) << "if " << Generic::toString(closure);
 

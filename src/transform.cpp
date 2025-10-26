@@ -13,6 +13,7 @@
 
 #include "functions.hpp"
 #include "generic.hpp"
+#include "functions/list.hpp"
 
 #include <boost/log/trivial.hpp>
 #include <rfl/json.hpp>
@@ -29,7 +30,7 @@ optional<rfl::Generic> Transform::exec(const rfl::Generic &closure, State *state
   auto obj = Generic::getObject(closure);
   if (obj) {
   
-    BOOST_LOG_TRIVIAL(trace) << "found obj";
+    BOOST_LOG_TRIVIAL(trace) << "exec found obj";
     
     if (obj->size() == 0) {
       BOOST_LOG_TRIVIAL(trace) << "empty closure is terminal";
@@ -66,19 +67,10 @@ optional<rfl::Generic> Transform::exec(const rfl::Generic &closure, State *state
     
   }
   else {
-    auto v = Generic::getVector(closure);
-    if (v) {
-      BOOST_LOG_TRIVIAL(trace) << "found vector";
-      vector<rfl::Generic> newv;
-      transform(v->begin(), v->end(), back_inserter(newv), [this, state](auto e) {
-        auto val = exec(e, state);
-        if (val) {
-//          BOOST_LOG_TRIVIAL(trace) << "val " << Generic::toString(*val);
-          return *val;
-        }
-        return rfl::Generic();
-      });
-      return newv;
+    if (Generic::isVector(closure)) {
+    
+      // bind to lost and call.
+      return bind(&List::create)()->exec(*this, state, closure);
     }
     return closure;
   }

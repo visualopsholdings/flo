@@ -139,3 +139,25 @@ BOOST_AUTO_TEST_CASE( quote )
   BOOST_CHECK(apply);
   
 }
+
+BOOST_AUTO_TEST_CASE( nested )
+{
+  cout << "=== nested ===" << endl;
+  
+  auto transform = loadJSON("nested-apply-t.json");
+  BOOST_CHECK(transform);
+  
+  Functions f(*transform);
+  Processor p(f);
+
+  auto result = p.transform(*transform);
+  BOOST_CHECK(result);
+  auto obj = Generic::getObject(*result);
+  auto t = Generic::getString(Generic::getObject(obj, "send"), "type");
+  BOOST_CHECK(t);
+  BOOST_CHECK_EQUAL(*t, "xxxx");
+  t = Generic::getString(Generic::getObject(obj, "next"), "type");
+  BOOST_CHECK(t);
+  BOOST_CHECK_EQUAL(*t, "yyyy");
+  
+}

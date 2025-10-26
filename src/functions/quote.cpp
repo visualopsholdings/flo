@@ -18,7 +18,7 @@
 
 using namespace flo;
 
-optional<rfl::Generic> Quote::exec(Transform &transform, State *state, rfl::Generic &closure) {
+optional<rfl::Generic> Quote::exec(Transform &transform, State *state, const rfl::Generic &closure) {
   
   // return the code wthout evaluating.
   return closure;

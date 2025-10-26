@@ -335,3 +335,9 @@ Implement null, if, true, dict, string, getmember and equal.
 - Formalise support for scenarios and cleanup.
 - Add in YAML support.
 - flo processes std in.
+
+### 26-Oct-2025
+
+- Do lists the correct way by adding a "list" function and when we find a raw list we
+wrap it.
+- correct constness for passing the closure around.

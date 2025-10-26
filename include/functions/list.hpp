@@ -1,22 +1,22 @@
 /*
-  string.hpp
+  list.hpp
   
   Author: Paul Hamilton (paul@visualops.com)
-  Date: 30-May-2024
+  Date: 25-Oct-2025
   
   Licensed under [version 3 of the GNU General Public License] contained in LICENSE.
  
   https://github.com/visualopsholdings/flo
 */
 
-#ifndef H_string
-#define H_string
+#ifndef H_list
+#define H_list
 
 #include "../function.hpp"
 
 namespace flo {
 
-class String: public Function
+class List: public Function
 {
 public:
   
@@ -29,4 +29,4 @@ public:
 
 } // flo
 
-#endif // H_string
+#endif // H_list

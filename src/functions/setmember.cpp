@@ -19,7 +19,7 @@
 
 using namespace flo;
 
-optional<rfl::Generic> SetMember::exec(Transform &transform, State *state, rfl::Generic &closure) {
+optional<rfl::Generic> SetMember::exec(Transform &transform, State *state, const rfl::Generic &closure) {
 
 //  BOOST_LOG_TRIVIAL(trace) << "setmember " << Generic::toString(closure);
 

@@ -18,7 +18,7 @@
 
 using namespace flo;
 
-optional<rfl::Generic> Cur::exec(Transform &transform, State *state, rfl::Generic &closure) {
+optional<rfl::Generic> Cur::exec(Transform &transform, State *state, const rfl::Generic &closure) {
   
   if (state->hasElem()) {
     return state->getElem();

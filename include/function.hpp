@@ -29,7 +29,7 @@ class Function
 {
 public:
 
-    virtual optional<rfl::Generic> exec(Transform &transform, State *state, rfl::Generic &closure) = 0;
+    virtual optional<rfl::Generic> exec(Transform &transform, State *state, const rfl::Generic &closure) = 0;
 
 };
 

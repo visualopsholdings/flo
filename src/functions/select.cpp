@@ -19,7 +19,7 @@
 
 using namespace flo;
 
-optional<rfl::Generic> Select::exec(Transform &transform, State *state, rfl::Generic &closure) {
+optional<rfl::Generic> Select::exec(Transform &transform, State *state, const rfl::Generic &closure) {
   
 //  BOOST_LOG_TRIVIAL(trace) << "select " << Generic::toString(closure);
 
