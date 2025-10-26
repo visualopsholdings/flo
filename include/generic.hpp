@@ -17,6 +17,8 @@
 #include <rfl.hpp>
 #include <optional>
 
+namespace flo {
+
 class Generic {
 
 public:
@@ -70,5 +72,7 @@ public:
     // given a stream, and a format the stream is in (.json, .yml) parse it.
 
 };
+
+} // flo
 
 #endif // H_generic

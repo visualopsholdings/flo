@@ -16,6 +16,7 @@
 #include <rfl/yaml.hpp>
 
 using namespace std;
+using namespace flo;
 
 std::optional<std::string> Generic::getString(std::optional<rfl::Object<rfl::Generic> > obj, const std::string &name) {
 
