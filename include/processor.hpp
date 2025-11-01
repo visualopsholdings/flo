@@ -29,6 +29,8 @@ public:
   optional<rfl::Generic> transform(const rfl::Generic &code, std::optional<rfl::Generic> input=nullopt);
   optional<rfl::Generic> transform(const rfl::Generic &code, const std::string &scenario);
 
+  static optional<rfl::Generic> getFirstScenarioInput(const rfl::Generic &code);
+  
 private:
   Functions &_functions;
   

@@ -1,0 +1,36 @@
+{
+  "library": [],
+  "transform": {
+    "apply": [
+      {
+        "cur": {}
+      },
+      {
+        "length": {}
+      }
+    ]
+  },
+  "scenarios": [
+    {
+      "name": "Simple",
+      "input": [
+        {
+          "name": "Skipped",
+          "id": "zzzz"
+        },
+        {
+          "name": "Fred",
+          "id": "aaaa"
+        },
+        {
+          "name": "Joe",
+          "id": "bbbb"
+        },
+        {
+          "name": "Bill",
+          "id": "cccc"
+        }
+      ]
+    }
+  ]
+}

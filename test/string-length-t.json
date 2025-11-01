@@ -1,0 +1,19 @@
+{
+  "library": [],
+  "transform": {
+    "apply": [
+      {
+        "cur": {}
+      },
+      {
+        "length": {}
+      }
+    ]
+  },
+  "scenarios": [
+    {
+      "name": "Simple",
+      "input": "Hello"
+    }
+  ]
+}

@@ -49,6 +49,11 @@ add_library(FloLib STATIC
     src/functions/pass.cpp
     src/functions/quote.cpp
     src/functions/list.cpp
+    src/functions/map.cpp
+    src/functions/filter.cpp
+    src/functions/head.cpp
+    src/functions/tail.cpp
+    src/functions/length.cpp
   )
   target_link_libraries(FloLib reflectcpp ${BOOSTLIBS})
 
@@ -70,7 +75,22 @@ add_executable(LibTest test/libtest.cpp)
 
 add_test(LibTest LibTest)
 
-add_executable(ApplyTest test/applytest.cpp)
+add_executable(ApplyTest test/applytest.cpp test/utils.cpp)
   target_link_libraries(ApplyTest FloLib yaml-cpp::yaml-cpp ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_test(ApplyTest ApplyTest)
+
+add_executable(MapTest test/maptest.cpp test/utils.cpp)
+  target_link_libraries(MapTest FloLib yaml-cpp::yaml-cpp ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+
+add_test(MapTest MapTest)
+
+add_executable(FilterTest test/filtertest.cpp test/utils.cpp)
+  target_link_libraries(FilterTest FloLib yaml-cpp::yaml-cpp ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+
+add_test(FilterTest FilterTest)
+
+add_executable(LengthTest test/lengthtest.cpp test/utils.cpp)
+  target_link_libraries(LengthTest FloLib yaml-cpp::yaml-cpp ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+
+add_test(LengthTest LengthTest)

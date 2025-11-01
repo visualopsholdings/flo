@@ -57,10 +57,7 @@ optional<rfl::Generic> Processor::transform(const rfl::Generic &code, std::optio
   Transform t(_functions);
   State s;
   if (input) {
-    auto obj = Generic::getObject(*input);
-    if (obj) {
-      s.setElem(*obj);
-    }
+    s.set(*input);
   }
   return t.exec(*tr, &s);
 
@@ -106,3 +103,23 @@ optional<rfl::Generic> Processor::transform(const rfl::Generic &code, const std:
   
 }
 
+optional<rfl::Generic> Processor::getFirstScenarioInput(const rfl::Generic &code) {
+
+  auto scenarios = Generic::getVector(Generic::getObject(code), "scenarios");
+  if (!scenarios) {
+    BOOST_LOG_TRIVIAL(error) << "scenarios not found";
+    return nullopt;
+  }
+  if (scenarios->size() == 0) {
+    BOOST_LOG_TRIVIAL(error) << "need at least 1 scenario";
+    return nullopt;
+  }
+  auto first = Generic::getObject((*scenarios)[0]);
+  if (!first) {
+    BOOST_LOG_TRIVIAL(error) << "first scenarion not object";
+    return nullopt;
+  }
+  
+  return Generic::getGeneric(*first, "input");
+
+}

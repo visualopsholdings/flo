@@ -1,0 +1,55 @@
+{
+  "library": [],
+  "transform": {
+    "apply": [
+      {
+        "cur": {}
+      },
+      {
+        "tail": {}
+      },
+      {
+        "filter": {
+          "p": {
+            "equal": [
+              {
+                "getmember": {
+                    "name": "id"
+                }
+              },
+              {
+                "string": "bbbb"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "head": {}
+      }
+    ]
+  },
+  "scenarios": [
+    {
+      "name": "Simple",
+      "input": [
+        {
+          "name": "Skipped",
+          "id": "zzzz"
+        },
+        {
+          "name": "Fred",
+          "id": "aaaa"
+        },
+        {
+          "name": "Joe",
+          "id": "bbbb"
+        },
+        {
+          "name": "Bill",
+          "id": "cccc"
+        }
+      ]
+    }
+  ]
+}

@@ -14,58 +14,19 @@
 #include "processor.hpp"
 #include "functions.hpp"
 #include "generic.hpp"
-
-#include <fstream>
-#include <rfl/yaml.hpp>
-#include <rfl/json.hpp>
-#include <filesystem>
+#include "../test/utils.hpp"
 
 #define BOOST_AUTO_TEST_MAIN
 #include <boost/test/unit_test.hpp>
 
 using namespace std;
-namespace fs = std::filesystem;
 using namespace flo;
-
-optional<rfl::Object<rfl::Generic> > loadYML(const string &fn) {
-
-  std::filesystem::path path = "../flo-src/test";
-  if (!std::filesystem::exists(path)) {
-    path = "../test";
-  }
-
-  auto g = rfl::yaml::load<rfl::Generic>(path.string() + "/" + fn);
-  if (!g) {
-    cout << g.error().what() << endl;
-    return nullopt;
-  }
-  
-  return Generic::getObject(*g);
-
-}
-
-optional<rfl::Object<rfl::Generic> > loadJSON(const string &fn) {
-
-  std::filesystem::path path = "../flo-src/test";
-  if (!std::filesystem::exists(path)) {
-    path = "../test";
-  }
-
-  auto g = rfl::json::load<rfl::Generic>(path.string() + "/" + fn);
-  if (!g) {
-    cout << g.error().what() << endl;
-    return nullopt;
-  }
-  
-  return Generic::getObject(*g);
-
-}
 
 BOOST_AUTO_TEST_CASE( simple )
 {
   cout << "=== simple ===" << endl;
   
-  auto transform = loadYML("apply-t.yml");
+  auto transform = Utils::loadYML("apply-t.yml");
   BOOST_CHECK(transform);
   
   Functions f(*transform);
@@ -89,10 +50,10 @@ BOOST_AUTO_TEST_CASE( cur )
 {
   cout << "=== cur ===" << endl;
   
-  auto transform = loadYML("cur-t.yml");
+  auto transform = Utils::loadYML("cur-t.yml");
   BOOST_CHECK(transform);
   
-  auto obj = loadYML("hello.yml");
+  auto obj = Utils::loadYML("hello.yml");
   BOOST_CHECK(obj);
 
   Functions f(*transform);
@@ -110,7 +71,7 @@ BOOST_AUTO_TEST_CASE( emptyApply )
 {
   cout << "=== emptyApply ===" << endl;
   
-  auto transform = loadJSON("empty-apply-t.json");
+  auto transform = Utils::loadJSON("empty-apply-t.json");
   BOOST_CHECK(transform);
   
   Functions f(*transform);
@@ -125,7 +86,7 @@ BOOST_AUTO_TEST_CASE( quote )
 {
   cout << "=== quote ===" << endl;
   
-  auto transform = loadJSON("quote-t.json");
+  auto transform = Utils::loadJSON("quote-t.json");
   BOOST_CHECK(transform);
   
   Functions f(*transform);
@@ -144,7 +105,7 @@ BOOST_AUTO_TEST_CASE( nested )
 {
   cout << "=== nested ===" << endl;
   
-  auto transform = loadJSON("nested-apply-t.json");
+  auto transform = Utils::loadJSON("nested-apply-t.json");
   BOOST_CHECK(transform);
   
   Functions f(*transform);
@@ -166,14 +127,10 @@ BOOST_AUTO_TEST_CASE( stringResult )
 {
   cout << "=== stringResult ===" << endl;
   
-  auto transform = loadJSON("string-t.json");
+  auto transform = Utils::loadJSON("string-t.json");
   BOOST_CHECK(transform);
   
-  auto scenarios = Generic::getVector(*transform, "scenarios");
-  BOOST_CHECK(scenarios);
-  auto simple = Generic::getObject((*scenarios)[0]);
-  BOOST_CHECK(simple);
-  auto input = Generic::getObject(*simple, "input");
+  auto input = Processor::getFirstScenarioInput(*transform);
   BOOST_CHECK(input);
   
   Functions f(*transform);

@@ -24,6 +24,9 @@ public:
   State();
   State(const State &state);
   
+  void set(const rfl::Generic &g);
+    // set the element or collection based on the type of data.
+    
   void setElem(const rfl::Generic &elem);
   void clearElem();
   bool hasElem() const;

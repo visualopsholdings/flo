@@ -25,9 +25,20 @@ State::State(const State &state) {
   _coll = state._coll;
 }
 
+void State::set(const rfl::Generic &g) {
+  auto v = Generic::getVector(g);
+  if (v) {
+    setColl(*v);
+  }
+  else {
+    setElem(g);
+  }
+}
+
 void State::setElem(const rfl::Generic &elem) {
 
-  BOOST_LOG_TRIVIAL(trace) << "setElem " << Generic::toString(elem);
+//  BOOST_LOG_TRIVIAL(trace) << "setElem " << Generic::toString(elem);
+  BOOST_LOG_TRIVIAL(trace) << "setElem";
   _elem = elem;
   
 }
@@ -49,7 +60,8 @@ const rfl::Generic State::getElem() const {
 
 void State::setColl(const std::vector<rfl::Generic> &coll) {
 
-  BOOST_LOG_TRIVIAL(trace) << "setColl " << Generic::toString(coll);
+//  BOOST_LOG_TRIVIAL(trace) << "setColl " << Generic::toString(coll);
+  BOOST_LOG_TRIVIAL(trace) << "setColl";
   _coll = coll;
   
 }

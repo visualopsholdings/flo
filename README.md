@@ -214,6 +214,10 @@ When applying, this returns the current element.
 Takes the contents of the function and return a dictionary. You can also use apply to
 convert a list of string pair lists into a dictionary for dynamic code.
 
+### list
+
+The contents are a list. This is exactly the same as a literal list.
+
 ### true
 
 A value representing true.
@@ -221,6 +225,26 @@ A value representing true.
 ### quote
 
 Return the code as is without evaluation.
+
+### map
+
+Map a list onto a list that looks different.
+
+### filter
+
+Filter a list to remove items.
+
+### head
+
+Return the first element of a list (car).
+
+### tail
+
+Return the rest of the list after the first element (cdr).
+
+### length
+
+Return the length of a list, a string or number of elements in a dictionary.
 
 ## Scenarios
 
@@ -341,3 +365,7 @@ Implement null, if, true, dict, string, getmember and equal.
 - Do lists the correct way by adding a "list" function and when we find a raw list we
 wrap it.
 - correct constness for passing the closure around.
+
+### 1-Nov-2025
+
+- map, filter, head, tail, count

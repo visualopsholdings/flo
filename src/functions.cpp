@@ -25,6 +25,11 @@
 #include "functions/pass.hpp"
 #include "functions/quote.hpp"
 #include "functions/list.hpp"
+#include "functions/map.hpp"
+#include "functions/filter.hpp"
+#include "functions/head.hpp"
+#include "functions/tail.hpp"
+#include "functions/length.hpp"
 #include "generic.hpp"
 
 #include <boost/log/trivial.hpp>
@@ -69,6 +74,11 @@ void Functions::loadFunctions() {
   _functions["pass"] = bind(&Pass::create);
   _functions["quote"] = bind(&Quote::create);
   _functions["list"] = bind(&List::create);
+  _functions["map"] = bind(&Map::create);
+  _functions["filter"] = bind(&Filter::create);
+  _functions["head"] = bind(&Head::create);
+  _functions["tail"] = bind(&Tail::create);
+  _functions["length"] = bind(&Length::create);
 
 }
 

@@ -1,22 +1,22 @@
 /*
-  apply.hpp
+  tail.hpp
   
   Author: Paul Hamilton (paul@visualops.com)
-  Date: 14-Oct-2024
+  Date: 1-Nov-2025
   
   Licensed under [version 3 of the GNU General Public License] contained in LICENSE.
  
   https://github.com/visualopsholdings/flo
 */
 
-#ifndef H_apply
-#define H_apply
+#ifndef H_tail
+#define H_tail
 
 #include "../function.hpp"
 
 namespace flo {
 
-class Apply: public Function
+class Tail: public Function
 {
 public:
   
@@ -25,12 +25,8 @@ public:
 
   static fPtr create();
   
-  static optional<rfl::Generic> apply(Transform &transform, State *state, const rfl::Generic &closure);
-
-private:
-
 };
 
 } // flo
 
-#endif // H_apply
+#endif // H_tail

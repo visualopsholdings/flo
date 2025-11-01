@@ -1,0 +1,38 @@
+{
+  "library": [],
+  "transform": {
+    "apply": [
+      {
+        "cur": {}
+      },
+      {
+        "map": [
+            {
+                "getmember": {
+                    "name": "name"
+                }
+            }
+        ]
+      }
+    ]
+  },
+  "scenarios": [
+    {
+      "name": "Simple",
+      "input": [
+        {
+          "name": "Fred",
+          "id": "aaaa"
+        },
+        {
+          "name": "Joe",
+          "id": "bbbb"
+        },
+        {
+          "name": "Bill",
+          "id": "cccc"
+        }
+      ]
+    }
+  ]
+}
