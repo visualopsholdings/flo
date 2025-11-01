@@ -27,16 +27,16 @@ State::State(const State &state) {
 
 void State::setElem(const rfl::Generic &elem) {
 
-//  BOOST_LOG_TRIVIAL(trace) << "setElem " << Generic::toString(elem);
-
+  BOOST_LOG_TRIVIAL(trace) << "setElem " << Generic::toString(elem);
   _elem = elem;
+  
 }
 
 void State::clearElem() {
 
-//  BOOST_LOG_TRIVIAL(trace) << "clearElem";
-  
+  BOOST_LOG_TRIVIAL(trace) << "clearElem";
   _elem = nullopt;
+  
 }
 
 bool State::hasElem() const {
@@ -48,11 +48,17 @@ const rfl::Generic State::getElem() const {
 }
 
 void State::setColl(const std::vector<rfl::Generic> &coll) {
+
+  BOOST_LOG_TRIVIAL(trace) << "setColl " << Generic::toString(coll);
   _coll = coll;
+  
 }
 
 void State::clearColl() {
+
+  BOOST_LOG_TRIVIAL(trace) << "clearColl";
   _coll = nullopt;
+  
 }
 
 bool State::hasColl() const {

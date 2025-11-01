@@ -41,7 +41,7 @@ optional<rfl::Generic> Apply::apply(Transform &transform, State *state, const rf
     return nullopt;
   }
   
-  int arity = !state->hasColl() ? (!state->hasElem() ? 0 : 1) : 2;
+  int arity = state->hasColl() ? 2 : (state->hasElem() ? 1 : 0);
   BOOST_LOG_TRIVIAL(trace) << "apply arity in " << arity;
 
   for (auto b: *v) {

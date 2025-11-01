@@ -161,3 +161,28 @@ BOOST_AUTO_TEST_CASE( nested )
   BOOST_CHECK_EQUAL(*t, "yyyy");
   
 }
+
+BOOST_AUTO_TEST_CASE( stringResult )
+{
+  cout << "=== stringResult ===" << endl;
+  
+  auto transform = loadJSON("string-t.json");
+  BOOST_CHECK(transform);
+  
+  auto scenarios = Generic::getVector(*transform, "scenarios");
+  BOOST_CHECK(scenarios);
+  auto simple = Generic::getObject((*scenarios)[0]);
+  BOOST_CHECK(simple);
+  auto input = Generic::getObject(*simple, "input");
+  BOOST_CHECK(input);
+  
+  Functions f(*transform);
+  Processor p(f);
+
+  auto result = p.transform(*transform, *input);
+  BOOST_CHECK(result);
+  auto s = Generic::getString(*result);
+  BOOST_CHECK(s);
+  BOOST_CHECK_EQUAL(*s, "streams");
+  
+}

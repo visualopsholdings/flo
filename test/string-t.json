@@ -1,0 +1,36 @@
+{
+    "library": [],
+    "transform": {
+        "apply": [
+            {
+                "cur": {}
+            },
+            {
+                "getmember": {
+                    "name": "type"
+                }
+            }
+        ]
+    },
+    "scenarios": [
+        {
+            "name": "Simple",
+            "input": {
+                "type": "streams",
+                "user": "5b5a709cb990eb4d298d805d",
+                "streams": [
+                    {
+                        "name": "Breakfast",
+                        "id": "690465879f880b8ebae41290",
+                        "policy": "690465879f880b8ebae41269"
+                    },
+                    {
+                        "name": "BugBase",
+                        "id": "690465879f880b8ebae4128e",
+                        "policy": "690465879f880b8ebae4126d"
+                    }
+                ]
+            }
+        }
+    ]
+}
