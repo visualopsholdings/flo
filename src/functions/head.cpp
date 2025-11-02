@@ -9,18 +9,18 @@
   https://github.com/visualopsholdings/flo
 */
 
-#include "functions/head.hpp"
+#include "list.hpp"
 #include "generic.hpp"
 #include "state.hpp"
 #include "transform.hpp"
-#include "functions/apply.hpp"
 
 #include <boost/log/trivial.hpp>
 
 using namespace std;
 using namespace flo;
 
-optional<rfl::Generic> Head::exec(Transform &transform, State *state, const rfl::Generic &closure) {
+template<>
+optional<rfl::Generic> Func<Head>::exec(Transform &transform, State *state, const rfl::Generic &closure) {
   
 //  BOOST_LOG_TRIVIAL(trace) << "Head exec " << Generic::toString(closure);
   
@@ -34,11 +34,5 @@ optional<rfl::Generic> Head::exec(Transform &transform, State *state, const rfl:
   }
 
   return *(data.begin());
-  
-}
-
-shared_ptr<Function> Head::create() {
-
-  return shared_ptr<Function>(new Head());
   
 }

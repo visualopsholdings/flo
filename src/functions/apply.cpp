@@ -9,7 +9,7 @@
   https://github.com/visualopsholdings/flo
 */
 
-#include "functions/apply.hpp"
+#include "control.hpp"
 #include "generic.hpp"
 #include "state.hpp"
 #include "transform.hpp"
@@ -19,22 +19,13 @@
 using namespace std;
 using namespace flo;
 
-optional<rfl::Generic> Apply::exec(Transform &transform, State *state, const rfl::Generic &closure) {
+template<>
+optional<rfl::Generic> Func<Apply>::exec(Transform &transform, State *state, const rfl::Generic &closure) {
   
 //  BOOST_LOG_TRIVIAL(trace) << "Apply exec " << Generic::toString(closure);
   
   State localState(*state);
   
-  auto res = apply(transform, &localState, closure);
-  
-//  BOOST_LOG_TRIVIAL(trace) << "Apply return " << Generic::toString(*res);
-
-  return res;
-  
-}
-
-optional<rfl::Generic> Apply::apply(Transform &transform, State *state, const rfl::Generic &closure) {
-
   auto v = Generic::getVector(closure);
   if (!v) {
     BOOST_LOG_TRIVIAL(error) << "closure not vector";
@@ -83,11 +74,5 @@ optional<rfl::Generic> Apply::apply(Transform &transform, State *state, const rf
   BOOST_LOG_TRIVIAL(trace) << "returning null?";
 
   return nullopt;
-
-}
-
-shared_ptr<Function> Apply::create() {
-
-  return shared_ptr<Function>(new Apply());
-  
+    
 }

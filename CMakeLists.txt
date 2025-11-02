@@ -35,7 +35,6 @@ add_library(FloLib STATIC
     src/transform.cpp 
     src/state.cpp
     src/generic.cpp
-    src/functions/null.cpp
     src/functions/if.cpp
     src/functions/true.cpp
     src/functions/dict.cpp

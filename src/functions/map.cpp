@@ -9,18 +9,19 @@
   https://github.com/visualopsholdings/flo
 */
 
-#include "functions/map.hpp"
+#include "list.hpp"
+#include "control.hpp"
 #include "generic.hpp"
 #include "state.hpp"
 #include "transform.hpp"
-#include "functions/apply.hpp"
 
 #include <boost/log/trivial.hpp>
 
 using namespace std;
 using namespace flo;
 
-optional<rfl::Generic> Map::exec(Transform &transform, State *state, const rfl::Generic &closure) {
+template<>
+optional<rfl::Generic> Func<Map>::exec(Transform &transform, State *state, const rfl::Generic &closure) {
   
 //  BOOST_LOG_TRIVIAL(trace) << "Map exec " << Generic::toString(closure);
   
@@ -33,12 +34,13 @@ optional<rfl::Generic> Map::exec(Transform &transform, State *state, const rfl::
     BOOST_LOG_TRIVIAL(error) << "Map expects a data as a list";
     return nullopt;
   }
+  auto apply = bind(&Apply::create)();
   auto data = state->getColl();
   vector<rfl::Generic> mapped;
-  std::transform(data.begin(), data.end(), back_inserter(mapped), [&transform, state, body](auto e) {
+  std::transform(data.begin(), data.end(), back_inserter(mapped), [&transform, state, body, apply](auto e) {
     State localState;
     localState.set(e);
-    auto a = Apply::apply(transform, &localState, *body);
+    auto a = apply->exec(transform, &localState, *body);
     if (a) {
       return *a;
     }
@@ -46,11 +48,5 @@ optional<rfl::Generic> Map::exec(Transform &transform, State *state, const rfl::
     return empty;
   });
   return mapped;
-  
-}
-
-shared_ptr<Function> Map::create() {
-
-  return shared_ptr<Function>(new Map());
   
 }

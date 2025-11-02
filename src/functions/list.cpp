@@ -9,8 +9,7 @@
   https://github.com/visualopsholdings/flo
 */
 
-#include "functions/list.hpp"
-
+#include "list.hpp"
 #include "transform.hpp"
 #include "state.hpp"
 #include "generic.hpp"
@@ -20,7 +19,8 @@
 using namespace std;
 using namespace flo;
 
-optional<rfl::Generic> List::exec(Transform &transform, State *state, const rfl::Generic &closure) {
+template<>
+optional<rfl::Generic> Func<List>::exec(Transform &transform, State *state, const rfl::Generic &closure) {
   
   auto v = Generic::getVector(closure);
   if (!v) {
@@ -41,10 +41,4 @@ optional<rfl::Generic> List::exec(Transform &transform, State *state, const rfl:
 //  BOOST_LOG_TRIVIAL(trace) << "list vector " << Generic::toString(newv);
   return newv;
      
-}
-
-shared_ptr<Function> List::create() {
-
-  return shared_ptr<Function>(new List());
-  
 }

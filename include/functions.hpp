@@ -20,7 +20,7 @@ using namespace std;
 
 namespace flo {
 
-typedef function<shared_ptr<Function> ()> fnHandler;
+typedef function<fPtr ()> fnHandler;
 
 class Functions
 {

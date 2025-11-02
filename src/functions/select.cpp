@@ -9,7 +9,8 @@
   https://github.com/visualopsholdings/flo
 */
 
-#include "functions/select.hpp"
+//#include "select.hpp"
+#include "control.hpp"
 
 #include "transform.hpp"
 #include "state.hpp"
@@ -19,7 +20,8 @@
 
 using namespace flo;
 
-optional<rfl::Generic> Select::exec(Transform &transform, State *state, const rfl::Generic &closure) {
+template<>
+optional<rfl::Generic> Func<Select>::exec(Transform &transform, State *state, const rfl::Generic &closure) {
   
 //  BOOST_LOG_TRIVIAL(trace) << "select " << Generic::toString(closure);
 
@@ -39,10 +41,4 @@ optional<rfl::Generic> Select::exec(Transform &transform, State *state, const rf
 
   return nullopt;
     
-}
-
-shared_ptr<Function> Select::create() {
-
-  return shared_ptr<Function>(new Select());
-  
 }

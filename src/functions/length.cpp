@@ -9,18 +9,18 @@
   https://github.com/visualopsholdings/flo
 */
 
-#include "functions/length.hpp"
+#include "list.hpp"
 #include "generic.hpp"
 #include "state.hpp"
 #include "transform.hpp"
-#include "functions/apply.hpp"
 
 #include <boost/log/trivial.hpp>
 
 using namespace std;
 using namespace flo;
 
-optional<rfl::Generic> Length::exec(Transform &transform, State *state, const rfl::Generic &closure) {
+template<>
+optional<rfl::Generic> Func<Length>::exec(Transform &transform, State *state, const rfl::Generic &closure) {
   
   BOOST_LOG_TRIVIAL(trace) << "Length exec " << Generic::toString(closure);
   
@@ -41,11 +41,5 @@ optional<rfl::Generic> Length::exec(Transform &transform, State *state, const rf
   }
   
   return nullopt;
-  
-}
-
-shared_ptr<Function> Length::create() {
-
-  return shared_ptr<Function>(new Length());
   
 }

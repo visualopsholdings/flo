@@ -11,25 +11,10 @@
 
 #include "functions.hpp"
 
-#include "functions/null.hpp"
-#include "functions/if.hpp"
-#include "functions/true.hpp"
-#include "functions/dict.hpp"
-#include "functions/equal.hpp"
-#include "functions/getmember.hpp"
-#include "functions/setmember.hpp"
-#include "functions/string.hpp"
-#include "functions/select.hpp"
-#include "functions/apply.hpp"
-#include "functions/cur.hpp"
-#include "functions/pass.hpp"
-#include "functions/quote.hpp"
-#include "functions/list.hpp"
-#include "functions/map.hpp"
-#include "functions/filter.hpp"
-#include "functions/head.hpp"
-#include "functions/tail.hpp"
-#include "functions/length.hpp"
+#include "control.hpp"
+#include "values.hpp"
+#include "list.hpp"
+#include "data.hpp"
 #include "generic.hpp"
 
 #include <boost/log/trivial.hpp>
@@ -60,7 +45,6 @@ Functions::Functions(const rfl::Generic &transform) {
 
 void Functions::loadFunctions() {
 
-  _functions["null"] = bind(&Null::create);
   _functions["if"] = bind(&If::create);
   _functions["true"] = bind(&True::create);
   _functions["dict"] = bind(&Dict::create);

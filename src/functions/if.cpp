@@ -9,8 +9,7 @@
   https://github.com/visualopsholdings/flo
 */
 
-#include "functions/if.hpp"
-
+#include "control.hpp"
 #include "transform.hpp"
 #include "generic.hpp"
 
@@ -18,7 +17,8 @@
 
 using namespace flo;
 
-optional<rfl::Generic> If::exec(Transform &transform, State *state, const rfl::Generic &closure) {
+template<>
+optional<rfl::Generic> Func<If>::exec(Transform &transform, State *state, const rfl::Generic &closure) {
   
 //  BOOST_LOG_TRIVIAL(trace) << "if " << Generic::toString(closure);
 
@@ -47,11 +47,5 @@ optional<rfl::Generic> If::exec(Transform &transform, State *state, const rfl::G
   }
   
   return nullopt;
-  
-}
-
-shared_ptr<Function> If::create() {
-
-  return shared_ptr<Function>(new If());
   
 }

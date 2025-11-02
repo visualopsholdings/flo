@@ -9,8 +9,7 @@
   https://github.com/visualopsholdings/flo
 */
 
-#include "functions/cur.hpp"
-
+#include "values.hpp"
 #include "transform.hpp"
 #include "state.hpp"
 
@@ -18,7 +17,8 @@
 
 using namespace flo;
 
-optional<rfl::Generic> Cur::exec(Transform &transform, State *state, const rfl::Generic &closure) {
+template<>
+optional<rfl::Generic> Func<Cur>::exec(Transform &transform, State *state, const rfl::Generic &closure) {
   
   if (state->hasElem()) {
     return state->getElem();
@@ -29,10 +29,4 @@ optional<rfl::Generic> Cur::exec(Transform &transform, State *state, const rfl::
 
   return nullopt;
     
-}
-
-shared_ptr<Function> Cur::create() {
-
-  return shared_ptr<Function>(new Cur());
-  
 }

@@ -9,8 +9,7 @@
   https://github.com/visualopsholdings/flo
 */
 
-#include "functions/pass.hpp"
-
+#include "control.hpp"
 #include "transform.hpp"
 #include "state.hpp"
 #include "generic.hpp"
@@ -19,7 +18,8 @@
 
 using namespace flo;
 
-optional<rfl::Generic> Pass::exec(Transform &transform, State *state, const rfl::Generic &closure) {
+template<>
+optional<rfl::Generic> Func<Pass>::exec(Transform &transform, State *state, const rfl::Generic &closure) {
   
 //  BOOST_LOG_TRIVIAL(trace) << "select " << Generic::toString(closure);
 
@@ -38,10 +38,4 @@ optional<rfl::Generic> Pass::exec(Transform &transform, State *state, const rfl:
 
   return last;
       
-}
-
-shared_ptr<Function> Pass::create() {
-
-  return shared_ptr<Function>(new Pass());
-  
 }

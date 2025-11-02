@@ -9,8 +9,7 @@
   https://github.com/visualopsholdings/flo
 */
 
-#include "functions/setmember.hpp"
-
+#include "data.hpp"
 #include "transform.hpp"
 #include "state.hpp"
 #include "generic.hpp"
@@ -19,7 +18,8 @@
 
 using namespace flo;
 
-optional<rfl::Generic> SetMember::exec(Transform &transform, State *state, const rfl::Generic &closure) {
+template<>
+optional<rfl::Generic> Func<SetMember>::exec(Transform &transform, State *state, const rfl::Generic &closure) {
 
 //  BOOST_LOG_TRIVIAL(trace) << "setmember " << Generic::toString(closure);
 
@@ -58,10 +58,4 @@ optional<rfl::Generic> SetMember::exec(Transform &transform, State *state, const
   BOOST_LOG_TRIVIAL(error) << "not sure how to erase an element in Object";
   return nullopt;
     
-}
-
-shared_ptr<Function> SetMember::create() {
-
-  return shared_ptr<Function>(new SetMember());
-  
 }

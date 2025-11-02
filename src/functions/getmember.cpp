@@ -9,8 +9,7 @@
   https://github.com/visualopsholdings/flo
 */
 
-#include "functions/getmember.hpp"
-
+#include "data.hpp"
 #include "transform.hpp"
 #include "state.hpp"
 #include "generic.hpp"
@@ -19,7 +18,8 @@
 
 using namespace flo;
 
-optional<rfl::Generic> GetMember::exec(Transform &transform, State *state, const rfl::Generic &closure) {
+template<>
+optional<rfl::Generic> Func<GetMember>::exec(Transform &transform, State *state, const rfl::Generic &closure) {
 
 //  BOOST_LOG_TRIVIAL(trace) << "getmember " << Generic::toString(closure);
 
@@ -46,10 +46,4 @@ optional<rfl::Generic> GetMember::exec(Transform &transform, State *state, const
 	}
 	return (*elemobj)[*name];
     
-}
-
-shared_ptr<Function> GetMember::create() {
-
-  return shared_ptr<Function>(new GetMember());
-  
 }

@@ -122,7 +122,7 @@ And hello-t.json was:
         }
       },
       {
-        "null": {}
+        "cur": {}
       }
     ]
   }

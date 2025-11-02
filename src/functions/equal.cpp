@@ -9,8 +9,7 @@
   https://github.com/visualopsholdings/flo
 */
 
-#include "functions/equal.hpp"
-
+#include "control.hpp"
 #include "transform.hpp"
 #include "generic.hpp"
 
@@ -18,9 +17,10 @@
 
 using namespace flo;
 
-optional<rfl::Generic> Equal::exec(Transform &transform, State *state, const rfl::Generic &closure) {
+template<>
+optional<rfl::Generic> Func<Equal>::exec(Transform &transform, State *state, const rfl::Generic &closure) {
 
-//  BOOST_LOG_TRIVIAL(trace) << "exec " << Generic::toString(closure);
+//  BOOST_LOG_TRIVIAL(trace) << "equal " << Generic::toString(closure);
 
   auto a = Generic::getVector(closure);
   if (!a) {
@@ -41,10 +41,4 @@ optional<rfl::Generic> Equal::exec(Transform &transform, State *state, const rfl
 	}
   return true;
     
-}
-
-shared_ptr<Function> Equal::create() {
-
-  return shared_ptr<Function>(new Equal());
-  
 }

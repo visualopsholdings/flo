@@ -1,0 +1,124 @@
+[
+	{
+		title: "If",
+		fname: "if",
+		cat: "Control",
+    description:"Test the predicate in \"()\" and then execute the block after \"?\". Otherwise, if there is an \":\", execute that block."
+	},
+  {
+	 title: "Apply",
+	 fname: "apply",
+	 cat: "Control",
+    array: true,
+	 description: "Call all blocks in order passing the result of each one to the next."
+  },
+	{
+		title: "Pass",
+		fname: "pass",
+		cat: "Control",
+		array: true,
+		description:"Ignore the return value of all but the last block and return that."
+	},
+	{
+		title: "Select One Of",
+		fname: "select",
+		cat: "Control",
+		array: true,
+		description:"Any block that returns a value, that will be the return statement. Excellent for using instead of nested if...then...else. Just use the if...then part and list each as a block."
+	},
+	{
+		title: "Equal",
+		fname: "equal",
+		cat: "Control",
+		array: true,
+		description:"Compare the entire list of blocks and return true or false if they are all equal. When equal is used for the predicate for a filter, then VAL can be a string with '.value' does a lookup in the context for the 'var' name '.member' does a lookup in the context for the member name"
+	},
+	{
+		title: "Quote",
+		fname: "quote",
+		cat: "Control",
+		description:"Return the literal value of the block. Good for protecting code to be not evaluated."
+	},
+	{
+		title: "True",
+		fname: "true",
+		cat: "Values",
+		description:"'true' as a block."
+	},
+	{
+    title: "Current",
+    fname: "cur",
+    cat: "Values",
+    description:"When enumerating, return the current block"
+	},
+	{
+		title: "String",
+		fname: "string",
+		cat: "Values",
+		string: true,
+		description:"Turn the string into a block that can be processed."
+	},
+	{
+    title: "List",
+    fname: "list",
+    cat: "List",
+    array: true,
+    description:"Excecute the blocks and create a list from the results."
+	},
+	{
+    title: "[",
+    fname: "ilist",
+    cat: "List",
+    array: true,
+    description:"Excecute the blocks and create a list from the results."
+	},
+	{
+		title: "Map",
+		fname: "map",
+		cat: "List",
+		array: true,
+		description:"Generate a new list from the collection passed in by executing a function on each element. Always returns the same length list. If no collection is specified it means a collection has been passed in from earlier in an 'apply' chain."
+  },
+	{
+		title: "Filter",
+		fname: "filter",
+		cat: "List",
+		description:"Go through the collection (c) and return a number where the predicate (p) is true for each element."
+	},
+  {
+		title: "Length",
+		fname: "length",
+		cat: "List",
+		description:"Return the length of the collection returned by block."
+	},
+	{
+		title: "Get Member",
+		fname: "getmember",
+		cat: "Data",
+		description:"Get the value of the member of an object variable from the context with the string as a name."
+  },
+	{
+		title: "Set Member",
+		fname: "setmember",
+		cat: "Data",
+		description:"Given an object, return a new object with the member set to a specific value."
+	},
+	{
+    title: "Head",
+    fname: "head",
+    cat: "List",
+    description:"Return the first item of a list."
+	},
+	{
+    title: "Tail",
+    fname: "tail",
+    cat: "List",
+    description:"Return the items after the first item of a list."
+	},
+  {
+    title: "Dict",
+    fname: "dict",
+    cat: "List",
+    description:"Convert a nested list of lists into a dictionary."
+  }
+]

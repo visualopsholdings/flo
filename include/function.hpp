@@ -33,6 +33,19 @@ public:
 
 };
 
+template <typename T>
+class Func: public Function
+{
+public:
+
+  optional<rfl::Generic> exec(Transform &transform, State *state, const rfl::Generic &closure) override;
+  
+  static fPtr create() {
+    return fPtr(new T());
+  }
+  
+};
+
 } // flo
 
 #endif // H_function

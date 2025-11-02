@@ -9,7 +9,7 @@
   https://github.com/visualopsholdings/flo
 */
 
-#include "functions/dict.hpp"
+#include "list.hpp"
 #include "generic.hpp"
 #include "state.hpp"
 
@@ -17,7 +17,8 @@
 
 using namespace flo;
 
-optional<rfl::Generic> Dict::exec(Transform &transform, State *state, const rfl::Generic &closure) {
+template<>
+optional<rfl::Generic> Func<Dict>::exec(Transform &transform, State *state, const rfl::Generic &closure) {
   
 //  BOOST_LOG_TRIVIAL(trace) << "Dict exec " << Generic::toString(closure);
   
@@ -53,11 +54,5 @@ optional<rfl::Generic> Dict::exec(Transform &transform, State *state, const rfl:
   
   // closure is not a dictionary.
   return nullopt;
-  
-}
-
-shared_ptr<Function> Dict::create() {
-
-  return shared_ptr<Function>(new Dict());
   
 }

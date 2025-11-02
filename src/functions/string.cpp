@@ -9,8 +9,7 @@
   https://github.com/visualopsholdings/flo
 */
 
-#include "functions/string.hpp"
-
+#include "values.hpp"
 #include "transform.hpp"
 #include "generic.hpp"
 
@@ -18,7 +17,8 @@
 
 using namespace flo;
 
-optional<rfl::Generic> String::exec(Transform &transform, State *state, const rfl::Generic &closure) {
+template<>
+optional<rfl::Generic> Func<String>::exec(Transform &transform, State *state, const rfl::Generic &closure) {
 
 //  BOOST_LOG_TRIVIAL(trace) << "string " << Generic::toString(closure);
 
@@ -29,11 +29,5 @@ optional<rfl::Generic> String::exec(Transform &transform, State *state, const rf
   }
   
   return *s;
-  
-}
-
-shared_ptr<Function> String::create() {
-
-  return shared_ptr<Function>(new String());
   
 }

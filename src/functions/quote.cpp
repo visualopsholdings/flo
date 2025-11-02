@@ -9,8 +9,7 @@
   https://github.com/visualopsholdings/flo
 */
 
-#include "functions/quote.hpp"
-
+#include "control.hpp"
 #include "transform.hpp"
 #include "state.hpp"
 
@@ -18,15 +17,10 @@
 
 using namespace flo;
 
-optional<rfl::Generic> Quote::exec(Transform &transform, State *state, const rfl::Generic &closure) {
+template<>
+optional<rfl::Generic> Func<Quote>::exec(Transform &transform, State *state, const rfl::Generic &closure) {
   
   // return the code wthout evaluating.
   return closure;
-  
-}
-
-shared_ptr<Function> Quote::create() {
-
-  return shared_ptr<Function>(new Quote());
   
 }

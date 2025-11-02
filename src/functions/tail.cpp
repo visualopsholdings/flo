@@ -9,18 +9,18 @@
   https://github.com/visualopsholdings/flo
 */
 
-#include "functions/tail.hpp"
+#include "list.hpp"
 #include "generic.hpp"
 #include "state.hpp"
 #include "transform.hpp"
-#include "functions/apply.hpp"
 
 #include <boost/log/trivial.hpp>
 
 using namespace std;
 using namespace flo;
 
-optional<rfl::Generic> Tail::exec(Transform &transform, State *state, const rfl::Generic &closure) {
+template<>
+optional<rfl::Generic> Func<Tail>::exec(Transform &transform, State *state, const rfl::Generic &closure) {
   
 //  BOOST_LOG_TRIVIAL(trace) << "Tail exec " << Generic::toString(closure);
   
@@ -36,11 +36,5 @@ optional<rfl::Generic> Tail::exec(Transform &transform, State *state, const rfl:
   copy(data.begin()+1, data.end(), back_inserter(tail));
 //  cout << Generic::toString(tail) << endl;
   return tail;
-  
-}
-
-shared_ptr<Function> Tail::create() {
-
-  return shared_ptr<Function>(new Tail());
   
 }

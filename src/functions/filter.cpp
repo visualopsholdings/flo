@@ -9,11 +9,10 @@
   https://github.com/visualopsholdings/flo
 */
 
-#include "functions/filter.hpp"
+#include "list.hpp"
 #include "generic.hpp"
 #include "state.hpp"
 #include "transform.hpp"
-#include "functions/apply.hpp"
 
 #include <boost/log/trivial.hpp>
 #include <ranges>
@@ -21,7 +20,8 @@
 using namespace std;
 using namespace flo;
 
-optional<rfl::Generic> Filter::exec(Transform &transform, State *state, const rfl::Generic &closure) {
+template<>
+optional<rfl::Generic> Func<Filter>::exec(Transform &transform, State *state, const rfl::Generic &closure) {
   
 //  BOOST_LOG_TRIVIAL(trace) << "Filter exec " << Generic::toString(closure);
   
@@ -48,11 +48,5 @@ optional<rfl::Generic> Filter::exec(Transform &transform, State *state, const rf
     return false;
   });
   return filtered;
-  
-}
-
-shared_ptr<Function> Filter::create() {
-
-  return shared_ptr<Function>(new Filter());
   
 }

@@ -9,24 +9,18 @@
   https://github.com/visualopsholdings/flo
 */
 
-#include "functions/true.hpp"
-
+#include "values.hpp"
 #include "generic.hpp"
 
 #include <boost/log/trivial.hpp>
 
 using namespace flo;
 
-optional<rfl::Generic> True::exec(Transform &transform, State *state, const rfl::Generic &closure) {
+template<>
+optional<rfl::Generic> Func<True>::exec(Transform &transform, State *state, const rfl::Generic &closure) {
   
 //  BOOST_LOG_TRIVIAL(trace) << "true " << Generic::toString(closure);
 
   return true;
-  
-}
-
-shared_ptr<Function> True::create() {
-
-  return shared_ptr<Function>(new True());
   
 }

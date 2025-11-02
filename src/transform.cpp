@@ -13,7 +13,7 @@
 
 #include "functions.hpp"
 #include "generic.hpp"
-#include "functions/list.hpp"
+#include "list.hpp"
 
 #include <boost/log/trivial.hpp>
 #include <rfl/json.hpp>
