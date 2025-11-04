@@ -143,3 +143,21 @@ BOOST_AUTO_TEST_CASE( stringResult )
   BOOST_CHECK_EQUAL(*s, "streams");
   
 }
+
+BOOST_AUTO_TEST_CASE( nullApply )
+{
+  cout << "=== nullApply ===" << endl;
+  
+  auto transform = Utils::loadJSON("null-apply-t.json");
+  BOOST_CHECK(transform);
+  
+  auto input = Processor::getFirstScenarioInput(*transform);
+  BOOST_CHECK(input);
+  
+  Functions f(*transform);
+  Processor p(f);
+
+  auto result = p.transform(*transform, *input);
+  BOOST_CHECK(!result);
+  
+}

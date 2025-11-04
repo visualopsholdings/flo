@@ -32,6 +32,11 @@ optional<rfl::Generic> Func<Apply>::exec(Transform &transform, State *state, con
     return nullopt;
   }
   
+  // don't do anything if apply has nothing to apply.
+  if (v->size() == 0) {
+    return nullopt;
+  }
+  
   int arity = state->hasColl() ? 2 : (state->hasElem() ? 1 : 0);
   BOOST_LOG_TRIVIAL(trace) << "apply arity in " << arity;
 

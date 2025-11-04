@@ -1,0 +1,15 @@
+{
+  "library": [
+  ],
+  "transform": {
+    "apply": []
+  },
+  "scenarios": [
+    {
+      "name": "Simple",
+      "input": {
+        "aaa": "bbb"
+      }
+    }
+  ]
+}

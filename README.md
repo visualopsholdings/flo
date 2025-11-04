@@ -369,3 +369,7 @@ wrap it.
 ### 1-Nov-2025
 
 - map, filter, head, tail, count
+
+### 4-Nov-2025
+
+- an empty "apply" returns null, not the original object.
