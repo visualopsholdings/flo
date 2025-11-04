@@ -373,3 +373,4 @@ wrap it.
 ### 4-Nov-2025
 
 - an empty "apply" returns null, not the original object.
+- an empty "map" returns the original data we are mapping.

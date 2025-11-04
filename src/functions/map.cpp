@@ -34,8 +34,15 @@ optional<rfl::Generic> Func<Map>::exec(Transform &transform, State *state, const
     BOOST_LOG_TRIVIAL(error) << "Map expects a data as a list";
     return nullopt;
   }
-  auto apply = bind(&Apply::create)();
+  
   auto data = state->getColl();
+  
+  // don't do anything if map has nothing to apply. Just return the orignal data.
+  if (body->size() == 0) {
+    return data;
+  }
+  
+  auto apply = bind(&Apply::create)();
   vector<rfl::Generic> mapped;
   std::transform(data.begin(), data.end(), back_inserter(mapped), [&transform, state, body, apply](auto e) {
     State localState;

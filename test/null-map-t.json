@@ -1,0 +1,20 @@
+{
+  "library": [
+  ],
+  "transform": {
+    "map": []
+  },
+  "scenarios": [
+    {
+      "name": "Simple",
+      "input": [
+        {
+          "aaa": "bbb"
+        },
+        {
+          "zzz": "yyy"
+        }
+      ]
+    }
+  ]
+}

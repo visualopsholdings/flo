@@ -52,3 +52,28 @@ BOOST_AUTO_TEST_CASE( simple )
   BOOST_CHECK_EQUAL(*n, "Bill");
   
 }
+
+
+BOOST_AUTO_TEST_CASE( nullMap )
+{
+  cout << "=== nullMap ===" << endl;
+  
+  auto transform = Utils::loadJSON("null-map-t.json");
+  BOOST_CHECK(transform);
+  
+  auto input = Processor::getFirstScenarioInput(*transform);
+  BOOST_CHECK(input);
+  
+  Functions f(*transform);
+  Processor p(f);
+
+  auto result = p.transform(*transform, *input);
+  BOOST_CHECK(result);
+  auto v = Generic::getVector(*result);
+  BOOST_CHECK(v);
+  BOOST_CHECK_EQUAL(v->size(), 2);
+  auto o = Generic::getObject((*v)[0]);
+  BOOST_CHECK(o);
+  
+//  cout << Generic::toString(*result) << endl;
+}
