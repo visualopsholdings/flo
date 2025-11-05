@@ -161,3 +161,31 @@ BOOST_AUTO_TEST_CASE( nullApply )
   BOOST_CHECK(!result);
   
 }
+
+BOOST_AUTO_TEST_CASE( applyMask )
+{
+  cout << "=== applyMask ===" << endl;
+  
+  auto transform = Utils::loadJSON("apply-mask-t.json");
+  BOOST_CHECK(transform);
+  
+  auto input = Processor::getFirstScenarioInput(*transform);
+  BOOST_CHECK(input);
+  
+  Functions f(*transform);
+  Processor p(f);
+
+  auto result = p.transform(*transform, *input);
+  BOOST_CHECK(result);
+  cout << Generic::toString(*result) << endl;
+  auto v = Generic::getVector(*result);
+  BOOST_CHECK(v);
+  BOOST_CHECK_EQUAL(v->size(), 3);
+  auto v2 = Generic::getVector((*v)[0]);
+  BOOST_CHECK(v2);
+  BOOST_CHECK_EQUAL(v2->size(), 1);
+  auto id = Generic::getString(Generic::getObject(Generic::getObject((*v2)[0]), "idShouldNotBeNull"), "id");
+  BOOST_CHECK(id);
+
+  
+}

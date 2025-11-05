@@ -1,0 +1,104 @@
+{
+  "library": [
+      {
+          "name": "applyOuter",
+          "result": {
+              "apply": [
+                  [
+                      [
+                          "masksNextApply",
+                          {
+                              "apply": [
+                                  [
+                                      [
+                                          "aa",
+                                          "bb"
+                                      ]
+                                  ],
+                                  {
+                                      "dict": {}
+                                  }
+                              ]
+                          }
+                      ],
+                      [
+                          "idShouldNotBeNull",
+                          {
+                              "apply": [
+                                  [
+                                      [
+                                          "id",
+                                          {
+                                              "applyInner": {}
+                                          }
+                                      ]
+                                  ],
+                                  {
+                                      "dict": {}
+                                  }
+                              ]
+                          }
+                      ]
+                  ],
+                  {
+                      "dict": {}
+                  }
+              ]
+          }
+      },
+      {
+          "name": "applyInner",
+          "result": {
+              "apply": [
+                  {
+                      "cur": {}
+                  },
+                  {
+                      "getmember": {
+                          "name": "id"
+                      }
+                  }
+              ]
+          }
+      }
+  ],
+  "transform": {
+      "apply": [
+          {
+              "cur": {}
+          },
+          {
+              "getmember": {
+                  "name": "data"
+              }
+          },
+          {
+              "map": [
+                [
+                  {
+                      "applyOuter": {}
+                  }
+                ]
+              ]
+          }
+      ]
+  },
+  "scenarios": [
+      {
+          "name": "Simple",
+          "input": {
+              "data": [
+                  {
+                      "id": "690465879f880b8ebae41290"
+                  },
+                  {
+                      "id": "690465879f880b8ebae4128e"
+                  },
+                  {
+                      "id": "690465879f880b8ebae4128f"
+                  }
+              ]
+          }
+      }
+  ]
+}                

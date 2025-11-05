@@ -37,33 +37,33 @@ optional<rfl::Generic> Func<Apply>::exec(Transform &transform, State *state, con
     return nullopt;
   }
   
-  int arity = state->hasColl() ? 2 : (state->hasElem() ? 1 : 0);
+  int arity = localState.hasColl() ? 2 : (localState.hasElem() ? 1 : 0);
   BOOST_LOG_TRIVIAL(trace) << "apply arity in " << arity;
 
   for (auto b: *v) {
 //    BOOST_LOG_TRIVIAL(trace) << "apply transforming " << Generic::toString(b);
-    auto val = transform.exec(b, state);
+    auto val = transform.exec(b, &localState);
     if (val) {
 //      BOOST_LOG_TRIVIAL(trace) << "apply test val " << Generic::toString(*val);
       auto v2 = Generic::getVector(*val);
       if (v2) {
         BOOST_LOG_TRIVIAL(trace) << "apply found vector (2)";
-        state->setColl(*v2);
-        state->clearElem();
+        localState.setColl(*v2);
+        localState.clearElem();
         arity = 2;
       }
       else {
         BOOST_LOG_TRIVIAL(trace) << "apply found elem (1)";
-        state->setElem(*val);
-        state->clearColl();
+        localState.setElem(*val);
+        localState.clearColl();
         arity = 1;
       }
     }
     else {
       BOOST_LOG_TRIVIAL(trace) << "apply found empty (1)";
       rfl::Generic empty;
-      state->setElem(empty);
-      state->clearColl();
+      localState.setElem(empty);
+      localState.clearColl();
       arity = 1;
     }
   }
@@ -71,9 +71,9 @@ optional<rfl::Generic> Func<Apply>::exec(Transform &transform, State *state, con
   
   switch (arity) {
     case 2:
-      return state->getColl();
+      return localState.getColl();
     case 1:
-      return state->getElem();
+      return localState.getElem();
   }
   
   BOOST_LOG_TRIVIAL(trace) << "returning null?";
