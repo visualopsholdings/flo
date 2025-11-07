@@ -17,6 +17,7 @@
 using namespace std;
 using vops::DictG;
 
+namespace vops {
 namespace flo {
 
 class State;
@@ -37,5 +38,6 @@ private:
 };
 
 } // flo
+} // vops
 
 #endif // H_transform

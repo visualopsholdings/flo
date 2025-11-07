@@ -17,6 +17,7 @@
 using namespace std;
 using vops::DictG;
 
+namespace vops {
 namespace flo {
 
 class Transform;
@@ -48,5 +49,6 @@ public:
 };
 
 } // flo
+} // vops
 
 #endif // H_function

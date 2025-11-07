@@ -19,7 +19,7 @@
 #include <boost/log/trivial.hpp>
 #include <iostream>
 
-using namespace flo;
+using namespace vops::flo;
 using namespace vops;
 
 optional<DictG> Processor::transform(const DictG &code, std::optional<DictG> input) {

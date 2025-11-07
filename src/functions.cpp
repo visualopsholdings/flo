@@ -19,7 +19,7 @@
 #include <boost/log/trivial.hpp>
 
 using namespace std;
-using namespace flo;
+using namespace vops::flo;
 using namespace vops;
 
 Functions::Functions(const DictG &transform) {

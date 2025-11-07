@@ -16,6 +16,7 @@
 
 #include "function.hpp"
 
+namespace vops {
 namespace flo {
 
 class If: public Func<If> {
@@ -37,5 +38,6 @@ class Quote: public Func<Quote> {
 };
 
 } // flo
+} // vops
 
 #endif // H_control

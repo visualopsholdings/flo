@@ -15,7 +15,7 @@
 
 #include <boost/log/trivial.hpp>
 
-using namespace flo;
+using namespace vops::flo;
 using namespace vops;
 
 State::State() {

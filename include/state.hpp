@@ -18,6 +18,7 @@ using namespace std;
 using vops::DictG;
 using vops::DictV;
 
+namespace vops {
 namespace flo {
 
 class State
@@ -47,5 +48,6 @@ private:
 };
 
 } // flo
+} // vops
 
 #endif // H_state

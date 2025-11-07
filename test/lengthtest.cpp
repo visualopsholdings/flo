@@ -20,7 +20,7 @@
 #include <boost/test/unit_test.hpp>
 
 using namespace std;
-using namespace flo;
+using namespace vops::flo;
 using namespace vops;
 
 BOOST_AUTO_TEST_CASE( listLength )

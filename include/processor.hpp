@@ -18,6 +18,7 @@
 using namespace std;
 using vops::DictG;
 
+namespace vops {
 namespace flo {
 
 class Functions;
@@ -38,5 +39,6 @@ private:
 };
 
 } // flo
+} // vops
 
 #endif // H_processor

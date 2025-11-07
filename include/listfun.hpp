@@ -16,6 +16,7 @@
 
 #include "function.hpp"
 
+namespace vops {
 namespace flo {
 
 class List: public Func<List> {
@@ -40,5 +41,6 @@ class Dict: public Func<Dict> {
 };
 
 } // flo
+} // vops
 
 #endif // H_listfun

@@ -21,7 +21,7 @@
 #include <boost/test/unit_test.hpp>
 
 using namespace std;
-using namespace flo;
+using namespace vops::flo;
 using namespace vops;
 
 void runTransform(const string &input, const string &message) {

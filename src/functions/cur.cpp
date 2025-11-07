@@ -15,7 +15,7 @@
 
 #include <boost/log/trivial.hpp>
 
-using namespace flo;
+using namespace vops::flo;
 
 template<>
 optional<DictG> Func<Cur>::exec(Transform &transform, State *state, const DictG &closure) {

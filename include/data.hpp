@@ -16,6 +16,7 @@
 
 #include "function.hpp"
 
+namespace vops {
 namespace flo {
 
 class SetMember: public Func<SetMember> {
@@ -25,5 +26,6 @@ class GetMember: public Func<GetMember> {
 };
 
 } // flo
+} // vops
 
 #endif // H_data

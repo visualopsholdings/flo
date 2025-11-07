@@ -21,6 +21,7 @@ using namespace std;
 using vops::DictG;
 using vops::DictO;
 
+namespace vops {
 namespace flo {
 
 typedef function<fPtr ()> fnHandler;
@@ -44,5 +45,6 @@ private:
 };
 
 } // flo
+} // vops
 
 #endif // H_functions

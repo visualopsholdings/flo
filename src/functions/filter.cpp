@@ -18,7 +18,7 @@
 #include <ranges>
 
 using namespace std;
-using namespace flo;
+using namespace vops::flo;
 
 template<>
 optional<DictG> Func<Filter>::exec(Transform &transform, State *state, const DictG &closure) {

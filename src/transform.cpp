@@ -18,7 +18,7 @@
 #include <boost/log/trivial.hpp>
 #include <rfl/json.hpp>
 
-using namespace flo;
+using namespace vops::flo;
 using namespace vops;
 
 Transform::Transform(Functions &functions) : _functions(functions) {

@@ -16,6 +16,7 @@
 
 #include "function.hpp"
 
+namespace vops {
 namespace flo {
 
 class True: public Func<True> {
@@ -28,5 +29,6 @@ class String: public Func<String> {
 };
 
 } // flo
+} // vops
 
 #endif // H_values

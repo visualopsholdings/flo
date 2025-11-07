@@ -24,7 +24,7 @@
 
 using namespace std;
 namespace fs = std::filesystem;
-using namespace flo;
+using namespace vops::flo;
 using namespace vops;
 
 DictG loadJSON(const string &fn) {
