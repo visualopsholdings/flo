@@ -31,13 +31,14 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(dict)
 
+include_directories(build/_deps/dict-src/include)
+
 set(BOOSTLIBS ${Boost_PROGRAM_OPTIONS_LIBRARY} ${Boost_LOG_SETUP_LIBRARY} 
   ${Boost_LOG_LIBRARY} ${Boost_URL_LIBRARY})
 
 include_directories(include)
 include_directories(/usr/local/include)
 link_directories(/usr/local/lib)
-include_directories(build/_deps/dict-src/include)
 
 add_library(FloLib STATIC     
     src/processor.cpp 
