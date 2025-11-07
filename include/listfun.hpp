@@ -11,8 +11,8 @@
   https://github.com/visualopsholdings/flo
 */
 
-#ifndef H_list
-#define H_list
+#ifndef H_listfun
+#define H_listfun
 
 #include "function.hpp"
 
@@ -41,4 +41,4 @@ class Dict: public Func<Dict> {
 
 } // flo
 
-#endif // H_list
+#endif // H_listfun

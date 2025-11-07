@@ -13,7 +13,7 @@
 
 #include "control.hpp"
 #include "values.hpp"
-#include "list.hpp"
+#include "listfun.hpp"
 #include "data.hpp"
 
 #include <boost/log/trivial.hpp>
