@@ -13,7 +13,7 @@
 
 #include "processor.hpp"
 #include "functions.hpp"
-#include "generic.hpp"
+#include "dict.hpp"
 #include "../test/utils.hpp"
 
 #define BOOST_AUTO_TEST_MAIN
@@ -21,6 +21,7 @@
 
 using namespace std;
 using namespace flo;
+using namespace vops;
 
 BOOST_AUTO_TEST_CASE( simple )
 {
@@ -34,13 +35,13 @@ BOOST_AUTO_TEST_CASE( simple )
 
   auto result = p.transform(*transform);
   BOOST_CHECK(result);
-//  cout << Generic::toString(*result);
-  auto obj = Generic::getObject(*result);
+//  cout << Dict::toString(*result);
+  auto obj = Dict::getObject(*result);
   BOOST_CHECK(obj);
-  auto type = Generic::getString(obj, "type");
+  auto type = Dict::getString(obj, "type");
   BOOST_CHECK(type);
   BOOST_CHECK_EQUAL(*type, "online");
-  auto pubKey = Generic::getString(obj, "pubKey");
+  auto pubKey = Dict::getString(obj, "pubKey");
   BOOST_CHECK(pubKey);
   BOOST_CHECK_EQUAL(*pubKey, "a key");
 
@@ -61,7 +62,7 @@ BOOST_AUTO_TEST_CASE( cur )
 
   auto result = p.transform(*transform, *obj);
   BOOST_CHECK(result);
-  auto s = Generic::getString(*result);
+  auto s = Dict::getString(*result);
   BOOST_CHECK(s);
   BOOST_CHECK_EQUAL(*s, "hello");
   
@@ -94,9 +95,9 @@ BOOST_AUTO_TEST_CASE( quote )
 
   auto result = p.transform(*transform);
   BOOST_CHECK(result);
-  auto obj = Generic::getObject(*result);
+  auto obj = Dict::getObject(*result);
   BOOST_CHECK(obj);
-  auto apply = Generic::getVector(obj, "apply");
+  auto apply = Dict::getVector(obj, "apply");
   BOOST_CHECK(apply);
   
 }
@@ -113,11 +114,11 @@ BOOST_AUTO_TEST_CASE( nested )
 
   auto result = p.transform(*transform);
   BOOST_CHECK(result);
-  auto obj = Generic::getObject(*result);
-  auto t = Generic::getString(Generic::getObject(obj, "send"), "type");
+  auto obj = Dict::getObject(*result);
+  auto t = Dict::getString(Dict::getObject(obj, "send"), "type");
   BOOST_CHECK(t);
   BOOST_CHECK_EQUAL(*t, "xxxx");
-  t = Generic::getString(Generic::getObject(obj, "next"), "type");
+  t = Dict::getString(Dict::getObject(obj, "next"), "type");
   BOOST_CHECK(t);
   BOOST_CHECK_EQUAL(*t, "yyyy");
   
@@ -138,7 +139,7 @@ BOOST_AUTO_TEST_CASE( stringResult )
 
   auto result = p.transform(*transform, *input);
   BOOST_CHECK(result);
-  auto s = Generic::getString(*result);
+  auto s = Dict::getString(*result);
   BOOST_CHECK(s);
   BOOST_CHECK_EQUAL(*s, "streams");
   
@@ -177,14 +178,14 @@ BOOST_AUTO_TEST_CASE( applyMask )
 
   auto result = p.transform(*transform, *input);
   BOOST_CHECK(result);
-  cout << Generic::toString(*result) << endl;
-  auto v = Generic::getVector(*result);
+  cout << Dict::toString(*result) << endl;
+  auto v = Dict::getVector(*result);
   BOOST_CHECK(v);
   BOOST_CHECK_EQUAL(v->size(), 3);
-  auto v2 = Generic::getVector((*v)[0]);
+  auto v2 = Dict::getVector((*v)[0]);
   BOOST_CHECK(v2);
   BOOST_CHECK_EQUAL(v2->size(), 1);
-  auto id = Generic::getString(Generic::getObject(Generic::getObject((*v2)[0]), "idShouldNotBeNull"), "id");
+  auto id = Dict::getString(Dict::getObject(Dict::getObject((*v2)[0]), "idShouldNotBeNull"), "id");
   BOOST_CHECK(id);
 
   

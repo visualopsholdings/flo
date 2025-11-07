@@ -13,7 +13,7 @@
 
 #include "processor.hpp"
 #include "functions.hpp"
-#include "generic.hpp"
+#include "dict.hpp"
 
 #include <fstream>
 #include <rfl/json.hpp>
@@ -25,15 +25,16 @@
 using namespace std;
 namespace fs = std::filesystem;
 using namespace flo;
+using namespace vops;
 
-rfl::Generic loadJSON(const string &fn) {
+DictG loadJSON(const string &fn) {
 
   std::filesystem::path path = "../flo-src/test";
   if (!std::filesystem::exists(path)) {
     path = "../test";
   }
 
-  auto g = rfl::json::load<rfl::Generic>(path.string() + "/" + fn);
+  auto g = rfl::json::load<DictG>(path.string() + "/" + fn);
   if (!g) {
     cout << g.error().what() << endl;
     return 0;
@@ -47,7 +48,7 @@ BOOST_AUTO_TEST_CASE( nullTest )
   cout << "=== nullTest ===" << endl;
   
   auto hello = loadJSON("hello.json");
-//  cout << rfl::json::write<rfl::Generic>(hello) << endl;
+//  cout << rfl::json::write<DictG>(hello) << endl;
   
   auto transform = loadJSON("null-t.json");
 
@@ -56,9 +57,9 @@ BOOST_AUTO_TEST_CASE( nullTest )
   auto result = p.transform(transform, hello);
   BOOST_CHECK(result);
   
-  auto obj = Generic::getObject(*result);
+  auto obj = Dict::getObject(*result);
   BOOST_CHECK(obj);
-  auto m = Generic::getString(obj, "message");
+  auto m = Dict::getString(obj, "message");
   BOOST_CHECK(m);
   BOOST_CHECK_EQUAL(*m, "hello");
   
@@ -75,9 +76,9 @@ BOOST_AUTO_TEST_CASE( noFuncTest )
   auto result = p.transform(transform);
   BOOST_CHECK(result);
   
-  auto obj = Generic::getObject(*result);
+  auto obj = Dict::getObject(*result);
   BOOST_CHECK(obj);
-  auto m = Generic::getString(obj, "error");
+  auto m = Dict::getString(obj, "error");
   BOOST_CHECK(m);
   BOOST_CHECK_EQUAL(*m, "function xxxx not found");
   
@@ -96,9 +97,9 @@ BOOST_AUTO_TEST_CASE( ifTrueTest )
   auto result = p.transform(transform, hello);
   BOOST_CHECK(result);
   
-  auto obj = Generic::getObject(*result);
+  auto obj = Dict::getObject(*result);
   BOOST_CHECK(obj);
-  auto m = Generic::getString(obj, "message");
+  auto m = Dict::getString(obj, "message");
   BOOST_CHECK(m);
   BOOST_CHECK_EQUAL(*m, "world");
   

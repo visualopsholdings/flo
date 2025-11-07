@@ -13,7 +13,7 @@
 
 #include "processor.hpp"
 #include "functions.hpp"
-#include "generic.hpp"
+#include "dict.hpp"
 
 #include <fstream>
 
@@ -22,6 +22,7 @@
 
 using namespace std;
 using namespace flo;
+using namespace vops;
 
 void runTransform(const string &input, const string &message) {
 
@@ -32,21 +33,21 @@ void runTransform(const string &input, const string &message) {
 
   ifstream fs(path.string() + "/" + input);
   BOOST_CHECK(fs);
-  auto file = Generic::parseStream(fs, ".json");
+  auto file = Dict::parseStream(fs, ".json");
   BOOST_CHECK(file);
   
   ifstream t(path.string() + "/hello-t.json");
   BOOST_CHECK(t);
-  auto transform = Generic::parseStream(t, ".json");
+  auto transform = Dict::parseStream(t, ".json");
   BOOST_CHECK(transform);
   
   Functions f(*transform);
   Processor p(f);
   auto result = p.transform(*transform, *file);
   BOOST_CHECK(result);
-  auto obj = Generic::getObject(*result);
+  auto obj = Dict::getObject(*result);
   BOOST_CHECK(obj);
-  auto m = Generic::getString(obj, "message");
+  auto m = Dict::getString(obj, "message");
   BOOST_CHECK(m);
 	BOOST_CHECK_EQUAL(*m, message);
 

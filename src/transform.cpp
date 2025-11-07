@@ -12,22 +12,23 @@
 #include "transform.hpp"
 
 #include "functions.hpp"
-#include "generic.hpp"
+#include "dict.hpp"
 #include "list.hpp"
 
 #include <boost/log/trivial.hpp>
 #include <rfl/json.hpp>
 
 using namespace flo;
+using namespace vops;
 
 Transform::Transform(Functions &functions) : _functions(functions) {
 }
 
-optional<rfl::Generic> Transform::exec(const rfl::Generic &closure, State *state) {
+optional<DictG> Transform::exec(const DictG &closure, State *state) {
 
-//  BOOST_LOG_TRIVIAL(trace) << "exec " << Generic::toString(closure);
+//  BOOST_LOG_TRIVIAL(trace) << "exec " << Dict::toString(closure);
 
-  auto obj = Generic::getObject(closure);
+  auto obj = vops::Dict::getObject(closure);
   if (obj) {
   
     BOOST_LOG_TRIVIAL(trace) << "exec found obj";
@@ -67,7 +68,7 @@ optional<rfl::Generic> Transform::exec(const rfl::Generic &closure, State *state
     
   }
   else {
-    if (Generic::isVector(closure)) {
+    if (vops::Dict::isVector(closure)) {
     
       // bind to lost and call.
       return bind(&List::create)()->exec(*this, state, closure);
@@ -79,10 +80,10 @@ optional<rfl::Generic> Transform::exec(const rfl::Generic &closure, State *state
   
 }
 
-rfl::Generic Transform::error(const string &msg) const {
+DictG Transform::error(const string &msg) const {
 
   BOOST_LOG_TRIVIAL(error) << msg;
-  rfl::Object<rfl::Generic> e;
+  DictO e;
   e["error"] = msg;
   return e;
   

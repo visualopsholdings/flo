@@ -13,7 +13,7 @@
 
 #include "processor.hpp"
 #include "functions.hpp"
-#include "generic.hpp"
+#include "dict.hpp"
 
 #include <fstream>
 #include <rfl/json.hpp>
@@ -25,21 +25,22 @@
 using namespace std;
 namespace fs = std::filesystem;
 using namespace flo;
+using namespace vops;
 
-optional<rfl::Object<rfl::Generic> > loadJSON(const string &fn) {
+optional<DictO > loadJSON(const string &fn) {
 
   std::filesystem::path path = "../test";
   if (!std::filesystem::exists(path)) {
     path = "../flo-src/test";
   }
 
-  auto g = rfl::json::load<rfl::Generic>(path.string() + "/" + fn);
+  auto g = rfl::json::load<DictG>(path.string() + "/" + fn);
   if (!g) {
     cout << g.error().what() << endl;
     return nullopt;
   }
   
-  return Generic::getObject(*g);
+  return Dict::getObject(*g);
 
 }
 
@@ -55,7 +56,7 @@ BOOST_AUTO_TEST_CASE( simple )
 
   auto result = p.transform(*file);
   BOOST_CHECK(result);
-  auto s = Generic::getString(*result);
+  auto s = Dict::getString(*result);
   BOOST_CHECK(s);
   BOOST_CHECK_EQUAL(*s, "a key");
   

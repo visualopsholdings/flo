@@ -374,3 +374,7 @@ wrap it.
 
 - an empty "apply" returns null, not the original object.
 - an empty "map" returns the original data we are mapping.
+
+### 7-Nov-2025
+
+- "Generic" is now in "dict"

@@ -22,19 +22,28 @@ set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+include(FetchContent)
+
+FetchContent_Declare(
+  dict
+  GIT_REPOSITORY https://github.com/visualopsholdings/dict.git
+  GIT_TAG main
+)
+FetchContent_MakeAvailable(dict)
+
 set(BOOSTLIBS ${Boost_PROGRAM_OPTIONS_LIBRARY} ${Boost_LOG_SETUP_LIBRARY} 
   ${Boost_LOG_LIBRARY} ${Boost_URL_LIBRARY})
 
 include_directories(include)
 include_directories(/usr/local/include)
 link_directories(/usr/local/lib)
+include_directories(build/_deps/dict-src/include)
 
 add_library(FloLib STATIC     
     src/processor.cpp 
     src/functions.cpp
     src/transform.cpp 
     src/state.cpp
-    src/generic.cpp
     src/functions/if.cpp
     src/functions/true.cpp
     src/functions/dict.cpp
@@ -57,39 +66,39 @@ add_library(FloLib STATIC
   target_link_libraries(FloLib reflectcpp ${BOOSTLIBS})
 
 add_executable(flo src/flo.cpp)
-  target_link_libraries(flo FloLib yaml-cpp::yaml-cpp ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+  target_link_libraries(flo FloLib DictLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_executable(SimpleTest test/simpletest.cpp)
-  target_link_libraries(SimpleTest FloLib yaml-cpp::yaml-cpp ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+  target_link_libraries(SimpleTest FloLib DictLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_test(SimpleTest SimpleTest)
 
 add_executable(HelloWorldTest test/helloworldtest.cpp)
-  target_link_libraries(HelloWorldTest FloLib yaml-cpp::yaml-cpp ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+  target_link_libraries(HelloWorldTest FloLib DictLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_test(HelloWorldTest HelloWorldTest)
 
 add_executable(LibTest test/libtest.cpp)
-  target_link_libraries(LibTest FloLib yaml-cpp::yaml-cpp ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+  target_link_libraries(LibTest FloLib DictLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_test(LibTest LibTest)
 
 add_executable(ApplyTest test/applytest.cpp test/utils.cpp)
-  target_link_libraries(ApplyTest FloLib yaml-cpp::yaml-cpp ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+  target_link_libraries(ApplyTest FloLib DictLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_test(ApplyTest ApplyTest)
 
 add_executable(MapTest test/maptest.cpp test/utils.cpp)
-  target_link_libraries(MapTest FloLib yaml-cpp::yaml-cpp ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+  target_link_libraries(MapTest FloLib DictLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_test(MapTest MapTest)
 
 add_executable(FilterTest test/filtertest.cpp test/utils.cpp)
-  target_link_libraries(FilterTest FloLib yaml-cpp::yaml-cpp ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+  target_link_libraries(FilterTest FloLib DictLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_test(FilterTest FilterTest)
 
 add_executable(LengthTest test/lengthtest.cpp test/utils.cpp)
-  target_link_libraries(LengthTest FloLib yaml-cpp::yaml-cpp ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+  target_link_libraries(LengthTest FloLib DictLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_test(LengthTest LengthTest)

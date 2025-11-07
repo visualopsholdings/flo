@@ -15,28 +15,30 @@
 #include "values.hpp"
 #include "list.hpp"
 #include "data.hpp"
-#include "generic.hpp"
 
 #include <boost/log/trivial.hpp>
 
 using namespace std;
 using namespace flo;
+using namespace vops;
 
-Functions::Functions(const rfl::Generic &transform) {
+Functions::Functions(const DictG &transform) {
 
+  using vops::Dict;
+  
   loadFunctions();
 
   // if there is a library in the transform, then use that.
-  auto library = Generic::getVector(Generic::getObject(transform), "library");
+  auto library = Dict::getVector(Dict::getObject(transform), "library");
   if (!library) {
 	  BOOST_LOG_TRIVIAL(trace) << "library not found in transform" << endl;
 	  return;
   }
   
   for (auto i: *library) {
-    auto obj = Generic::getObject(i);
-    auto name = Generic::getString(obj, "name");
-    auto transform = Generic::getObject(obj, "result");
+    auto obj = Dict::getObject(i);
+    auto name = Dict::getString(obj, "name");
+    auto transform = Dict::getObject(obj, "result");
     if (name && transform) {
       _library[*name] = *transform;
     }
@@ -77,6 +79,6 @@ fPtr Functions::getNative(const string &name) {
   return _functions[name]();
 }
 
-rfl::Object<rfl::Generic> Functions::getLibrary(const string &name) {
+DictO Functions::getLibrary(const string &name) {
   return _library[name];
 }

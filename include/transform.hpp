@@ -12,9 +12,10 @@
 #ifndef H_transform
 #define H_transform
 
-#include <rfl.hpp>
+#include "dict.hpp"
 
 using namespace std;
+using vops::DictG;
 
 namespace flo {
 
@@ -26,9 +27,9 @@ class Transform
 public:
   Transform(Functions &functions);
   
-  optional<rfl::Generic> exec(const rfl::Generic &closure, State *state);
+  optional<DictG> exec(const DictG &closure, State *state);
 
-  rfl::Generic error(const string &msg) const;
+  DictG error(const string &msg) const;
 
 private:
   Functions &_functions;

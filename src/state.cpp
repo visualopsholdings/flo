@@ -11,11 +11,12 @@
 
 #include "state.hpp"
 
-#include "generic.hpp"
+#include "dict.hpp"
 
 #include <boost/log/trivial.hpp>
 
 using namespace flo;
+using namespace vops;
 
 State::State() {
 }
@@ -25,8 +26,8 @@ State::State(const State &state) {
   _coll = state._coll;
 }
 
-void State::set(const rfl::Generic &g) {
-  auto v = Generic::getVector(g);
+void State::set(const DictG &g) {
+  auto v = Dict::getVector(g);
   if (v) {
     setColl(*v);
   }
@@ -35,9 +36,9 @@ void State::set(const rfl::Generic &g) {
   }
 }
 
-void State::setElem(const rfl::Generic &elem) {
+void State::setElem(const DictG &elem) {
 
-//  BOOST_LOG_TRIVIAL(trace) << "setElem " << Generic::toString(elem);
+//  BOOST_LOG_TRIVIAL(trace) << "setElem " << Dict::toString(elem);
   BOOST_LOG_TRIVIAL(trace) << "setElem";
   _elem = elem;
   
@@ -54,13 +55,13 @@ bool State::hasElem() const {
   return _elem != nullopt;
 }
 
-const rfl::Generic State::getElem() const {
+const DictG State::getElem() const {
   return *_elem;
 }
 
-void State::setColl(const std::vector<rfl::Generic> &coll) {
+void State::setColl(const DictV &coll) {
 
-//  BOOST_LOG_TRIVIAL(trace) << "setColl " << Generic::toString(coll);
+//  BOOST_LOG_TRIVIAL(trace) << "setColl " << Dict::toString(coll);
   BOOST_LOG_TRIVIAL(trace) << "setColl";
   _coll = coll;
   
@@ -77,6 +78,6 @@ bool State::hasColl() const {
   return _coll != nullopt;
 }
 
-const vector<rfl::Generic> State::getColl() const {
+const vector<DictG> State::getColl() const {
   return *_coll;
 }

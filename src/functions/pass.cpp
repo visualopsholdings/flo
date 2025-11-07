@@ -12,25 +12,26 @@
 #include "control.hpp"
 #include "transform.hpp"
 #include "state.hpp"
-#include "generic.hpp"
+#include "dict.hpp"
 
 #include <boost/log/trivial.hpp>
 
 using namespace flo;
+using namespace vops;
 
 template<>
-optional<rfl::Generic> Func<Pass>::exec(Transform &transform, State *state, const rfl::Generic &closure) {
+optional<DictG> Func<Pass>::exec(Transform &transform, State *state, const DictG &closure) {
   
-//  BOOST_LOG_TRIVIAL(trace) << "select " << Generic::toString(closure);
+//  BOOST_LOG_TRIVIAL(trace) << "select " << Dict::toString(closure);
 
-  auto a = Generic::getVector(closure);
+  auto a = Dict::getVector(closure);
   if (!a) {
     BOOST_LOG_TRIVIAL(error) << "closure not array";
     return nullopt;
   }
   
   // select the first function that returns something.
-  optional<rfl::Generic> last;
+  optional<DictG> last;
 	for (auto i: *a) {
 	  // throw away everything but the last result.
 	  last = transform.exec(i, state);

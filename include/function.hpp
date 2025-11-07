@@ -12,9 +12,10 @@
 #ifndef H_function
 #define H_function
 
-#include <rfl.hpp>
+#include "dict.hpp"
 
 using namespace std;
+using vops::DictG;
 
 namespace flo {
 
@@ -29,7 +30,7 @@ class Function
 {
 public:
 
-    virtual optional<rfl::Generic> exec(Transform &transform, State *state, const rfl::Generic &closure) = 0;
+    virtual optional<DictG> exec(Transform &transform, State *state, const DictG &closure) = 0;
 
 };
 
@@ -38,7 +39,7 @@ class Func: public Function
 {
 public:
 
-  optional<rfl::Generic> exec(Transform &transform, State *state, const rfl::Generic &closure) override;
+  optional<DictG> exec(Transform &transform, State *state, const DictG &closure) override;
   
   static fPtr create() {
     return fPtr(new T());

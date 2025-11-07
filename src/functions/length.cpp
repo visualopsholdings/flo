@@ -10,7 +10,7 @@
 */
 
 #include "list.hpp"
-#include "generic.hpp"
+#include "dict.hpp"
 #include "state.hpp"
 #include "transform.hpp"
 
@@ -20,21 +20,23 @@ using namespace std;
 using namespace flo;
 
 template<>
-optional<rfl::Generic> Func<Length>::exec(Transform &transform, State *state, const rfl::Generic &closure) {
+optional<DictG> Func<Length>::exec(Transform &transform, State *state, const DictG &closure) {
   
-  BOOST_LOG_TRIVIAL(trace) << "Length exec " << Generic::toString(closure);
+  using vops::Dict;
+
+  BOOST_LOG_TRIVIAL(trace) << "Length exec " << Dict::toString(closure);
   
   if (state->hasColl()) {
     return (long long)state->getColl().size();
   }
   if (state->hasElem()) {
     auto g = state->getElem();
-    auto s = Generic::getString(g);
+    auto s = Dict::getString(g);
     if (s) {
 //      cout << *s << endl;
       return (long long)s->size();
     }
-    auto o = Generic::getObject(g);
+    auto o = Dict::getObject(g);
     if (o) {
       return  (long long)o->size();
     }

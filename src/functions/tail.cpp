@@ -10,7 +10,7 @@
 */
 
 #include "list.hpp"
-#include "generic.hpp"
+#include "dict.hpp"
 #include "state.hpp"
 #include "transform.hpp"
 
@@ -20,9 +20,9 @@ using namespace std;
 using namespace flo;
 
 template<>
-optional<rfl::Generic> Func<Tail>::exec(Transform &transform, State *state, const rfl::Generic &closure) {
+optional<DictG> Func<Tail>::exec(Transform &transform, State *state, const DictG &closure) {
   
-//  BOOST_LOG_TRIVIAL(trace) << "Tail exec " << Generic::toString(closure);
+//  BOOST_LOG_TRIVIAL(trace) << "Tail exec " << Dict::toString(closure);
   
   if (!state->hasColl()) {
     BOOST_LOG_TRIVIAL(error) << "Map expects a data as a list";
@@ -32,9 +32,9 @@ optional<rfl::Generic> Func<Tail>::exec(Transform &transform, State *state, cons
   if (data.size() == 0) {
     return nullopt;
   }
-  vector<rfl::Generic> tail;
+  vector<DictG> tail;
   copy(data.begin()+1, data.end(), back_inserter(tail));
-//  cout << Generic::toString(tail) << endl;
+//  cout << Dict::toString(tail) << endl;
   return tail;
   
 }

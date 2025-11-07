@@ -12,18 +12,19 @@
 #include "data.hpp"
 #include "transform.hpp"
 #include "state.hpp"
-#include "generic.hpp"
+#include "dict.hpp"
 
 #include <boost/log/trivial.hpp>
 
 using namespace flo;
+using namespace vops;
 
 template<>
-optional<rfl::Generic> Func<GetMember>::exec(Transform &transform, State *state, const rfl::Generic &closure) {
+optional<DictG> Func<GetMember>::exec(Transform &transform, State *state, const DictG &closure) {
 
-//  BOOST_LOG_TRIVIAL(trace) << "getmember " << Generic::toString(closure);
+//  BOOST_LOG_TRIVIAL(trace) << "getmember " << Dict::toString(closure);
 
-  auto obj = Generic::getObject(closure);
+  auto obj = Dict::getObject(closure);
   if (!obj) {
     BOOST_LOG_TRIVIAL(error) << "closure not object";
     return nullopt;
@@ -33,13 +34,13 @@ optional<rfl::Generic> Func<GetMember>::exec(Transform &transform, State *state,
     return nullopt;
 	}
 	
-  auto name = Generic::getString(*obj, "name");
+  auto name = Dict::getString(*obj, "name");
   if (!name) {
     BOOST_LOG_TRIVIAL(error) << "missing name";
     return nullopt;
   }
 	auto elem = state->getElem();
-	auto elemobj = Generic::getObject(elem);
+	auto elemobj = Dict::getObject(elem);
 	if (!elemobj) {
     BOOST_LOG_TRIVIAL(error) << "element is not object";
     return nullopt;

@@ -18,7 +18,7 @@
 using namespace flo;
 
 template<>
-optional<rfl::Generic> Func<Quote>::exec(Transform &transform, State *state, const rfl::Generic &closure) {
+optional<DictG> Func<Quote>::exec(Transform &transform, State *state, const DictG &closure) {
   
   // return the code wthout evaluating.
   return closure;

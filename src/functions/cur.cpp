@@ -18,7 +18,7 @@
 using namespace flo;
 
 template<>
-optional<rfl::Generic> Func<Cur>::exec(Transform &transform, State *state, const rfl::Generic &closure) {
+optional<DictG> Func<Cur>::exec(Transform &transform, State *state, const DictG &closure) {
   
   if (state->hasElem()) {
     return state->getElem();

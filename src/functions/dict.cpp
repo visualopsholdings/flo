@@ -10,19 +10,22 @@
 */
 
 #include "list.hpp"
-#include "generic.hpp"
+#include "dict.hpp"
 #include "state.hpp"
 
 #include <boost/log/trivial.hpp>
 
 using namespace flo;
+using namespace vops;
 
 template<>
-optional<rfl::Generic> Func<Dict>::exec(Transform &transform, State *state, const rfl::Generic &closure) {
+optional<DictG> Func<flo::Dict>::exec(Transform &transform, State *state, const DictG &closure) {
   
-//  BOOST_LOG_TRIVIAL(trace) << "Dict exec " << Generic::toString(closure);
+  using vops::Dict;
   
-  auto obj = Generic::getObject(closure);
+//  BOOST_LOG_TRIVIAL(trace) << "Dict exec " << Dict::toString(closure);
+  
+  auto obj = Dict::getObject(closure);
   if (obj) {
     if (obj->size() == 0) {
       BOOST_LOG_TRIVIAL(trace) << "empty closure";
@@ -30,12 +33,12 @@ optional<rfl::Generic> Func<Dict>::exec(Transform &transform, State *state, cons
         BOOST_LOG_TRIVIAL(trace) << "state is a vector";
         // we convert name value pairs in the vector to dictionary entries.
         auto v = state->getColl();
-//        BOOST_LOG_TRIVIAL(trace) << "turning to dict " << Generic::toString(v);
-        rfl::Object<rfl::Generic> obj;
+//        BOOST_LOG_TRIVIAL(trace) << "turning to dict " << Dict::toString(v);
+        DictO obj;
         for (auto i: v) {
-          auto v2 = Generic::getVector(i);
+          auto v2 = Dict::getVector(i);
           if (v2 && v2->size() == 2) {
-            auto name = Generic::getString(*v2->begin());
+            auto name = Dict::getString(*v2->begin());
             if (!name) {
               BOOST_LOG_TRIVIAL(error) << "first in pair must be name";
               return nullopt;

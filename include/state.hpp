@@ -12,9 +12,11 @@
 #ifndef H_state
 #define H_state
 
-#include <rfl.hpp>
+#include "dict.hpp"
 
 using namespace std;
+using vops::DictG;
+using vops::DictV;
 
 namespace flo {
 
@@ -24,23 +26,23 @@ public:
   State();
   State(const State &state);
   
-  void set(const rfl::Generic &g);
+  void set(const DictG &g);
     // set the element or collection based on the type of data.
     
-  void setElem(const rfl::Generic &elem);
+  void setElem(const DictG &elem);
   void clearElem();
   bool hasElem() const;
-  const rfl::Generic getElem() const;
+  const DictG getElem() const;
   
-  void setColl(const std::vector<rfl::Generic> &coll);
+  void setColl(const DictV &coll);
   void clearColl();
   bool hasColl() const;
-  const std::vector<rfl::Generic> getColl() const;
+  const DictV getColl() const;
 
 private:
   
-  optional<rfl::Generic> _elem;
-  optional<std::vector<rfl::Generic> > _coll;
+  optional<DictG> _elem;
+  optional<DictV> _coll;
   
 };
 

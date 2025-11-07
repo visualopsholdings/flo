@@ -11,18 +11,19 @@
 
 #include "values.hpp"
 #include "transform.hpp"
-#include "generic.hpp"
+#include "dict.hpp"
 
 #include <boost/log/trivial.hpp>
 
 using namespace flo;
+using namespace vops;
 
 template<>
-optional<rfl::Generic> Func<String>::exec(Transform &transform, State *state, const rfl::Generic &closure) {
+optional<DictG> Func<String>::exec(Transform &transform, State *state, const DictG &closure) {
 
-//  BOOST_LOG_TRIVIAL(trace) << "string " << Generic::toString(closure);
+//  BOOST_LOG_TRIVIAL(trace) << "string " << Dict::toString(closure);
 
-  auto s = Generic::getString(closure);
+  auto s = Dict::getString(closure);
   if (!s) {
     BOOST_LOG_TRIVIAL(error) << "closure is not string";
     return nullopt;

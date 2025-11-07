@@ -13,7 +13,7 @@
 
 #include "processor.hpp"
 #include "functions.hpp"
-#include "generic.hpp"
+#include "dict.hpp"
 #include "../test/utils.hpp"
 
 #define BOOST_AUTO_TEST_MAIN
@@ -21,6 +21,7 @@
 
 using namespace std;
 using namespace flo;
+using namespace vops;
 
 BOOST_AUTO_TEST_CASE( simple )
 {
@@ -39,11 +40,11 @@ BOOST_AUTO_TEST_CASE( simple )
   auto result = p.transform(*transform, *input);
   BOOST_CHECK(result);
   
-//  cout << Generic::toString(*result) << endl;
+//  cout << Dict::toString(*result) << endl;
   
-  auto obj = Generic::getObject(*result);
+  auto obj = Dict::getObject(*result);
   BOOST_CHECK(obj);
-  auto n = Generic::getString(obj, "name");
+  auto n = Dict::getString(obj, "name");
   BOOST_CHECK(n);
   BOOST_CHECK_EQUAL(*n, "Joe");
   

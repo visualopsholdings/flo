@@ -10,7 +10,7 @@
 */
 
 #include "list.hpp"
-#include "generic.hpp"
+#include "dict.hpp"
 #include "state.hpp"
 #include "transform.hpp"
 
@@ -21,11 +21,13 @@ using namespace std;
 using namespace flo;
 
 template<>
-optional<rfl::Generic> Func<Filter>::exec(Transform &transform, State *state, const rfl::Generic &closure) {
+optional<DictG> Func<Filter>::exec(Transform &transform, State *state, const DictG &closure) {
   
-//  BOOST_LOG_TRIVIAL(trace) << "Filter exec " << Generic::toString(closure);
+  using vops::Dict;
   
-  auto p = Generic::getObject(Generic::getObject(closure), "p");
+//  BOOST_LOG_TRIVIAL(trace) << "Filter exec " << Dict::toString(closure);
+  
+  auto p = Dict::getObject(Dict::getObject(closure), "p");
   if (!p) {
     BOOST_LOG_TRIVIAL(error) << "Filter expects a predicate";
     return nullopt;
@@ -36,13 +38,13 @@ optional<rfl::Generic> Func<Filter>::exec(Transform &transform, State *state, co
   }
   auto data = state->getColl();
   
-  vector<rfl::Generic> filtered;
+  vector<DictG> filtered;
   copy_if(data.begin(), data.end(), back_inserter(filtered), [&transform, state, p](auto e) {
     State localState;
     localState.set(e);
     auto result = transform.exec(*p, &localState);
     if (result) {
-      auto b = Generic::getBool(*result);
+      auto b = Dict::getBool(*result);
       return b && *b;
     }
     return false;

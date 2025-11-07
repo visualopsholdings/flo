@@ -13,7 +13,7 @@
 
 #include "processor.hpp"
 #include "functions.hpp"
-#include "generic.hpp"
+#include "dict.hpp"
 #include "../test/utils.hpp"
 
 #define BOOST_AUTO_TEST_MAIN
@@ -21,6 +21,7 @@
 
 using namespace std;
 using namespace flo;
+using namespace vops;
 
 BOOST_AUTO_TEST_CASE( simple )
 {
@@ -38,16 +39,16 @@ BOOST_AUTO_TEST_CASE( simple )
   // run the scenario.
   auto result = p.transform(*transform, *input);
   BOOST_CHECK(result);
-  auto v = Generic::getVector(*result);
+  auto v = Dict::getVector(*result);
   BOOST_CHECK(v);
   BOOST_CHECK_EQUAL(v->size(), 3);
-  auto n = Generic::getString((*v)[0]);
+  auto n = Dict::getString((*v)[0]);
   BOOST_CHECK(n);
   BOOST_CHECK_EQUAL(*n, "Fred");
-  n = Generic::getString((*v)[1]);
+  n = Dict::getString((*v)[1]);
   BOOST_CHECK(n);
   BOOST_CHECK_EQUAL(*n, "Joe");
-  n = Generic::getString((*v)[2]);
+  n = Dict::getString((*v)[2]);
   BOOST_CHECK(n);
   BOOST_CHECK_EQUAL(*n, "Bill");
   
@@ -69,11 +70,11 @@ BOOST_AUTO_TEST_CASE( nullMap )
 
   auto result = p.transform(*transform, *input);
   BOOST_CHECK(result);
-  auto v = Generic::getVector(*result);
+  auto v = Dict::getVector(*result);
   BOOST_CHECK(v);
   BOOST_CHECK_EQUAL(v->size(), 2);
-  auto o = Generic::getObject((*v)[0]);
+  auto o = Dict::getObject((*v)[0]);
   BOOST_CHECK(o);
   
-//  cout << Generic::toString(*result) << endl;
+//  cout << Dict::toString(*result) << endl;
 }

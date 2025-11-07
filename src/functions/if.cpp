@@ -11,23 +11,24 @@
 
 #include "control.hpp"
 #include "transform.hpp"
-#include "generic.hpp"
+#include "dict.hpp"
 
 #include <boost/log/trivial.hpp>
 
 using namespace flo;
+using namespace vops;
 
 template<>
-optional<rfl::Generic> Func<If>::exec(Transform &transform, State *state, const rfl::Generic &closure) {
+optional<DictG> Func<If>::exec(Transform &transform, State *state, const DictG &closure) {
   
-//  BOOST_LOG_TRIVIAL(trace) << "if " << Generic::toString(closure);
+//  BOOST_LOG_TRIVIAL(trace) << "if " << Dict::toString(closure);
 
-  auto obj = Generic::getObject(closure);
+  auto obj = Dict::getObject(closure);
   if (!obj) {
     BOOST_LOG_TRIVIAL(trace) << "closure not object";
     return nullopt;
   }
-  auto p = Generic::getGeneric(obj, "p");
+  auto p = Dict::getGeneric(obj, "p");
   if (!p) {
     BOOST_LOG_TRIVIAL(error) << "no p";
     return nullopt;
@@ -36,9 +37,9 @@ optional<rfl::Generic> Func<If>::exec(Transform &transform, State *state, const 
   if (!result) {
     return nullopt;
   }
-  auto b = Generic::getBool(*result);
+  auto b = Dict::getBool(*result);
   if (b && *b) {
-    auto then = Generic::getGeneric(obj, "then");
+    auto then = Dict::getGeneric(obj, "then");
     if (!then) {
       BOOST_LOG_TRIVIAL(error) << "then not object";
       return nullopt;

@@ -10,16 +10,16 @@
 */
 
 #include "values.hpp"
-#include "generic.hpp"
+#include "dict.hpp"
 
 #include <boost/log/trivial.hpp>
 
 using namespace flo;
 
 template<>
-optional<rfl::Generic> Func<True>::exec(Transform &transform, State *state, const rfl::Generic &closure) {
+optional<DictG> Func<True>::exec(Transform &transform, State *state, const DictG &closure) {
   
-//  BOOST_LOG_TRIVIAL(trace) << "true " << Generic::toString(closure);
+//  BOOST_LOG_TRIVIAL(trace) << "true " << Dict::toString(closure);
 
   return true;
   

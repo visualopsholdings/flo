@@ -13,7 +13,7 @@
 
 #include "processor.hpp"
 #include "functions.hpp"
-#include "generic.hpp"
+#include "dict.hpp"
 #include "../test/utils.hpp"
 
 #define BOOST_AUTO_TEST_MAIN
@@ -21,6 +21,7 @@
 
 using namespace std;
 using namespace flo;
+using namespace vops;
 
 BOOST_AUTO_TEST_CASE( listLength )
 {
@@ -38,7 +39,7 @@ BOOST_AUTO_TEST_CASE( listLength )
   // run the scenario.
   auto result = p.transform(*transform, *input);
   BOOST_CHECK(result);
-  auto n = Generic::getNum(*result);
+  auto n = Dict::getNum(*result);
   BOOST_CHECK(n);
   BOOST_CHECK_EQUAL(*n, 4);
     
@@ -60,7 +61,7 @@ BOOST_AUTO_TEST_CASE( stringLength )
   // run the scenario.
   auto result = p.transform(*transform, *input);
   BOOST_CHECK(result);
-  auto n = Generic::getNum(*result);
+  auto n = Dict::getNum(*result);
   BOOST_CHECK(n);
   BOOST_CHECK_EQUAL(*n, 5);
     

@@ -13,7 +13,7 @@
 
 #include "processor.hpp"
 #include "functions.hpp"
-#include "generic.hpp"
+#include "dict.hpp"
 
 #include <iostream>
 #include <boost/program_options.hpp> 
@@ -28,6 +28,7 @@ namespace po = boost::program_options;
 
 using namespace std;
 using namespace flo;
+using namespace vops;
 namespace fs = std::filesystem;
 
 int main(int argc, char *argv[]) {
@@ -96,13 +97,13 @@ int main(int argc, char *argv[]) {
   // use the file format of the transformer to determine the format
   // of the file we are transforming.
   
-  auto trg = Generic::parseStream(transforms, transformp.extension());
+  auto trg = Dict::parseStream(transforms, transformp.extension());
   if (!trg) {
     cerr << "could not parse from " << transform << " as " << transformp.extension() << endl;
     return 1;
   }
   
-  auto tr = Generic::getObject(*trg);
+  auto tr = Dict::getObject(*trg);
   if (!tr) {
     cerr << "transform is not an object" << endl;
     return 1;
@@ -114,12 +115,12 @@ int main(int argc, char *argv[]) {
   if (vm.count("scenario")) {
     auto result = process.transform(*tr, scenario);
     if (result) {
-      cout << Generic::toString(*result, transformp.extension()) << endl;
+      cout << Dict::toString(*result, transformp.extension()) << endl;
     }
     return 0;
   }
  
-  auto in = Generic::parseStream(std::cin, transformp.extension());
+  auto in = Dict::parseStream(std::cin, transformp.extension());
   if (!in) {
     cerr << "could not parse" << endl;
     return 1;
@@ -127,7 +128,7 @@ int main(int argc, char *argv[]) {
   
   auto result = process.transform(*tr, *in);
   if (result) {
-    cout << Generic::toString(*result, transformp.extension()) << endl;
+    cout << Dict::toString(*result, transformp.extension()) << endl;
   }
   
   return 0;

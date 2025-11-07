@@ -13,9 +13,10 @@
 #define H_processor
 
 #include <istream>
-#include <rfl.hpp>
+#include "dict.hpp"
 
 using namespace std;
+using vops::DictG;
 
 namespace flo {
 
@@ -26,10 +27,10 @@ class Processor
 public:
   Processor(Functions &functions): _functions(functions) {}
   
-  optional<rfl::Generic> transform(const rfl::Generic &code, std::optional<rfl::Generic> input=nullopt);
-  optional<rfl::Generic> transform(const rfl::Generic &code, const std::string &scenario);
+  optional<DictG> transform(const DictG &code, std::optional<DictG> input=nullopt);
+  optional<DictG> transform(const DictG &code, const std::string &scenario);
 
-  static optional<rfl::Generic> getFirstScenarioInput(const rfl::Generic &code);
+  static optional<DictG> getFirstScenarioInput(const DictG &code);
   
 private:
   Functions &_functions;

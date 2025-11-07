@@ -11,18 +11,19 @@
 
 #include "control.hpp"
 #include "transform.hpp"
-#include "generic.hpp"
+#include "dict.hpp"
 
 #include <boost/log/trivial.hpp>
 
 using namespace flo;
+using namespace vops;
 
 template<>
-optional<rfl::Generic> Func<Equal>::exec(Transform &transform, State *state, const rfl::Generic &closure) {
+optional<DictG> Func<Equal>::exec(Transform &transform, State *state, const DictG &closure) {
 
-//  BOOST_LOG_TRIVIAL(trace) << "equal " << Generic::toString(closure);
+//  BOOST_LOG_TRIVIAL(trace) << "equal " << Dict::toString(closure);
 
-  auto a = Generic::getVector(closure);
+  auto a = Dict::getVector(closure);
   if (!a) {
     BOOST_LOG_TRIVIAL(error) << "closure not array";
     return nullopt;
@@ -34,7 +35,7 @@ optional<rfl::Generic> Func<Equal>::exec(Transform &transform, State *state, con
 	i++;
 	while (i != a->end()) {
 		auto rvalue = transform.exec(*i, state);
-		if (!lvalue || !rvalue || (Generic::getString(*lvalue) != Generic::getString(*rvalue))) {
+		if (!lvalue || !rvalue || (Dict::getString(*lvalue) != Dict::getString(*rvalue))) {
 			return false;
 		}
 		i++;

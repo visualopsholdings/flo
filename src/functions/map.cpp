@@ -11,7 +11,7 @@
 
 #include "list.hpp"
 #include "control.hpp"
-#include "generic.hpp"
+#include "dict.hpp"
 #include "state.hpp"
 #include "transform.hpp"
 
@@ -21,11 +21,13 @@ using namespace std;
 using namespace flo;
 
 template<>
-optional<rfl::Generic> Func<Map>::exec(Transform &transform, State *state, const rfl::Generic &closure) {
+optional<DictG> Func<Map>::exec(Transform &transform, State *state, const DictG &closure) {
   
-//  BOOST_LOG_TRIVIAL(trace) << "Map exec " << Generic::toString(closure);
+  using vops::Dict;
+
+//  BOOST_LOG_TRIVIAL(trace) << "Map exec " << Dict::toString(closure);
   
-  auto body = Generic::getVector(closure);
+  auto body = Dict::getVector(closure);
   if (!body) {
     BOOST_LOG_TRIVIAL(error) << "Map expects a list";
     return nullopt;
@@ -43,7 +45,7 @@ optional<rfl::Generic> Func<Map>::exec(Transform &transform, State *state, const
   }
   
   auto apply = bind(&Apply::create)();
-  vector<rfl::Generic> mapped;
+  vector<DictG> mapped;
   std::transform(data.begin(), data.end(), back_inserter(mapped), [&transform, state, body, apply](auto e) {
     State localState;
     localState.set(e);
@@ -51,7 +53,7 @@ optional<rfl::Generic> Func<Map>::exec(Transform &transform, State *state, const
     if (a) {
       return *a;
     }
-    rfl::Generic empty;
+    DictG empty;
     return empty;
   });
   return mapped;

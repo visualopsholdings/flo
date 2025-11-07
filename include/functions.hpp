@@ -13,10 +13,13 @@
 #define H_functions
 
 #include "function.hpp"
+#include "dict.hpp"
 
 #include <map>
 
 using namespace std;
+using vops::DictG;
+using vops::DictO;
 
 namespace flo {
 
@@ -25,16 +28,16 @@ typedef function<fPtr ()> fnHandler;
 class Functions
 {
 public:
-    Functions(const rfl::Generic &transform);
+    Functions(const DictG &transform);
     
     bool hasNative(const string &name);
     bool hasLibrary(const string &name);
     fPtr getNative(const string &name);
-    rfl::Object<rfl::Generic> getLibrary(const string &name);
+    DictO getLibrary(const string &name);
     
 private:
   map<string, fnHandler> _functions;
-  map<string, rfl::Object<rfl::Generic> > _library;
+  map<string, DictO> _library;
   
   void loadFunctions();
   

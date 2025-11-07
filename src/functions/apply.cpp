@@ -10,7 +10,7 @@
 */
 
 #include "control.hpp"
-#include "generic.hpp"
+#include "dict.hpp"
 #include "state.hpp"
 #include "transform.hpp"
 
@@ -18,15 +18,16 @@
 
 using namespace std;
 using namespace flo;
+using namespace vops;
 
 template<>
-optional<rfl::Generic> Func<Apply>::exec(Transform &transform, State *state, const rfl::Generic &closure) {
+optional<DictG> Func<Apply>::exec(Transform &transform, State *state, const DictG &closure) {
   
-//  BOOST_LOG_TRIVIAL(trace) << "Apply exec " << Generic::toString(closure);
+//  BOOST_LOG_TRIVIAL(trace) << "Apply exec " << Dict::toString(closure);
   
   State localState(*state);
   
-  auto v = Generic::getVector(closure);
+  auto v = Dict::getVector(closure);
   if (!v) {
     BOOST_LOG_TRIVIAL(error) << "closure not vector";
     return nullopt;
@@ -41,11 +42,11 @@ optional<rfl::Generic> Func<Apply>::exec(Transform &transform, State *state, con
   BOOST_LOG_TRIVIAL(trace) << "apply arity in " << arity;
 
   for (auto b: *v) {
-//    BOOST_LOG_TRIVIAL(trace) << "apply transforming " << Generic::toString(b);
+//    BOOST_LOG_TRIVIAL(trace) << "apply transforming " << Dict::toString(b);
     auto val = transform.exec(b, &localState);
     if (val) {
-//      BOOST_LOG_TRIVIAL(trace) << "apply test val " << Generic::toString(*val);
-      auto v2 = Generic::getVector(*val);
+//      BOOST_LOG_TRIVIAL(trace) << "apply test val " << Dict::toString(*val);
+      auto v2 = Dict::getVector(*val);
       if (v2) {
         BOOST_LOG_TRIVIAL(trace) << "apply found vector (2)";
         localState.setColl(*v2);
@@ -61,7 +62,7 @@ optional<rfl::Generic> Func<Apply>::exec(Transform &transform, State *state, con
     }
     else {
       BOOST_LOG_TRIVIAL(trace) << "apply found empty (1)";
-      rfl::Generic empty;
+      DictG empty;
       localState.setElem(empty);
       localState.clearColl();
       arity = 1;
