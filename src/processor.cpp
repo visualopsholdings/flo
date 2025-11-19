@@ -24,7 +24,7 @@ using namespace vops;
 
 optional<DictG> Processor::transform(const DictG &code, std::optional<DictG> input) {
 
-  auto transform = Dict::getObject(Dict::getObject(code), "transform");
+  auto transform = Dict::getGeneric(Dict::getObject(code), "transform");
   if (!transform) {
 	  BOOST_LOG_TRIVIAL(error) << "no transform input " << Dict::toString(code);
 	  return nullopt;

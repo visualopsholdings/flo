@@ -115,7 +115,7 @@ int main(int argc, char *argv[]) {
   if (vm.count("scenario")) {
     auto result = process.transform(*tr, scenario);
     if (result) {
-      cout << Dict::toString(*result, transformp.extension()) << endl;
+      cout << Dict::toString(*result, true, transformp.extension()) << endl;
     }
     return 0;
   }
@@ -128,7 +128,7 @@ int main(int argc, char *argv[]) {
   
   auto result = process.transform(*tr, *in);
   if (result) {
-    cout << Dict::toString(*result, transformp.extension()) << endl;
+    cout << Dict::toString(*result, true, transformp.extension()) << endl;
   }
   
   return 0;
