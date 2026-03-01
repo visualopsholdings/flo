@@ -378,3 +378,8 @@ wrap it.
 ### 7-Nov-2025
 
 - "Generic" is now in "dict"
+
+### 1-Mar-2026
+
+- implement "stringcat".
+

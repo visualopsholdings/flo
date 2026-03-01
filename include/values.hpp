@@ -28,6 +28,9 @@ class Cur: public Func<Cur> {
 class String: public Func<String> {
 };
 
+class StringCat: public Func<StringCat> {
+};
+
 } // flo
 } // vops
 

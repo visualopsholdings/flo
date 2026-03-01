@@ -65,6 +65,7 @@ void Functions::loadFunctions() {
   _functions["head"] = bind(&Head::create);
   _functions["tail"] = bind(&Tail::create);
   _functions["length"] = bind(&Length::create);
+  _functions["stringcat"] = bind(&StringCat::create);
 
 }
 

@@ -1,0 +1,11 @@
+{
+  "library": [
+  ],
+  "transform": {
+    "stringcat": [
+      { "string": "A, " },
+      "B, ",
+      { "string": "C" }
+    ]
+  }
+}

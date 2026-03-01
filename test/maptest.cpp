@@ -28,16 +28,15 @@ BOOST_AUTO_TEST_CASE( simple )
   cout << "=== simple ===" << endl;
   
   auto transform = Utils::loadJSON("map-t.json");
-  BOOST_CHECK(transform);
   
-  auto input = Processor::getFirstScenarioInput(*transform);
+  auto input = Processor::getFirstScenarioInput(transform);
   BOOST_CHECK(input);
   
-  Functions f(*transform);
+  Functions f(transform);
   Processor p(f);
 
   // run the scenario.
-  auto result = p.transform(*transform, *input);
+  auto result = p.transform(transform, *input);
   BOOST_CHECK(result);
   auto v = Dict::getVector(*result);
   BOOST_CHECK(v);
@@ -60,15 +59,14 @@ BOOST_AUTO_TEST_CASE( nullMap )
   cout << "=== nullMap ===" << endl;
   
   auto transform = Utils::loadJSON("null-map-t.json");
-  BOOST_CHECK(transform);
   
-  auto input = Processor::getFirstScenarioInput(*transform);
+  auto input = Processor::getFirstScenarioInput(transform);
   BOOST_CHECK(input);
   
-  Functions f(*transform);
+  Functions f(transform);
   Processor p(f);
 
-  auto result = p.transform(*transform, *input);
+  auto result = p.transform(transform, *input);
   BOOST_CHECK(result);
   auto v = Dict::getVector(*result);
   BOOST_CHECK(v);

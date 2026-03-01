@@ -63,13 +63,14 @@ add_library(FloLib STATIC
     src/functions/head.cpp
     src/functions/tail.cpp
     src/functions/length.cpp
+    src/functions/stringcat.cpp
   )
   target_link_libraries(FloLib reflectcpp ${BOOSTLIBS})
 
 add_executable(flo src/flo.cpp)
   target_link_libraries(flo FloLib DictLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
-add_executable(SimpleTest test/simpletest.cpp)
+add_executable(SimpleTest test/simpletest.cpp test/utils.cpp)
   target_link_libraries(SimpleTest FloLib DictLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_test(SimpleTest SimpleTest)
@@ -103,3 +104,9 @@ add_executable(LengthTest test/lengthtest.cpp test/utils.cpp)
   target_link_libraries(LengthTest FloLib DictLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_test(LengthTest LengthTest)
+
+add_executable(StringCatTest test/stringcattest.cpp test/utils.cpp)
+  target_link_libraries(StringCatTest FloLib DictLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+
+add_test(StringCatTest StringCatTest)
+

@@ -24,8 +24,8 @@ class Utils
 {
 public:
 
-  static std::optional<vops::DictO> loadYML(const std::string &fn);
-  static std::optional<vops::DictO> loadJSON(const std::string &fn);
+  static vops::DictG loadYML(const std::string &fn);
+  static vops::DictG loadJSON(const std::string &fn);
 
 };
 

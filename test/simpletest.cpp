@@ -14,6 +14,7 @@
 #include "processor.hpp"
 #include "functions.hpp"
 #include "dict.hpp"
+#include "utils.hpp"
 
 #include <fstream>
 #include <rfl/json.hpp>
@@ -27,30 +28,14 @@ namespace fs = std::filesystem;
 using namespace vops::flo;
 using namespace vops;
 
-DictG loadJSON(const string &fn) {
-
-  std::filesystem::path path = "../flo-src/test";
-  if (!std::filesystem::exists(path)) {
-    path = "../test";
-  }
-
-  auto g = rfl::json::load<DictG>(path.string() + "/" + fn);
-  if (!g) {
-    cout << g.error().what() << endl;
-    return 0;
-  }
-  return *g;
-
-}
-
 BOOST_AUTO_TEST_CASE( nullTest )
 {
   cout << "=== nullTest ===" << endl;
   
-  auto hello = loadJSON("hello.json");
+  auto hello = Utils::loadJSON("hello.json");
 //  cout << rfl::json::write<DictG>(hello) << endl;
   
-  auto transform = loadJSON("null-t.json");
+  auto transform = Utils::loadJSON("null-t.json");
 
   Functions f(transform);
   Processor p(f);
@@ -69,7 +54,7 @@ BOOST_AUTO_TEST_CASE( noFuncTest )
 {
   cout << "=== noFuncTest ===" << endl;
   
-  auto transform = loadJSON("bad-t.json");
+  auto transform = Utils::loadJSON("bad-t.json");
   
   Functions f(transform);
   Processor p(f);
@@ -88,9 +73,9 @@ BOOST_AUTO_TEST_CASE( ifTrueTest )
 {
   cout << "=== ifTrueTest ===" << endl;
   
-  auto hello = loadJSON("message.json");
+  auto hello = Utils::loadJSON("message.json");
   
-  auto transform = loadJSON("true-t.json");
+  auto transform = Utils::loadJSON("true-t.json");
   
   Functions f(transform);
   Processor p(f);

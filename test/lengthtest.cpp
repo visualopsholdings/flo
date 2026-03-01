@@ -28,16 +28,15 @@ BOOST_AUTO_TEST_CASE( listLength )
   cout << "=== listLength ===" << endl;
   
   auto transform = Utils::loadJSON("list-length-t.json");
-  BOOST_CHECK(transform);
   
-  auto input = Processor::getFirstScenarioInput(*transform);
+  auto input = Processor::getFirstScenarioInput(transform);
   BOOST_CHECK(input);
   
-  Functions f(*transform);
+  Functions f(transform);
   Processor p(f);
 
   // run the scenario.
-  auto result = p.transform(*transform, *input);
+  auto result = p.transform(transform, *input);
   BOOST_CHECK(result);
   auto n = Dict::getNum(*result);
   BOOST_CHECK(n);
@@ -50,16 +49,15 @@ BOOST_AUTO_TEST_CASE( stringLength )
   cout << "=== stringLength ===" << endl;
   
   auto transform = Utils::loadJSON("string-length-t.json");
-  BOOST_CHECK(transform);
   
-  auto input = Processor::getFirstScenarioInput(*transform);
+  auto input = Processor::getFirstScenarioInput(transform);
   BOOST_CHECK(input);
   
-  Functions f(*transform);
+  Functions f(transform);
   Processor p(f);
 
   // run the scenario.
-  auto result = p.transform(*transform, *input);
+  auto result = p.transform(transform, *input);
   BOOST_CHECK(result);
   auto n = Dict::getNum(*result);
   BOOST_CHECK(n);

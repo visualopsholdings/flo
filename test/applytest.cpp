@@ -28,12 +28,11 @@ BOOST_AUTO_TEST_CASE( simple )
   cout << "=== simple ===" << endl;
   
   auto transform = Utils::loadYML("apply-t.yml");
-  BOOST_CHECK(transform);
   
-  Functions f(*transform);
+  Functions f(transform);
   Processor p(f);
 
-  auto result = p.transform(*transform);
+  auto result = p.transform(transform);
   BOOST_CHECK(result);
 //  cout << Dict::toString(*result);
   auto obj = Dict::getObject(*result);
@@ -52,15 +51,13 @@ BOOST_AUTO_TEST_CASE( cur )
   cout << "=== cur ===" << endl;
   
   auto transform = Utils::loadYML("cur-t.yml");
-  BOOST_CHECK(transform);
   
   auto obj = Utils::loadYML("hello.yml");
-  BOOST_CHECK(obj);
 
-  Functions f(*transform);
+  Functions f(transform);
   Processor p(f);
 
-  auto result = p.transform(*transform, *obj);
+  auto result = p.transform(transform, obj);
   BOOST_CHECK(result);
   auto s = Dict::getString(*result);
   BOOST_CHECK(s);
@@ -73,12 +70,11 @@ BOOST_AUTO_TEST_CASE( emptyApply )
   cout << "=== emptyApply ===" << endl;
   
   auto transform = Utils::loadJSON("empty-apply-t.json");
-  BOOST_CHECK(transform);
   
-  Functions f(*transform);
+  Functions f(transform);
   Processor p(f);
 
-  auto result = p.transform(*transform);
+  auto result = p.transform(transform);
   BOOST_CHECK(!result);
   
 }
@@ -88,12 +84,11 @@ BOOST_AUTO_TEST_CASE( quote )
   cout << "=== quote ===" << endl;
   
   auto transform = Utils::loadJSON("quote-t.json");
-  BOOST_CHECK(transform);
   
-  Functions f(*transform);
+  Functions f(transform);
   Processor p(f);
 
-  auto result = p.transform(*transform);
+  auto result = p.transform(transform);
   BOOST_CHECK(result);
   auto obj = Dict::getObject(*result);
   BOOST_CHECK(obj);
@@ -107,12 +102,11 @@ BOOST_AUTO_TEST_CASE( nested )
   cout << "=== nested ===" << endl;
   
   auto transform = Utils::loadJSON("nested-apply-t.json");
-  BOOST_CHECK(transform);
   
-  Functions f(*transform);
+  Functions f(transform);
   Processor p(f);
 
-  auto result = p.transform(*transform);
+  auto result = p.transform(transform);
   BOOST_CHECK(result);
   auto obj = Dict::getObject(*result);
   auto t = Dict::getString(Dict::getObject(obj, "send"), "type");
@@ -129,15 +123,14 @@ BOOST_AUTO_TEST_CASE( stringResult )
   cout << "=== stringResult ===" << endl;
   
   auto transform = Utils::loadJSON("string-t.json");
-  BOOST_CHECK(transform);
   
-  auto input = Processor::getFirstScenarioInput(*transform);
+  auto input = Processor::getFirstScenarioInput(transform);
   BOOST_CHECK(input);
   
-  Functions f(*transform);
+  Functions f(transform);
   Processor p(f);
 
-  auto result = p.transform(*transform, *input);
+  auto result = p.transform(transform, *input);
   BOOST_CHECK(result);
   auto s = Dict::getString(*result);
   BOOST_CHECK(s);
@@ -150,15 +143,14 @@ BOOST_AUTO_TEST_CASE( nullApply )
   cout << "=== nullApply ===" << endl;
   
   auto transform = Utils::loadJSON("null-apply-t.json");
-  BOOST_CHECK(transform);
   
-  auto input = Processor::getFirstScenarioInput(*transform);
+  auto input = Processor::getFirstScenarioInput(transform);
   BOOST_CHECK(input);
   
-  Functions f(*transform);
+  Functions f(transform);
   Processor p(f);
 
-  auto result = p.transform(*transform, *input);
+  auto result = p.transform(transform, *input);
   BOOST_CHECK(!result);
   
 }
@@ -168,15 +160,14 @@ BOOST_AUTO_TEST_CASE( applyMask )
   cout << "=== applyMask ===" << endl;
   
   auto transform = Utils::loadJSON("apply-mask-t.json");
-  BOOST_CHECK(transform);
   
-  auto input = Processor::getFirstScenarioInput(*transform);
+  auto input = Processor::getFirstScenarioInput(transform);
   BOOST_CHECK(input);
   
-  Functions f(*transform);
+  Functions f(transform);
   Processor p(f);
 
-  auto result = p.transform(*transform, *input);
+  auto result = p.transform(transform, *input);
   BOOST_CHECK(result);
   cout << Dict::toString(*result) << endl;
   auto v = Dict::getVector(*result);

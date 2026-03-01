@@ -19,7 +19,7 @@
 using namespace std;
 using namespace vops;
 
-optional<DictO > Utils::loadYML(const string &fn) {
+DictG Utils::loadYML(const string &fn) {
 
   std::filesystem::path path = "../flo-src/test";
   if (!std::filesystem::exists(path)) {
@@ -32,11 +32,11 @@ optional<DictO > Utils::loadYML(const string &fn) {
     return nullopt;
   }
   
-  return Dict::getObject(*g);
+  return *g;
 
 }
 
-optional<DictO > Utils::loadJSON(const string &fn) {
+DictG Utils::loadJSON(const string &fn) {
 
   std::filesystem::path path = "../flo-src/test";
   if (!std::filesystem::exists(path)) {
@@ -49,7 +49,7 @@ optional<DictO > Utils::loadJSON(const string &fn) {
     return nullopt;
   }
   
-  return Dict::getObject(*g);
+  return *g;
 
 }
 

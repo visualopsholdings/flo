@@ -59,6 +59,12 @@
 		description:"Turn the string into a block that can be processed."
 	},
 	{
+		title: "StringCat",
+		fname: "stringcat",
+		cat: "Values",
+		description:"Catenate strings."
+	},
+	{
     title: "List",
     fname: "list",
     cat: "List",
