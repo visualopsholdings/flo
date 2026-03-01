@@ -22,7 +22,7 @@
 using namespace vops::flo;
 using namespace vops;
 
-optional<DictG> Processor::transform(const DictG &code, std::optional<DictG> input) {
+optional<DictG> Processor::transform(const DictG &code, std::optional<DictG> input, std::optional<DictO> args) {
 
   auto transform = Dict::getGeneric(Dict::getObject(code), "transform");
   if (!transform) {
@@ -59,6 +59,9 @@ optional<DictG> Processor::transform(const DictG &code, std::optional<DictG> inp
   State s;
   if (input) {
     s.set(*input);
+  }
+  if (args) {
+    s.setArgs(*args);
   }
   return t.exec(*tr, &s);
 

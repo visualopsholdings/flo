@@ -28,7 +28,7 @@ class Processor
 public:
   Processor(Functions &functions): _functions(functions) {}
   
-  optional<DictG> transform(const DictG &code, std::optional<DictG> input=nullopt);
+  optional<DictG> transform(const DictG &code, std::optional<DictG> input=nullopt, std::optional<DictO> args=nullopt);
   optional<DictG> transform(const DictG &code, const std::string &scenario);
 
   static optional<DictG> getFirstScenarioInput(const DictG &code);
