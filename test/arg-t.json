@@ -1,0 +1,15 @@
+{
+  "library": [
+    {
+      "name": "func",
+      "result": {
+        "arg": "msg"
+      }
+    }
+  ],
+  "transform": {
+    "func": {
+      "msg": "hello"
+    }
+  }
+}

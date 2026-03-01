@@ -25,6 +25,9 @@ class SetMember: public Func<SetMember> {
 class GetMember: public Func<GetMember> {
 };
 
+class StringCat: public Func<StringCat> {
+};
+
 } // flo
 } // vops
 

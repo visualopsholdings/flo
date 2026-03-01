@@ -64,6 +64,7 @@ add_library(FloLib STATIC
     src/functions/tail.cpp
     src/functions/length.cpp
     src/functions/stringcat.cpp
+    src/functions/arg.cpp
   )
   target_link_libraries(FloLib reflectcpp ${BOOSTLIBS})
 
@@ -109,4 +110,9 @@ add_executable(StringCatTest test/stringcattest.cpp test/utils.cpp)
   target_link_libraries(StringCatTest FloLib DictLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_test(StringCatTest StringCatTest)
+
+add_executable(ArgTest test/argtest.cpp test/utils.cpp)
+  target_link_libraries(ArgTest FloLib DictLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+
+add_test(ArgTest ArgTest)
 

@@ -28,7 +28,7 @@ class Transform
 public:
   Transform(Functions &functions);
   
-  optional<DictG> exec(const DictG &closure, State *state);
+  optional<DictG> exec(const DictG &func, State *state);
 
   DictG error(const string &msg) const;
 

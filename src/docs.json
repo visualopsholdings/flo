@@ -58,12 +58,13 @@
 		string: true,
 		description:"Turn the string into a block that can be processed."
 	},
-	{
-		title: "StringCat",
-		fname: "stringcat",
-		cat: "Values",
-		description:"Catenate strings."
-	},
+  {
+    title: "Arg",
+    fname: "arg",
+    cat: "Values",
+		string: true,
+    description:"Get the value of a named argument in a library function call."
+  },
 	{
     title: "List",
     fname: "list",
@@ -109,6 +110,13 @@
 		cat: "Data",
 		description:"Given an object, return a new object with the member set to a specific value."
 	},
+  {
+    title: "String Cat",
+    fname: "stringcat",
+    cat: "Data",
+		array: true,
+    description:"Join strings into a single string."
+  },
 	{
     title: "Head",
     fname: "head",

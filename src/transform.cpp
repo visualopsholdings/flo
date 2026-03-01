@@ -14,6 +14,7 @@
 #include "functions.hpp"
 #include "dict.hpp"
 #include "listfun.hpp"
+#include "state.hpp"
 
 #include <boost/log/trivial.hpp>
 #include <rfl/json.hpp>
@@ -57,6 +58,12 @@ optional<DictG> Transform::exec(const DictG &closure, State *state) {
 
       // get transform representing name.
       auto t = _functions.getLibrary(name);
+      
+      // set any arguments passed for "arg".
+      auto obj = vops::Dict::getObject(get<1>(*first));
+      if (obj) {
+        state->setArgs(*obj);
+      }
       
       // recursively call down
       return exec(t, state);

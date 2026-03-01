@@ -24,6 +24,7 @@ State::State() {
 State::State(const State &state) {
   _elem = state._elem;
   _coll = state._coll;
+  _args = state._args;
 }
 
 void State::set(const DictG &g) {
@@ -81,3 +82,19 @@ bool State::hasColl() const {
 const vector<DictG> State::getColl() const {
   return *_coll;
 }
+
+void State::setArgs(const DictO &args) {
+  _args = args;
+}
+
+optional<DictG> State::getArg(const string &name) const {
+
+  if (!_args) {
+    BOOST_LOG_TRIVIAL(trace) << "no args";
+    return nullopt;
+  }
+  
+  return Dict::getGeneric(*_args, name);
+
+}
+

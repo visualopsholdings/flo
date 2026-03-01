@@ -40,10 +40,14 @@ public:
   bool hasColl() const;
   const DictV getColl() const;
 
+  optional<DictG> getArg(const string &name) const;
+  void setArgs(const DictO &args);
+  
 private:
   
   optional<DictG> _elem;
   optional<DictV> _coll;
+  optional<DictO> _args;
   
 };
 

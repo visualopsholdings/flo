@@ -28,7 +28,7 @@ class Cur: public Func<Cur> {
 class String: public Func<String> {
 };
 
-class StringCat: public Func<StringCat> {
+class Arg: public Func<Arg> {
 };
 
 } // flo
