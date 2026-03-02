@@ -3,12 +3,22 @@
     {
       "name": "func",
       "result": {
-        "arg": "msg"
+        "arg": "msg1"
+      }
+    },
+    {
+      "name": "func2",
+      "result": {
+        "func": { 
+          "msg1": { 
+            "arg": "msg"
+          }
+        }
       }
     }
   ],
   "transform": {
-    "func": {
+    "func2": {
       "msg": "hello"
     }
   }

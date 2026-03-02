@@ -35,6 +35,8 @@ public:
 private:
   Functions &_functions;
   
+  DictO evalAll(const DictO &obj, State *state);
+  
 };
 
 } // flo

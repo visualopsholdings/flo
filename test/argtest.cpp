@@ -28,9 +28,9 @@ namespace fs = std::filesystem;
 using namespace vops::flo;
 using namespace vops;
 
-BOOST_AUTO_TEST_CASE( simple )
+BOOST_AUTO_TEST_CASE( nestable )
 {
-  cout << "=== simple ===" << endl;
+  cout << "=== nestable ===" << endl;
   
   auto hello = Utils::loadJSON("message.json");
   auto transform = Utils::loadJSON("arg-t.json");
