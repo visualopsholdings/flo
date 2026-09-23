@@ -385,5 +385,5 @@ wrap it.
 
 ### 23-Sep-2026
 
-- implement "getvar".
+- implement "getvar", "integer", "divide".
 

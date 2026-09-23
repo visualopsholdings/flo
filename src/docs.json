@@ -134,5 +134,17 @@
     fname: "dict",
     cat: "List",
     description:"Convert a nested list of lists into a dictionary."
+  },
+  {
+    title: "Divide",
+    fname: "divide",
+    cat: "Math",
+    description:"Divide 1 number by another."
+  },
+  {
+    title: "Integer",
+    fname: "integer",
+    cat: "Math",
+    description: "Dataum is a number."
   }
 ]

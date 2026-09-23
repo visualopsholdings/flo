@@ -15,6 +15,7 @@
 #include "values.hpp"
 #include "listfun.hpp"
 #include "data.hpp"
+#include "math.hpp"
 
 #include <boost/log/trivial.hpp>
 
@@ -68,6 +69,8 @@ void Functions::loadFunctions() {
   _functions["stringcat"] = bind(&StringCat::create);
   _functions["arg"] = bind(&Arg::create);
   _functions["getvar"] = bind(&GetVar::create);
+  _functions["divide"] = bind(&Divide::create);
+  _functions["integer"] = bind(&Integer::create);
 
 }
 

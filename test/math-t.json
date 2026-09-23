@@ -1,0 +1,16 @@
+{
+  "library": [],
+  "transform": {
+    "list": [
+      {
+        "divide": [{ "integer": 4 }, { "integer": 2 }]
+      }
+    ]
+  },
+  "scenarios": [
+    {
+      "name": "Simple",
+      "input": {}
+    }
+  ]
+}

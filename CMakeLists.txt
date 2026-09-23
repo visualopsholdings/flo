@@ -66,6 +66,8 @@ add_library(FloLib STATIC
     src/functions/stringcat.cpp
     src/functions/arg.cpp
     src/functions/getvar.cpp
+    src/functions/divide.cpp
+    src/functions/integer.cpp
   )
   target_link_libraries(FloLib reflectcpp ${BOOSTLIBS})
 
@@ -121,4 +123,9 @@ add_executable(DataTest test/datatest.cpp test/utils.cpp)
   target_link_libraries(DataTest FloLib DictLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_test(DataTest DataTest)
+
+add_executable(MathTest test/mathtest.cpp test/utils.cpp)
+  target_link_libraries(MathTest FloLib DictLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+
+add_test(MathTest MathTest)
 
