@@ -68,6 +68,10 @@ add_library(FloLib STATIC
     src/functions/getvar.cpp
     src/functions/divide.cpp
     src/functions/integer.cpp
+    src/functions/subtract.cpp
+    src/functions/number.cpp
+    src/functions/multiply.cpp
+    src/functions/add.cpp
   )
   target_link_libraries(FloLib reflectcpp ${BOOSTLIBS})
 

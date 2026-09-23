@@ -4,6 +4,21 @@
     "list": [
       {
         "divide": [{ "integer": 4 }, { "integer": 2 }]
+      },
+      {
+        "divide": [{ "integer": 4 }, { "integer": 3 }]
+      },
+      {
+        "divide": [{ "number": 1.2 }, { "integer": 3 }]
+      },
+      {
+        "subtract": [{ "integer": 4 }, { "integer": 2 }]
+      },
+      {
+        "add": [{ "integer": 4 }, { "number": 2.3 }, { "number": 3 }]
+      },
+      {
+        "multiply": [{ "integer": 4 }, { "number": 2.3 }, { "number": 3 }]
       }
     ]
   },

@@ -69,8 +69,12 @@ void Functions::loadFunctions() {
   _functions["stringcat"] = bind(&StringCat::create);
   _functions["arg"] = bind(&Arg::create);
   _functions["getvar"] = bind(&GetVar::create);
-  _functions["divide"] = bind(&Divide::create);
   _functions["integer"] = bind(&Integer::create);
+  _functions["number"] = bind(&Number::create);
+  _functions["add"] = bind(&Add::create);
+  _functions["multiply"] = bind(&Multiply::create);
+  _functions["divide"] = bind(&Divide::create);
+  _functions["subtract"] = bind(&Subtract::create);
 
 }
 

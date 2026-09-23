@@ -43,9 +43,13 @@ BOOST_AUTO_TEST_CASE( simple )
   
   auto l = Dict::getVector(*result);
   BOOST_CHECK(l);
-  cout << Dict::toString(*l) << endl;
-//   BOOST_CHECK_EQUAL(l->size(), 2);
-//   BOOST_CHECK_EQUAL(*Dict::getString((*l)[0]), "aaaa");
-//   BOOST_CHECK_EQUAL(*Dict::getString((*l)[1]), "bbbb");
+//  cout << Dict::toString(*l) << endl;
+  BOOST_CHECK_EQUAL(l->size(), 6);
+  BOOST_CHECK_CLOSE_FRACTION(*Dict::getDouble((*l)[0]), 2, 0.01);
+  BOOST_CHECK_CLOSE_FRACTION(*Dict::getDouble((*l)[1]), 1.33, 0.01);
+  BOOST_CHECK_CLOSE_FRACTION(*Dict::getDouble((*l)[2]), 0.4, 0.01);
+  BOOST_CHECK_CLOSE_FRACTION(*Dict::getDouble((*l)[3]), 2.0, 0.01);
+  BOOST_CHECK_CLOSE_FRACTION(*Dict::getDouble((*l)[4]), 9.3, 0.01);
+  BOOST_CHECK_CLOSE_FRACTION(*Dict::getDouble((*l)[5]), 27.6, 0.01);
   
 }

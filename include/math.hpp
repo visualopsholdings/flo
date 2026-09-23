@@ -19,12 +19,27 @@
 namespace vops {
 namespace flo {
 
-class Divide: public Func<Divide> {
-};
-
 class Integer: public Func<Integer> {
 };
 
+class Number: public Func<Number> {
+};
+
+class Add: public Func<Add> {
+};
+
+class Subtract: public Func<Subtract> {
+};
+
+class Multiply: public Func<Multiply> {
+};
+
+class Divide: public Func<Divide> {
+};
+
+double evalDouble(Transform &transform, State *state, const DictG &e);
+  // evaulate an arg as a double.
+  
 } // flo
 } // vops
 

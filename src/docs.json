@@ -136,15 +136,39 @@
     description:"Convert a nested list of lists into a dictionary."
   },
   {
-    title: "Divide",
-    fname: "divide",
-    cat: "Math",
-    description:"Divide 1 number by another."
-  },
-  {
     title: "Integer",
     fname: "integer",
     cat: "Math",
-    description: "Dataum is a number."
+    description: "Datum is an integer."
+  },
+  {
+    title: "Number",
+    fname: "number",
+    cat: "Math",
+    description: "Datam is a double."
+  },
+  {
+    title: "Add",
+    fname: "add",
+    cat: "Math",
+    description: "Add up a list of numbers."
+  },
+  {
+    title: "Multiply",
+    fname: "multiply",
+    cat: "Math",
+    description: "Multiply up a list of numbers."
+  },
+  {
+    title: "Divide",
+    fname: "divide",
+    cat: "Math",
+    description:"Divide 1 number by another. Result is always a number."
+  },
+  {
+    title: "Subtract",
+    fname: "subtract",
+    cat: "Math",
+    description:"Sibtract 1 number from another. Result is always a double."
   }
 ]

@@ -385,5 +385,5 @@ wrap it.
 
 ### 23-Sep-2026
 
-- implement "getvar", "integer", "divide".
+- implement "getvar", "integer", "number", "add", "multiply", "divide" and "subtract".
 

@@ -1,5 +1,5 @@
 /*
-  divide.cpp
+  subtract.cpp
   
   Author: Paul Hamilton (paul@visualops.com)
   Date: 23-Sep-2026
@@ -18,12 +18,11 @@
 
 using namespace std;
 using namespace vops::flo;
-using namespace vops;
 
 template<>
-optional<DictG> Func<Divide>::exec(Transform &transform, State *state, const DictG &closure) {
+optional<DictG> Func<Subtract>::exec(Transform &transform, State *state, const DictG &closure) {
   
-//  BOOST_LOG_TRIVIAL(trace) << "divide " << Dict::toString(closure);
+//  BOOST_LOG_TRIVIAL(trace) << "subtract " << Dict::toString(closure);
 
   auto v = Dict::getVector(closure);
   if (!v) {
@@ -37,31 +36,6 @@ optional<DictG> Func<Divide>::exec(Transform &transform, State *state, const Dic
   auto a1 = evalDouble(transform, state, (*v)[0]);
   auto a2 = evalDouble(transform, state, (*v)[1]);
   
-  return a1 / a2;
+  return a1 - a2;
        
-}
-
-double vops::flo::evalDouble(Transform &transform, State *state, const DictG &e) {
-
-	auto ng = transform.exec(e, state);
-	if (!ng) {
-	  return 0;
-	}
-
-	double a = 0;
-  auto d = Dict::getDouble(*ng);
-  if (d) {
-    a = *d;
-  }
-  else {
-    auto n = Dict::getNum(*ng);
-    if (!n) {
-      BOOST_LOG_TRIVIAL(error) << "n isn't a number";
-	    return 0;
-    }
-    a = *n;
-  }
-
-  return a;
-  
 }
