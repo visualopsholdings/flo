@@ -1,0 +1,33 @@
+{
+  "library": [],
+  "transform": {
+    "list": [
+      {
+        "getvar": "var1"
+      },
+      {
+        "apply": [
+          {
+            "getvar": "obj1"
+          },
+          {
+            "getmember": {
+              "name": "x"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "scenarios": [
+    {
+      "name": "Simple",
+      "input": {
+        "var1": "aaaa",
+        "obj1": {
+          "x": "bbbb"
+        }
+      }
+    }
+  ]
+}

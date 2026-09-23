@@ -65,6 +65,7 @@ add_library(FloLib STATIC
     src/functions/length.cpp
     src/functions/stringcat.cpp
     src/functions/arg.cpp
+    src/functions/getvar.cpp
   )
   target_link_libraries(FloLib reflectcpp ${BOOSTLIBS})
 
@@ -115,4 +116,9 @@ add_executable(ArgTest test/argtest.cpp test/utils.cpp)
   target_link_libraries(ArgTest FloLib DictLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_test(ArgTest ArgTest)
+
+add_executable(DataTest test/datatest.cpp test/utils.cpp)
+  target_link_libraries(DataTest FloLib DictLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+
+add_test(DataTest DataTest)
 
