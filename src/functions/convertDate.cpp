@@ -39,6 +39,7 @@ optional<DictG> Func<ConvertDate>::exec(Transform &transform, State *state, cons
     return *n;
   }
 
+  BOOST_LOG_TRIVIAL(debug) << Dict::toString(*value);
   BOOST_LOG_TRIVIAL(error) << "don't handle the type for a date.";
   return nullopt;
          
