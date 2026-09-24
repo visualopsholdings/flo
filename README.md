@@ -387,3 +387,7 @@ wrap it.
 
 - implement "getvar", "integer", "number", "add", "multiply", "divide" and "subtract".
 
+### 24-Sep-2026
+
+- implement "convertDate".
+

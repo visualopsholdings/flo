@@ -16,6 +16,7 @@
 #include "listfun.hpp"
 #include "data.hpp"
 #include "math.hpp"
+#include "datefun.hpp"
 
 #include <boost/log/trivial.hpp>
 
@@ -75,6 +76,7 @@ void Functions::loadFunctions() {
   _functions["multiply"] = bind(&Multiply::create);
   _functions["divide"] = bind(&Divide::create);
   _functions["subtract"] = bind(&Subtract::create);
+  _functions["convertDate"] = bind(&ConvertDate::create);
 
 }
 

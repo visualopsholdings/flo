@@ -31,7 +31,16 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(dict)
 
-include_directories(build/_deps/dict-src/include)
+include_directories(${dict_SOURCE_DIR}/include)
+
+FetchContent_Declare(
+  dates
+  GIT_REPOSITORY https://github.com/visualopsholdings/dates.git
+  GIT_TAG main
+)
+FetchContent_MakeAvailable(dates)
+
+include_directories(${dates_SOURCE_DIR}/include)
 
 set(BOOSTLIBS ${Boost_PROGRAM_OPTIONS_LIBRARY} ${Boost_LOG_SETUP_LIBRARY} 
   ${Boost_LOG_LIBRARY} ${Boost_URL_LIBRARY})
@@ -72,64 +81,72 @@ add_library(FloLib STATIC
     src/functions/number.cpp
     src/functions/multiply.cpp
     src/functions/add.cpp
+    src/functions/convertDate.cpp
   )
   target_link_libraries(FloLib reflectcpp ${BOOSTLIBS})
 
+set(LIBS FloLib DictLib DatesLib)
+
 add_executable(flo src/flo.cpp)
-  target_link_libraries(flo FloLib DictLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+  target_link_libraries(flo ${LIBS} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_executable(SimpleTest test/simpletest.cpp test/utils.cpp)
-  target_link_libraries(SimpleTest FloLib DictLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+  target_link_libraries(SimpleTest ${LIBS} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_test(SimpleTest SimpleTest)
 
 add_executable(HelloWorldTest test/helloworldtest.cpp)
-  target_link_libraries(HelloWorldTest FloLib DictLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+  target_link_libraries(HelloWorldTest ${LIBS} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_test(HelloWorldTest HelloWorldTest)
 
 add_executable(LibTest test/libtest.cpp)
-  target_link_libraries(LibTest FloLib DictLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+  target_link_libraries(LibTest ${LIBS} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_test(LibTest LibTest)
 
 add_executable(ApplyTest test/applytest.cpp test/utils.cpp)
-  target_link_libraries(ApplyTest FloLib DictLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+  target_link_libraries(ApplyTest ${LIBS} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_test(ApplyTest ApplyTest)
 
 add_executable(MapTest test/maptest.cpp test/utils.cpp)
-  target_link_libraries(MapTest FloLib DictLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+  target_link_libraries(MapTest ${LIBS} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_test(MapTest MapTest)
 
 add_executable(FilterTest test/filtertest.cpp test/utils.cpp)
-  target_link_libraries(FilterTest FloLib DictLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+  target_link_libraries(FilterTest ${LIBS} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_test(FilterTest FilterTest)
 
 add_executable(LengthTest test/lengthtest.cpp test/utils.cpp)
-  target_link_libraries(LengthTest FloLib DictLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+  target_link_libraries(LengthTest ${LIBS} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_test(LengthTest LengthTest)
 
 add_executable(StringCatTest test/stringcattest.cpp test/utils.cpp)
-  target_link_libraries(StringCatTest FloLib DictLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+  target_link_libraries(StringCatTest ${LIBS} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_test(StringCatTest StringCatTest)
 
 add_executable(ArgTest test/argtest.cpp test/utils.cpp)
-  target_link_libraries(ArgTest FloLib DictLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+  target_link_libraries(ArgTest ${LIBS} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_test(ArgTest ArgTest)
 
 add_executable(DataTest test/datatest.cpp test/utils.cpp)
-  target_link_libraries(DataTest FloLib DictLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+  target_link_libraries(DataTest ${LIBS} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_test(DataTest DataTest)
 
 add_executable(MathTest test/mathtest.cpp test/utils.cpp)
-  target_link_libraries(MathTest FloLib DictLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+  target_link_libraries(MathTest ${LIBS} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_test(MathTest MathTest)
+
+add_executable(DateTest test/datetest.cpp test/utils.cpp)
+  target_link_libraries(DateTest ${LIBS} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+
+add_test(DateTest DateTest)
 

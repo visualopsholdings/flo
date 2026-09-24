@@ -169,6 +169,12 @@
     title: "Subtract",
     fname: "subtract",
     cat: "Math",
-    description:"Sibtract 1 number from another. Result is always a double."
+    description: "Subtract 1 number from another. Result is always a double."
+  },
+  {
+    title: "ConvertDate",
+    fname: "convertDate",
+    cat: "Date",
+    description: "Convert to our underlying int64 dates."
   }
 ]
