@@ -1,0 +1,20 @@
+{
+  "library": [],
+  "transform": {
+    "setvar": {
+      "name": "var1",
+      "value": {
+        "string": "bbbb"
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Simple",
+      "input": {
+        "var1": "aaaa",
+        "var2": 1
+      }
+    }
+  ]
+}

@@ -52,8 +52,10 @@ optional<DictG> Func<SetMember>::exec(Transform &transform, State *state, const 
 	}
   auto value = transform.exec(*v, state);
   if (value) {
+    // set the actual member into the object.
     (*elemobj)[*name] = *value;
-    return *elemobj;
+    state->setElem(*elemobj);
+    return true;
   }
 
   BOOST_LOG_TRIVIAL(error) << "not sure how to erase an element in Object";

@@ -49,3 +49,29 @@ BOOST_AUTO_TEST_CASE( simple )
   BOOST_CHECK_EQUAL(*Dict::getString((*l)[1]), "bbbb");
   
 }
+
+BOOST_AUTO_TEST_CASE( setvar )
+{
+  cout << "=== setvar ===" << endl;
+  
+  auto transform = Utils::loadJSON("setdata-t.json");
+  
+  auto input = Processor::getFirstScenarioInput(transform);
+  BOOST_CHECK(input);
+  
+  Functions f(transform);
+  Processor p(f);
+
+  // run the scenario.
+  DictG newelem;
+  auto result = p.transform(transform, *input, nullopt, &newelem);
+  BOOST_CHECK(result);
+  
+//  cout << Dict::toString(*newelem) << endl;
+  
+  auto s = Dict::getStringG(newelem, "var1");
+  BOOST_CHECK(s);
+//  cout << Dict::toString(*l) << endl;
+  BOOST_CHECK_EQUAL(*s, "bbbb");
+  
+}

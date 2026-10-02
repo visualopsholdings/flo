@@ -55,6 +55,7 @@ void Functions::loadFunctions() {
   _functions["equal"] = bind(&Equal::create);
   _functions["getmember"] = bind(&GetMember::create);
   _functions["setmember"] = bind(&SetMember::create);
+  _functions["setvar"] = bind(&SetMember::create);
   _functions["string"] = bind(&String::create);
   _functions["select"] = bind(&Select::create);
   _functions["apply"] = bind(&Apply::create);

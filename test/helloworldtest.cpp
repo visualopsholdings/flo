@@ -43,11 +43,9 @@ void runTransform(const string &input, const string &message) {
   
   Functions f(*transform);
   Processor p(f);
-  auto result = p.transform(*transform, *file);
-  BOOST_CHECK(result);
-  auto obj = Dict::getObject(*result);
-  BOOST_CHECK(obj);
-  auto m = Dict::getString(obj, "message");
+  DictG newelem;
+  p.transform(*transform, *file, nullopt, &newelem);
+  auto m = Dict::getStringG(newelem, "message");
   BOOST_CHECK(m);
 	BOOST_CHECK_EQUAL(*m, message);
 

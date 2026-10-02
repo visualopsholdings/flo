@@ -109,6 +109,12 @@
 		fname: "setmember",
 		cat: "Data",
 		description:"Given an object, return a new object with the member set to a specific value."
+	}},
+	{
+		title: "Set Var",
+		fname: "setvar",
+		cat: "Data",
+		description:"identical to SetMember."
 	},
   {
     title: "String Cat",
