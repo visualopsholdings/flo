@@ -108,7 +108,7 @@
 		title: "Set Member",
 		fname: "setmember",
 		cat: "Data",
-		description:"Given an object, return a new object with the member set to a specific value."
+		description:"Given an object, return a new object with the member set to a specific value. Also set's the state data."
 	}},
 	{
 		title: "Set Var",
