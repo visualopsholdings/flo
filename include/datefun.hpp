@@ -22,6 +22,9 @@ namespace flo {
 class ConvertDate: public Func<ConvertDate> {
 };
 
+class ParseDate: public Func<ParseDate> {
+};
+
 } // flo
 } // vops
 

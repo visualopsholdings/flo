@@ -391,3 +391,7 @@ wrap it.
 
 - implement "convertDate".
 
+### 2-Noc-2026
+
+- implement "parseDate".
+

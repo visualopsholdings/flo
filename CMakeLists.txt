@@ -82,6 +82,7 @@ add_library(FloLib STATIC
     src/functions/multiply.cpp
     src/functions/add.cpp
     src/functions/convertDate.cpp
+    src/functions/parseDate.cpp
   )
   target_link_libraries(FloLib reflectcpp ${BOOSTLIBS})
 

@@ -11,6 +11,14 @@
         "convertDate": {
           "integer": 1721890479599
         }
+      },
+      {
+        "parseDate": { 
+          "format": "%d %b %Y", 
+          "value": { 
+            "string":  "3 Jan 2022" 
+          }
+        }
       }
     ]
   },

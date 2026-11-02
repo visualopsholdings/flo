@@ -44,8 +44,9 @@ BOOST_AUTO_TEST_CASE( simple )
   auto l = Dict::getVector(*result);
   BOOST_CHECK(l);
 //  cout << Dict::toString(*l) << endl;
-  BOOST_CHECK_EQUAL(l->size(), 2);
+  BOOST_CHECK_EQUAL(l->size(), 3);
   BOOST_CHECK_EQUAL(*Dict::getNum((*l)[0]), 1790145900000);
   BOOST_CHECK_EQUAL(*Dict::getNum((*l)[1]), 1721890479599);
+  BOOST_CHECK_EQUAL(*Dict::getString((*l)[2]), "2022-01-03T00:00:00.000+00:00");
   
 }

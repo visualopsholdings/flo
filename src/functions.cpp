@@ -78,6 +78,7 @@ void Functions::loadFunctions() {
   _functions["divide"] = bind(&Divide::create);
   _functions["subtract"] = bind(&Subtract::create);
   _functions["convertDate"] = bind(&ConvertDate::create);
+  _functions["parseDate"] = bind(&ParseDate::create);
 
 }
 

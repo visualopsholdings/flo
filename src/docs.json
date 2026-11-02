@@ -178,9 +178,15 @@
     description: "Subtract 1 number from another. Result is always a double."
   },
   {
-    title: "ConvertDate",
+    title: "Convert Date",
     fname: "convertDate",
     cat: "Date",
     description: "Convert to our underlying int64 dates."
+  },
+  {
+    title: "Parse Date",
+    fname: "parseDate",
+    cat: "Date",
+    description: "parse a date using a format to a UTC date"
   }
 ]
