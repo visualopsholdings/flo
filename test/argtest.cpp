@@ -46,3 +46,20 @@ BOOST_AUTO_TEST_CASE( nestable )
 
 }
 
+BOOST_AUTO_TEST_CASE( complexArgs )
+{
+  cout << "=== complexArgs ===" << endl;
+  
+  auto data = Utils::loadJSON("carg.json");
+  auto transform = Utils::loadJSON("carg-t.json");
+
+  Functions f(transform);
+  Processor p(f);
+  auto result = p.transform(transform, data);
+  BOOST_CHECK(result);
+
+  auto v = Dict::getVector(*result);
+  BOOST_CHECK(v);
+  BOOST_CHECK_EQUAL(v->size(), 1);
+
+}

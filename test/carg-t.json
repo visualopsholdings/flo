@@ -1,0 +1,42 @@
+{
+  "library": [
+    {
+      "name": "insert_coll",
+      "result": {
+        "apply": [
+          {
+            "getvar": "lines"
+          },
+          {
+            "map": [
+              { 
+                "list": [
+                  {
+                    "list": [
+                      { "string": "collection" },
+                      { "arg": "collection" }
+                    ]
+                  },
+                  {
+                    "list": [
+                      { "string": "insert" },
+                      { "cur": {} }
+                    ]
+                  }
+                ]
+              },
+              {
+                "dict": {}
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "transform": {
+    "insert_coll": {
+      "collection": "xxxxx"
+    }
+  }
+}

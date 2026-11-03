@@ -47,7 +47,7 @@ optional<DictG> Func<Map>::exec(Transform &transform, State *state, const DictG 
   auto apply = bind(&Apply::create)();
   vector<DictG> mapped;
   std::transform(data.begin(), data.end(), back_inserter(mapped), [&transform, state, body, apply](auto e) {
-    State localState;
+    State localState(*state);
     localState.set(e);
     auto a = apply->exec(transform, &localState, *body);
     if (a) {
