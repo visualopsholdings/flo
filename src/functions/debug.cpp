@@ -23,10 +23,15 @@ using namespace vops::flo;
 template<>
 optional<DictG> Func<Debug>::exec(Transform &transform, State *state, const DictG &closure) {
   
+  auto value = transform.exec(closure, state);
+  if (!value) {
+    return 0;
+  }
+  
   cout << "--debug--" << endl;
-  cout << Dict::toString(closure) << endl;
+  cout << Dict::toString(*value) << endl;
   cout << "---------" << endl;
 
-  return closure;
+  return *value;
          
 }
