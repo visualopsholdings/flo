@@ -37,6 +37,9 @@ class Equal: public Func<Equal> {
 class Quote: public Func<Quote> {
 };
 
+class Debug: public Func<Debug> {
+};
+
 } // flo
 } // vops
 

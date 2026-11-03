@@ -79,6 +79,7 @@ void Functions::loadFunctions() {
   _functions["subtract"] = bind(&Subtract::create);
   _functions["convertDate"] = bind(&ConvertDate::create);
   _functions["parseDate"] = bind(&ParseDate::create);
+  _functions["debug"] = bind(&Debug::create);
 
 }
 
